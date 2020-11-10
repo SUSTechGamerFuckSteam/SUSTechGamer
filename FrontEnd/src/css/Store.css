@@ -1,0 +1,177 @@
+/* top bar*/
+#login_button{
+    text-align: right;
+}
+
+#search_button{
+    background: url(../../figures/icon/search_white_16.png);
+    background-size: 100% 100%;
+    width: 20px;
+    height: 20px;
+    text-align: right;
+}
+
+#top_bar_item{
+    margin: 50px auto;
+    width: 1040px;
+    height: 60px;
+    background-color: #fd882f;
+    float: left;
+}
+
+#top_bar_item ul{
+    list-style: none;
+    margin-left: 100px;
+}
+
+#top_bar_item li{
+    display: inline;
+}
+
+#top_bar_item a{
+    line-height: 60px;
+    color: #ffffff;
+    text-decoration: none;
+    padding: 20px 20px;
+}
+
+#top_bar_item a:hover{
+    background-color: #ff7000;
+}
+
+
+/* body */
+#body{
+    background: #ff9191;
+}
+
+
+/* game_recommend */
+#game_recommend{
+    width:1080px;    /*要显示图片框的大小*/
+    height:550px;
+    background: #8ceeee;
+    position: relative;
+    top: 150px;
+}
+
+#img_content_1, #img_content_2{
+    position: absolute;
+    top: 20px;
+    left: 30px;
+    width: 820px;
+    height: 461px;
+}
+#div_dots{
+    position: absolute;
+    top: 500px;
+    left: 300px;
+    margin: auto;
+    width: 300px;
+    height: 20px;
+    display: flex;
+}
+.dot{
+    margin: auto;
+    float: left;
+    background-color: #808080;
+    border-radius: 50%;
+    width: 10px;
+    height: 10px;
+}
+
+
+/* community_recommend */
+#community_recommend{
+    width: 1080px;
+    height: 550px;
+    background: #a1f5a1;
+    position: relative;
+    top: 200px;
+}
+
+#community_recommend_avatar{
+    width: 240px;
+    height: 120px;
+    position: absolute;
+    top: -30px;
+    right: -30px;
+}
+
+#avatar{
+    transform: scale(0.4);
+    position: absolute;
+    top: -80px;
+    left: 0;
+}
+#username{
+    float: left;
+    position: absolute;
+    top: 50px;
+    left: -20px;
+}
+#level{
+    width: 100px;
+    height: 55px;
+    position: absolute;
+    top: 75px;
+    left: -20px;
+}
+#level_icon{
+    float: left;
+}
+#community_recommend_picture{
+    width: 400px;
+    height: 225px;
+    position: absolute;
+    top: 175px;
+    left: 20px;
+}
+
+#community_picture{
+    transform: scale(0.3);
+    position: absolute;
+    top: -500px;
+    left: -650px;
+}
+
+#community_recommend_text{
+    border: 1px solid slategray;
+    width: 350px;
+    height: 225px;
+    position: absolute;
+    top: 150px;
+    left: 650px;
+}
+#like_dislike{
+    width: 350px;
+    height: 30px;
+    position: absolute;
+    top: 230px;
+    text-align: center;
+}
+#like{
+    background: url("../../figures/icon/like.png");
+    background-size:100% 100%;
+    width: 30px;
+    height: 30px;
+}
+
+#dislike{
+    background: url("../../figures/icon/dislike.png");
+    background-size:100% 100%;
+    width: 30px;
+    height: 30px;
+}
+
+#comment{
+    width: 600px;
+    height: 100px;
+    position: absolute;
+    top: 410px;
+    left: 40px;
+}
+#comment_text{
+    width: 560px;
+    height: 80px;
+}
