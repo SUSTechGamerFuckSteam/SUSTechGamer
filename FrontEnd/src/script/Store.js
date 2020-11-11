@@ -108,6 +108,9 @@ function image_change() {
     }, 3900);
 }
 
+function sss(){
+
+}
 
 
 
