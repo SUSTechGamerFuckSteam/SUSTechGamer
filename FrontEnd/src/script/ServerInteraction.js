@@ -21,3 +21,6 @@ function getFromServer(type, url, isAsynchronous, func, ...arguments){
     xmlHttp.send();
 }
 
+function parseJson(){
+//todo
+}
