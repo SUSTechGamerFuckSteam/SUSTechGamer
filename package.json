@@ -1,7 +1,9 @@
 {
   "name": "OOAD-project-SUSTechGamer",
   "version": "1.0.0",
-  "dependencies": {},
+  "dependencies": {
+    "vue-awesome-swiper": "^4.1.1"
+  },
   "devDependencies": {
     "animejs": "^3.2.1"
   }
