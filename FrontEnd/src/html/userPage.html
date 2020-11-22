@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>SUSTech_Gamer - user</title>
+    <link rel="stylesheet" type="text/css" href="userPage.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="headerDiv"></div>
+    <div id="mainDiv">
+        <div class="inlineDiv">
+
+            <label>UserName:</label><span v-if="userNameSeen">hh</span><input type="text" v-if="!userNameSeen" /></br>
+
+            <label>Birthday:</label><span v-if="birthdaySeen">2019-10-5</span><input type="text" /></br>
+
+            <label>Gender:</label><span v-if="genderSeen">Man</span>
+            <select v-if="!genderSeen">
+                <option>Man</option>
+                <option>Woman</option>
+            </select></br>
+            <a class="button" href="#" style="width:85px;">Modify</a>
+        </div>
+        <div class="inlineDiv">
+            <img id="userImg" src="bing0.jpg" style="margin-bottom: 10px">
+
+        </div>
+        <div class="inlineDiv">
+            <!-- <div id="fansDiv">
+                <p style="text-align: center; font-size:20px;height:50px;margin-top:70px;margin-bottom: 0px;">Fans</p>
+                <p style="text-align: center;margin-top: 20px;">100</p>
+            </div>
+            <div id="followerDiv">
+                <p style="text-align: center; font-size:20px;height:50px;margin-top: 70px;margin-bottom: 0px;">Followers</p>
+                <p style="text-align: center;margin-top: 20px;">500</p>
+            </div> -->
+            <div id="moneyDiv">$520</div>
+            <a class="button" href="#" style="width:85px;margin: 0 auto;">充值</a>
+        </div>
+        <p class="clasify">
+            <span id="reminder">My Game</span>
+        </p>
+
+        <div class="inlineDiv">
+            <img class="gameImg" src="game01.jpg">
+        </div>
+        <div class="inlineDiv"></div>
+        <div class="inlineDiv"></div>
+        <div class="inlineDiv"></div>
+        <div class="inlineDiv"></div>
+        <div class="inlineDiv"></div>
+        <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1100px;text-align: center;">
+            <a class="button" href="#" style="margin: 0px;">&lt</a>
+        </div>
+        <div class="inlineDiv" style="width:30px;height:20px;margin-left: 0px;text-align: center;">
+            <a class="button" href="#" style="margin: 0px;">&gt</a>
+        </div>
+
+        <p class="clasify">
+            <span id="reminder">Developer Option</span>
+        </p>
+
+        <div class="inlineDiv" style="position: relative;">
+            <img class="optionImg" src="OPTION.png">
+            <a href="test3.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <p class="optionReminder">OPTION ONE</p>
+        </div>
+        <div class="inlineDiv" style="position: relative;">
+            <img class="optionImg" src="OPTION.png">
+            <a href="test3.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <p class="optionReminder">OPTION TWO</p>
+        </div>
+        <div class="inlineDiv" style="position: relative;">
+            <img class="optionImg" src="OPTION.png">
+            <a href="test3.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <p class="optionReminder">OPTION THREE</p>
+        </div>
+        <div class="inlineDiv">
+            <img class="optionImg" src="OPTION.png">
+        </div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#mainDiv",
+        data: {
+            userNameSeen: true,
+            birthdaySeen: true,
+            genderSeen: true,
+            test: "jkl",
+            imgUrl: "Pycharm/background0.png",
+        }
+    })
+</script>
+
+</html>
