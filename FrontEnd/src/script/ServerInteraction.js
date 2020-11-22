@@ -5,22 +5,25 @@
  * @param func: (函数)需要执行的操作
  * @param arguments: func中所需要的参数
  */
-function getFromServer(type, url, isAsynchronous, func, ...arguments){
-    let xmlHttp;
+function ajax(type, url, data) {
+    let xmlHttp = null;
     if (window.XMLHttpRequest) {
-        xmlHttp=new XMLHttpRequest();
-    }else{
-        xmlHttp=new ActiveXObject("Microsoft.XMLHTTP");
+        xmlHttp = new XMLHttpRequest();
+    } else {
+        xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlHttp.onreadystatechange=function(){
-        if (xmlHttp.readyState===4 && xmlHttp.status===200){
-            func(arguments)
+    xmlHttp.onreadystatechange = function() {
+        if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+            return xmlHttp.responseText;
+        } else {
+            return null;
         }
     }
-    xmlHttp.open(type,url,isAsynchronous);
-    xmlHttp.send();
+    xmlHttp.open(type, url, true);
+    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    xmlHttp.send(data);
 }
 
-function parseJson(){
-//todo
+function parseJson() {
+    //todo
 }
