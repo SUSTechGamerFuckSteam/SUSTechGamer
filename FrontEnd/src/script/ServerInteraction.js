@@ -5,7 +5,7 @@
  * @param func: (函数)需要执行的操作
  * @param arguments: func中所需要的参数
  */
-function ajax(type, url, data) {
+function ajax(type, url, data, f) {
     let xmlHttp = null;
     if (window.XMLHttpRequest) {
         xmlHttp = new XMLHttpRequest();
@@ -14,7 +14,7 @@ function ajax(type, url, data) {
     }
     xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-            return xmlHttp.responseText;
+            f(xmlHttp)
         } else {
             return null;
         }

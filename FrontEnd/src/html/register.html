@@ -11,7 +11,7 @@
 
 <body>
     <div id="formDiv">
-        <label>E-Mail:</label><input type="text"></br>
+        <label>E-Mail:</label><input type="text" v-model="emailAddress"></br>
         <label>Name:</label><input type="text"></br>
         <label>PassWord:</label><input type="text"></br>
         <button v-on:click="getComfirm">getComfirm</button>
@@ -25,13 +25,17 @@
         data: {
             confirmNum: "click to get confirm number",
             userNum: "000",
+            emailAddress: "125",
         },
         methods: {
 
             getComfirm: function() {
-                this.confirmNum = this.ajax("get", "url", null)
+                outthis = this
+                this.ajax("get", "http://10.21.0.21:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
+                    outthis.confirmNum = xmlHttp.responseText
+                })
             },
-            ajax: function(type, url, data) {
+            ajax: function(type, url, data, f) {
                 let xmlHttp = null;
                 if (window.XMLHttpRequest) {
                     xmlHttp = new XMLHttpRequest();
@@ -40,7 +44,8 @@
                 }
                 xmlHttp.onreadystatechange = function() {
                     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
-                        return xmlHttp.responseText;
+                        f(xmlHttp)
+
                     } else {
                         return null;
                     }
@@ -48,10 +53,16 @@
                 xmlHttp.open(type, url, true);
                 xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
                 xmlHttp.send(data);
+
             },
             numberVerify: function() {
-                this.ajax("get", "url", null)
-                this.confirmNum = "click to get confirm number"
+                if (this.userNum == this.confirmNum) {
+                    alert("success!")
+                } else {
+                    alert("wrong")
+                }
+                //this.ajax("get", "", null)
+
                 this.userNum = "000"
             }
 
