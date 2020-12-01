@@ -6,15 +6,57 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
 <body>
     <div id="formDiv">
-        <label>E-Mail:</label><input type="text">
-        <label>Name:</label><input type="text">
-        <label>PassWord:</label><input type="text">
-        <label>Comform:</label><input type="text">
+        <label>E-Mail:</label><input type="text"></br>
+        <label>Name:</label><input type="text"></br>
+        <label>PassWord:</label><input type="text"></br>
+        <button v-on:click="getComfirm">getComfirm</button>
+        <label>{{confirmNum}}</label></br>
+        <input type="text" v-model="userNum"> <button v-on:click="numberVerify">verify</button>
     </div>
 </body>
+<script>
+    var vm = new Vue({
+        el: "#formDiv",
+        data: {
+            confirmNum: "click to get confirm number",
+            userNum: "000",
+        },
+        methods: {
+
+            getComfirm: function() {
+                this.confirmNum = this.ajax("get", "url", null)
+            },
+            ajax: function(type, url, data) {
+                let xmlHttp = null;
+                if (window.XMLHttpRequest) {
+                    xmlHttp = new XMLHttpRequest();
+                } else {
+                    xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
+                }
+                xmlHttp.onreadystatechange = function() {
+                    if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
+                        return xmlHttp.responseText;
+                    } else {
+                        return null;
+                    }
+                }
+                xmlHttp.open(type, url, true);
+                xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+                xmlHttp.send(data);
+            },
+            numberVerify: function() {
+                this.ajax("get", "url", null)
+                this.confirmNum = "click to get confirm number"
+                this.userNum = "000"
+            }
+
+        }
+    })
+</script>
 
 </html>
