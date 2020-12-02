@@ -10,10 +10,12 @@
 </head>
 
 <body>
-    <div id="formDiv">
-        <label>E-Mail:</label><input type="text" v-model="emailAddress"></br>
-        <label>Name:</label><input type="text"></br>
-        <label>PassWord:</label><input type="text"></br>
+    <div style="height:690px; width:750px; background-color:aqua;float: left;"></div>
+    <div style="height:690px; width:750px; background-color:cornflowerblue;float: left;"></div>
+    <div id="formDiv" style="position: absolute;border:1px black solid;top:260px;left:620px;">
+        <input type="text" v-model="emailAddress" placeholder="E-Mail"></br>
+        <input type="text" placeholder="Name"></br>
+        <input type="text" placeholder="PassWord"></br>
         <button v-on:click="getComfirm">getComfirm</button>
         <label>{{confirmNum}}</label></br>
         <input type="text" v-model="userNum"> <button v-on:click="numberVerify">verify</button>
@@ -25,7 +27,7 @@
         data: {
             confirmNum: "click to get confirm number",
             userNum: "000",
-            emailAddress: "125",
+            emailAddress: "",
         },
         methods: {
 
