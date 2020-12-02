@@ -6,7 +6,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>Document</title>
-    <link rel="stylesheet" type="text/css" href="gamePage.css" />
+    <link rel="stylesheet" type="text/css" href="../css/gamePage.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
 </head>
 
@@ -78,6 +78,9 @@
         el: '#vueDiv',
         data: {
             me: 120,
+        },
+        created: function() {
+            this.me = 150
         }
     })
 </script>
