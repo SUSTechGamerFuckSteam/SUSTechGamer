@@ -14,10 +14,10 @@
     <div style="height:690px; width:750px; background-color:cornflowerblue;float: left;"></div>
     <div id="formDiv" style="position: absolute;border:1px black solid;top:260px;left:620px;">
         <input type="text" v-model="emailAddress" placeholder="E-Mail"></br>
-        <input type="text" placeholder="Name"></br>
-        <input type="text" placeholder="PassWord"></br>
-        <button v-on:click="getComfirm">getComfirm</button>
-        <label>{{confirmNum}}</label></br>
+        <input type="text" placeholder="Name" v-model="userName"></br>
+        <input type="text" placeholder="PassWord" v-model="password"></br>
+        <button v-on:click="getComfirm">get Verify code</button>
+        <label>{{counter+counterReminder}}</label></br>
         <input type="text" v-model="userNum"> <button v-on:click="numberVerify">verify</button>
     </div>
 </body>
@@ -25,17 +25,30 @@
     var vm = new Vue({
         el: "#formDiv",
         data: {
-            confirmNum: "click to get confirm number",
+            counterReminder: "ready to send",
             userNum: "000",
             emailAddress: "",
+            userName: "",
+            password: "",
+            verifyNum: "",
+            userInfo: "",
+            counter: "",
+            timer: null,
+            formData: new FormData(),
+
         },
         methods: {
 
             getComfirm: function() {
-                outthis = this
-                this.ajax("get", "http://10.21.0.21:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
-                    outthis.confirmNum = xmlHttp.responseText
-                })
+                if (this.counter == "") {
+                    outthis = this
+                    this.ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
+                        outthis.verifyNum = xmlHttp.responseText
+                    })
+                    this.counter = 60
+                    this.counterReminder = "s before re-send"
+                    this.timer = setInterval(this.countDown, 1000)
+                }
             },
             ajax: function(type, url, data, f) {
                 let xmlHttp = null;
@@ -58,14 +71,26 @@
 
             },
             numberVerify: function() {
-                if (this.userNum == this.confirmNum) {
-                    alert("success!")
+                if (this.userNum == this.verifyNum) {
+                    this.formData = new FormData()
+                    this.formData.append("email", this.emailAddress)
+                    this.formData.append("userName", this.userName)
+                    this.ajax("get", "http://10.21.52.79:8080/test/signup?email=" + this.emailAddress, null, function(xmlHttp) {})
                 } else {
                     alert("wrong")
                 }
                 //this.ajax("get", "", null)
 
-                this.userNum = "000"
+                window.location.href = "Store.html?userName=" + this.userName
+            },
+            countDown: function() {
+                if (this.counter > 1) {
+                    this.counter--
+                } else {
+                    clearInterval(this.timer)
+                    this.counter = ""
+                    this.counterReminder = "ready to send"
+                }
             }
 
         }
