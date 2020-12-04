@@ -41,6 +41,15 @@ body {
     font-weight: lighter;
 }
 
+#userInfo {
+    background-color: aquamarine;
+    width: 300px;
+    height: 200px;
+    margin: 25px auto;
+    margin-bottom: 0px;
+    font-size: 20px;
+}
+
 #userImg {
     display: block;
     width: 300px;
@@ -48,12 +57,25 @@ body {
     margin: 25px auto;
 }
 
-label {
+label.userInfo {
+    /* background-color: blue; */
     display: inline-block;
     width: 100px;
-    margin-left: 20px;
+    margin-left: 40px;
     margin-bottom: 5px;
-    text-align: right;
+    text-align: center;
+}
+
+span.userInfo {
+    width: 100px;
+    margin-left: 10px;
+    text-align: center;
+}
+
+input.userInfo {
+    background-color: blueviolet;
+    display: inline-block;
+    width: 120px;
 }
 
 #moneyDiv {
@@ -97,22 +119,6 @@ a.button:hover {
     -moz-transition: all linear 0.30s;
     transition: all linear 0.30s;
 } */
-
-#fansDiv {
-    background-color: brown;
-    float: left;
-    width: 100px;
-    height: 200px;
-    margin-left: 50px;
-}
-
-#followerDiv {
-    background-color: brown;
-    float: left;
-    width: 100px;
-    height: 200px;
-    margin-left: 50px;
-}
 
 
 /* #reminder {

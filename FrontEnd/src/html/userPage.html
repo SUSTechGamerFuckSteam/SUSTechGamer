@@ -21,17 +21,18 @@
     </div>
     <div id="mainDiv">
         <div class="inlineDiv">
+            <div id="userInfo">
+                <label class="userInfo" style="margin-top: 40px;">UserName:</label><span class="userInfo" v-if="userNameSeen" style="margin-top: 40px;">hh</span><input type="text" class="userInfo" v-if="!userNameSeen" style="margin-top: 40px;" /></br>
 
-            <label>UserName:</label><span v-if="userNameSeen">hh</span><input type="text" v-if="!userNameSeen" /></br>
+                <label class="userInfo">Birthday:</label><span class="userInfo" v-if="birthdaySeen">2019-10-5</span><input type="date" class="userInfo" v-if="!birthdaySeen" /></br>
 
-            <label>Birthday:</label><span v-if="birthdaySeen">2019-10-5</span><input type="text" /></br>
-
-            <label>Gender:</label><span v-if="genderSeen">Man</span>
-            <select v-if="!genderSeen">
+                <label class="userInfo">Gender:</label><span class="userInfo" v-if="genderSeen">Man</span>
+                <select v-if="!genderSeen">
                 <option>Man</option>
                 <option>Woman</option>
             </select></br>
-            <a class="button" href="#" style="width:85px;">Modify</a>
+            </div>
+            <a class="button" href="#" style="width:85px;margin-top: 10px;margin-left: 25px;" v-on:click="modifyUserInfo">Modify</a>
         </div>
         <div class="inlineDiv">
             <img id="userImg" src="../../figures/temporary/userPageImgs/bing0.jpg" style="margin-bottom: 10px">
@@ -105,6 +106,13 @@
             genderSeen: true,
             test: "jkl",
             imgUrl: "Pycharm/background0.png",
+        },
+        methods: {
+            modifyUserInfo: function() {
+                this.userNameSeen = false
+                this.birthdaySeen = false
+                this.genderSeen = false
+            }
         }
     })
 </script>

@@ -13,37 +13,42 @@
     <div style="height:690px; width:750px; background-color:aqua;float: left;"></div>
     <div style="height:690px; width:750px; background-color:cornflowerblue;float: left;"></div>
     <div id="formDiv" style="position: absolute;border:1px black solid;top:260px;left:620px;">
-        <input type="text" v-model="emailAddress" placeholder="E-Mail"></br>
-        <input type="text" placeholder="Name" v-model="userName"></br>
-        <input type="text" placeholder="PassWord" v-model="password"></br>
-        <button v-on:click="getComfirm">get Verify code</button>
-        <label>{{counter+counterReminder}}</label></br>
-        <input type="text" v-model="userNum"> <button v-on:click="numberVerify">verify</button>
+        <form id="userInfoForm" @submit.prevent="getComfirm">
+            <input type="text" v-model="emailAddress" name="email" placeholder="E-Mail"></br>
+            <input type="text" placeholder="Name" name="uname" v-model="userName"></br>
+            <input type="text" placeholder="PassWord" name="password" v-model="password"></br>
+            <label>Gender: </label><input type="radio" name="sex" value="M" v-model="gender"><span>Man</span><input type="radio" value="W" name="sex" v-model="gender"><span>Woman</span></br>
+            <label>Role: </label><input type="radio" name="role" value="1" v-model="role"><span>User</span><input type="radio" value="2" name="role" v-model="role"><span>Developer</span></br>
+            <button v-on:click="getComfirm">get Verify code</button>
+            <label>{{counter+counterReminder}}</label></br>
+        </form>
+        <input type="text" v-model="userNum"> <button v-on:click="numberVerify">verify</button>{{verifyNum}}
     </div>
 </body>
 <script>
     var vm = new Vue({
         el: "#formDiv",
         data: {
-            counterReminder: "ready to send",
-            userNum: "000",
             emailAddress: "",
             userName: "",
             password: "",
-            verifyNum: "",
-            userInfo: "",
+            role: "",
+            gender: "",
+            verifyNum: "12",
+            counterReminder: "ready to send",
+            userNum: "",
             counter: "",
             timer: null,
-            formData: new FormData(),
+
 
         },
         methods: {
-
             getComfirm: function() {
                 if (this.counter == "") {
                     outthis = this
                     this.ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
+
                     })
                     this.counter = 60
                     this.counterReminder = "s before re-send"
@@ -71,17 +76,21 @@
 
             },
             numberVerify: function() {
-                if (this.userNum == this.verifyNum) {
-                    this.formData = new FormData()
-                    this.formData.append("email", this.emailAddress)
-                    this.formData.append("userName", this.userName)
-                    this.ajax("get", "http://10.21.52.79:8080/test/signup?email=" + this.emailAddress, null, function(xmlHttp) {})
+                if (this.userNum == "0") {
+                    var userInfo = "email=" + this.emailAddress + "&uname=" + this.userName + "&password=" + this.password + "&role=" + this.role + "&sex=" + this.gender
+                    console.log(userInfo)
+                    var formData = new FormData(document.getElementById("userInfoForm"))
+                    console.log(formData.get("role"))
+                    console.log(formData.get("sex"))
+                    console.log(formData.get("name"))
+                    console.log(formData.get("email"))
+                    this.ajax("get", "http://10.21.52.79:8080/test/signup?" + userInfo, null, function(xmlHttp) {})
                 } else {
                     alert("wrong")
                 }
                 //this.ajax("get", "", null)
 
-                window.location.href = "Store.html?userName=" + this.userName
+                //window.location.href = "Store.html?userName=" + this.userName
             },
             countDown: function() {
                 if (this.counter > 1) {
