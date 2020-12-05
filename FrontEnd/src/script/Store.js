@@ -193,5 +193,28 @@ window.onscroll = function() {
     }
 }
 
+function after_login(){
+    //todo: 从服务器段获取用户信息
+    //let avatar = "";
+    //let user_name = "";
 
+    let avatar = "../../figures/temporary/community_recommend/avatar.jpg";
+    let name = "Bokimon";
+    let top_bar = document.getElementById("top_bar");
 
+    let user_info = document.createElement("div");
+    user_info.id = "top_bar_user_info";
+    //用户头像
+    let user_avatar = document.createElement("img");
+    user_avatar.src = avatar;
+    user_avatar.id = "top_bar_user_avatar";
+    //用户名
+    let user_name = document.createElement("h4");
+    user_name.innerHTML = name;
+    user_info.appendChild(user_avatar);
+    user_info.appendChild(user_name);
+
+    top_bar.appendChild(user_info);
+}
+
+//todo: 把社区推荐页面的js写完
