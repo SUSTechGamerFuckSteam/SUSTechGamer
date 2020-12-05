@@ -12,6 +12,7 @@
 </head>
 
 <body>
+    <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
     <div id="headerDiv">
         <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
         <a class="link">Community | </a>
@@ -20,9 +21,9 @@
         <a class="link" style="margin-left: 1170px;" href="login.html">sign-in</a>
         <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
     </div>
-    <div id="mainDiv">
+    <div id="mainDiv" style="position: relative">
         <div class="inlineDiv" style="background-color: white;position: relative;">
-            <div id="userInfo">
+            <div class="userInfo">
                 <label class="userInfo" style="margin-top: 10px;">UserName:</label><span class="userInfo" v-if="userNameSeen" style="margin-top: 10px;">{{userName}}</span><input type="text" class="userInfo" v-model="userName" v-if="!userNameSeen" style="margin-top: 10px;"
                 /></br>
 
@@ -38,17 +39,27 @@
                     <option>User</option>
                     <option>Developer</option>
                 </select></br>
-                <textarea v-if="!introductionSeen" style="resize: none;width:240px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
-                <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:240px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);" v-model="introduction"></textarea>
+                <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
+                <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
                 <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click="modifyUserInfo">{{modify}}</a>
 
             </div>
             <p class="imgReminder">User Info</p>
         </div>
+
+
+
+
         <div class="inlineDiv" style="position:relative;">
-            <img id="userImg" src="../../figures/temporary/userPageImgs/bing0.jpg" style="margin-bottom: 10px" title="change avatar">
+            <img id="userImg" src="../../figures/temporary/userPageImgs/bing0.jpg" title="change avatar">
+            <input type="file" id="userAvatar" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
+
             <p class="imgReminder">Talyor Swift</p>
         </div>
+
+
+
+
         <div class="inlineDiv" style="background-color: aquamarine;">
             <!-- <div id="fansDiv">
                 <p style="text-align: center; font-size:20px;height:50px;margin-top:70px;margin-bottom: 0px;">Fans</p>
@@ -59,7 +70,7 @@
                 <p style="text-align: center;margin-top: 20px;">500</p>
             </div> -->
             <div id="moneyDiv">{{balance}}</div>
-            <a class="button" href="#" style="width:85px;margin: 0px 130px;float: left;">充值</a>
+            <a class="button" href="#" v-on:click="recharge" style="width:85px;margin: 0px 130px;float: left;">Recharge</a>
             <p class="imgReminder">My Account</p>
         </div>
         <p class="clasify">
@@ -94,7 +105,7 @@
 
         <div class="inlineDiv" style="position: relative;">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="gamePage.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <a href="#" v-on:click.prevent="uploadGame" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
             <p class="imgReminder">OPTION ONE</p>
         </div>
         <div class="inlineDiv" style="position: relative;">
@@ -110,7 +121,15 @@
         <div class="inlineDiv">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
         </div>
+        <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none">
+            <label class="userInfo" style="width:150px;margin-top: 50px;">game name:</label><input type="text" class="userInfo" style="margin-left: 0;margin-top: 50px;"></br>
+            <label class="userInfo" style="width:150px;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+            <label class="userInfo" style="width:150px;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
+            <label class="userInfo" style="width:150px;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
+            <a class="button" href="#" style="width:85px;margin:30px auto; font-weight: lighter;font-size: 15px;" v-on:click.prevent="submitGame">Submit</a>
+        </div>
     </div>
+
 </body>
 <script>
     var vm = new Vue({
@@ -128,6 +147,7 @@
             introduction: "hh\nhh\nnima",
             balance: 520,
             modify: "Modify",
+            uploadGameSeen: false,
 
         },
         created: function() {
@@ -172,6 +192,37 @@
 
                 }
 
+            },
+            uploadAvatar: function() {
+                var fileObj = document.getElementById("userAvatar").files[0]
+                if (fileObj != null) {
+                    var formData = new FormData()
+                    formData.append("??", fileObj)
+                    ajax("post", "url", formData, function() {
+                        alert("avatar changed successfully!")
+                        location.reload()
+                    })
+                } else {
+                    alert("you cancled change avatar")
+                }
+            },
+            recharge: function() {
+                window.open('register.html', 'newwindow', 'height=100, width=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')
+            },
+            uploadGame: function() {
+                var hideDiv = document.getElementById("hideDiv")
+                var uploadGameDiv = document.getElementById("uploadGameDiv")
+                hideDiv.style.display = "block"
+                hideDiv.style.opacity = 0.6
+                hideDiv.style.zIndex = 6
+                uploadGameDiv.style.display = "block"
+            },
+            submitGame: function() {
+                var hideDiv = document.getElementById("hideDiv")
+                var uploadGameDiv = document.getElementById("uploadGameDiv")
+                hideDiv.style.opacity = 0
+                hideDiv.style.zIndex = -1
+                uploadGameDiv.style.display = "none"
             }
         }
     })
