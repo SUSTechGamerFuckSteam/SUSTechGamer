@@ -12,33 +12,35 @@
 
 <body>
     <div id="headerDiv">
-        <a style="margin-left: 20px;">first | </a>
+        <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
+        <a class="link">Community | </a>
         <a>first | </a>
         <a>first | </a>
-        <a>first | </a>
-        <a style="margin-left: 1170px;">sign-in</a>
-        <a>sign-up</a>
+        <a class="link" style="margin-left: 1170px;" href="login.html">sign-in</a>
+        <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
     </div>
     <div id="mainDiv">
-        <div class="inlineDiv">
+        <div class="inlineDiv" style="background-color: white;position: relative;">
             <div id="userInfo">
                 <label class="userInfo" style="margin-top: 40px;">UserName:</label><span class="userInfo" v-if="userNameSeen" style="margin-top: 40px;">hh</span><input type="text" class="userInfo" v-if="!userNameSeen" style="margin-top: 40px;" /></br>
 
                 <label class="userInfo">Birthday:</label><span class="userInfo" v-if="birthdaySeen">2019-10-5</span><input type="date" class="userInfo" v-if="!birthdaySeen" /></br>
 
                 <label class="userInfo">Gender:</label><span class="userInfo" v-if="genderSeen">Man</span>
-                <select v-if="!genderSeen">
+                <select v-if="!genderSeen" style="margin-left: 30px;background-color: rgb(70, 115, 121);">
                 <option>Man</option>
                 <option>Woman</option>
             </select></br>
-            </div>
-            <a class="button" href="#" style="width:85px;margin-top: 10px;margin-left: 25px;" v-on:click="modifyUserInfo">Modify</a>
-        </div>
-        <div class="inlineDiv">
-            <img id="userImg" src="../../figures/temporary/userPageImgs/bing0.jpg" style="margin-bottom: 10px">
+                <a class="button" href="#" style="width:85px;margin-top: 10px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click="modifyUserInfo">Modify</a>
 
+            </div>
+            <p class="imgReminder">User Info</p>
         </div>
-        <div class="inlineDiv">
+        <div class="inlineDiv" style="position:relative;">
+            <img id="userImg" src="../../figures/temporary/userPageImgs/bing0.jpg" style="margin-bottom: 10px">
+            <p class="imgReminder">Talyor Swift</p>
+        </div>
+        <div class="inlineDiv" style="background-color: aquamarine;">
             <!-- <div id="fansDiv">
                 <p style="text-align: center; font-size:20px;height:50px;margin-top:70px;margin-bottom: 0px;">Fans</p>
                 <p style="text-align: center;margin-top: 20px;">100</p>
@@ -48,20 +50,24 @@
                 <p style="text-align: center;margin-top: 20px;">500</p>
             </div> -->
             <div id="moneyDiv">$520</div>
-            <a class="button" href="#" style="width:85px;margin: 0 auto;">充值</a>
+            <a class="button" href="#" style="width:85px;margin: 0px 130px;float: left;">充值</a>
+            <p class="imgReminder">My Account</p>
         </div>
         <p class="clasify">
             <span id="reminder">My Game</span>
         </p>
 
-        <div class="inlineDiv">
+        <div class="inlineDiv" style="position: relative;">
             <img class="gameImg" src="../../figures/temporary/userPageImgs/game01.jpg">
+            <p class="imgReminder">Game ONE</p>
         </div>
-        <div class="inlineDiv">
+        <div class="inlineDiv" style="position: relative;">
             <img class="gameImg" src="../../figures/temporary/userPageImgs/game02.jpg">
+            <p class="imgReminder">Game TWO</p>
         </div>
-        <div class="inlineDiv">
+        <div class="inlineDiv" style="position: relative;">
             <img class="gameImg" src="../../figures/temporary/userPageImgs/game03.jpg">
+            <p class="imgReminder">Game THREE</p>
         </div>
         <div class="inlineDiv"></div>
         <div class="inlineDiv"></div>
@@ -80,17 +86,17 @@
         <div class="inlineDiv" style="position: relative;">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
             <a href="gamePage.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="optionReminder">OPTION ONE</p>
+            <p class="imgReminder">OPTION ONE</p>
         </div>
         <div class="inlineDiv" style="position: relative;">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
             <a href="test3.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="optionReminder">OPTION TWO</p>
+            <p class="imgReminder">OPTION TWO</p>
         </div>
         <div class="inlineDiv" style="position: relative;">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
             <a href="gamePage.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="optionReminder">OPTION THREE</p>
+            <p class="imgReminder">OPTION THREE</p>
         </div>
         <div class="inlineDiv">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
