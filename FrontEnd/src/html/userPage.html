@@ -93,10 +93,10 @@
         <div class="inlineDiv"></div>
         <div class="inlineDiv"></div>
         <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1100px;text-align: center;">
-            <a class="button" href="#" style="margin: 0px;">&lt</a>
+            <a class="button" href="#" style="margin: 0px;width:30px;">&lt</a>
         </div>
         <div class="inlineDiv" style="width:30px;height:20px;margin-left: 0px;text-align: center;">
-            <a class="button" href="#" style="margin: 0px;">&gt</a>
+            <a class="button" href="#" style="margin: 0px;width:30px;">&gt</a>
         </div>
 
         <p class="clasify">
@@ -121,12 +121,13 @@
         <div class="inlineDiv">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
         </div>
-        <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none">
+        <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
             <label class="userInfo" style="width:150px;margin-top: 50px;">game name:</label><input type="text" class="userInfo" style="margin-left: 0;margin-top: 50px;"></br>
             <label class="userInfo" style="width:150px;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
             <label class="userInfo" style="width:150px;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
             <label class="userInfo" style="width:150px;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
-            <a class="button" href="#" style="width:85px;margin:30px auto; font-weight: lighter;font-size: 15px;" v-on:click.prevent="submitGame">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancleSubmitGame">Cancle</a>
         </div>
     </div>
 
@@ -145,7 +146,7 @@
             role: "Developer",
             introductionSeen: true,
             introduction: "hh\nhh\nnima",
-            balance: 520,
+            balance: "$520",
             modify: "Modify",
             uploadGameSeen: false,
 
@@ -169,7 +170,7 @@
                 } else {
                     outThis.gender = "Woman"
                 }
-                outThis.balance = result.balance
+                outThis.balance = "$" + result.balance
             })
         },
         methods: {
@@ -218,6 +219,9 @@
                 uploadGameDiv.style.display = "block"
             },
             submitGame: function() {
+                this.cancleSubmitGame()
+            },
+            cancleSubmitGame: function() {
                 var hideDiv = document.getElementById("hideDiv")
                 var uploadGameDiv = document.getElementById("uploadGameDiv")
                 hideDiv.style.opacity = 0

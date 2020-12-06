@@ -112,7 +112,7 @@ a.link:hover {
 }
 
 a.button {
-    display: block;
+    display: inline-block;
     margin-left: 0px;
     text-decoration: none;
     text-align: center;
