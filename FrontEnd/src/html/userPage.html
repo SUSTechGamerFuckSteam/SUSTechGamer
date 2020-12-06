@@ -51,7 +51,7 @@
 
 
         <div class="inlineDiv" style="position:relative;">
-            <img id="userImg" src="../../figures/temporary/userPageImgs/bing0.jpg" title="change avatar">
+            <img id="userImg" v-bind:src="avatarUrl" title="change avatar">
             <input type="file" id="userAvatar" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
 
             <p class="imgReminder">Talyor Swift</p>
@@ -70,7 +70,7 @@
                 <p style="text-align: center;margin-top: 20px;">500</p>
             </div> -->
             <div id="moneyDiv">{{balance}}</div>
-            <a class="button" href="#" v-on:click="recharge" style="width:85px;margin: 0px 130px;float: left;">Recharge</a>
+            <a class="button" href="#" v-on:click="recharge" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
             <p class="imgReminder">My Account</p>
         </div>
         <p class="clasify">
@@ -105,12 +105,12 @@
 
         <div class="inlineDiv" style="position: relative;">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="#" v-on:click.prevent="uploadGame" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
             <p class="imgReminder">OPTION ONE</p>
         </div>
         <div class="inlineDiv" style="position: relative;">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="test3.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
             <p class="imgReminder">OPTION TWO</p>
         </div>
         <div class="inlineDiv" style="position: relative;">
@@ -127,106 +127,165 @@
             <label class="userInfo" style="width:150px;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
             <label class="userInfo" style="width:150px;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
             <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
-            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancleSubmitGame">Cancle</a>
+            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('uploadGameDiv')">Cancle</a>
+        </div>
+
+        <div id="modifyGameDiv" class="userInfo" style="height:620px;width:450px;position:fixed;top:10px;left:500px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+            <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;position: relative;">
+                <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
+                <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
+                <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
+                <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
+                <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
+                <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
+
+            </div>
+            <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
+                <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
+                <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
+                <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
+                <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
+                <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
+                <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
+
+            </div>
+            <!-- <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
+                <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
+                <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
+                <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
+                <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
+                <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
+                <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
+            </div> -->
+            <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('modifyGameDiv')">Cancle</a>
         </div>
     </div>
 
 </body>
 <script>
     var vm = new Vue({
-        el: "#mainDiv",
+        el: "#mainDiv ",
         data: {
             userNameSeen: true,
-            userName: "hh",
+            userName: "hh ",
             birthdaySeen: true,
-            birthday: "2019-08-05",
+            birthday: "2019-08-05 ",
             genderSeen: true,
-            gender: "Woman",
+            gender: "Woman ",
             roleSeen: true,
-            role: "Developer",
+            role: "Developer ",
             introductionSeen: true,
-            introduction: "hh\nhh\nnima",
-            balance: "$520",
-            modify: "Modify",
+            introduction: "hh\nhh\nnima ",
+            balance: "$520 ",
+            modify: "Modify ",
             uploadGameSeen: false,
+            avatarUrl: "D://SUSTech/workspaces/VS code workspace/game03.jpg "
 
         },
         created: function() {
 
             outThis = this
-            ajax("get", "http://10.21.52.79:8080/test/getFullInfo?uid=1", null, function(xmlHttp) {
+            ajax("get ", "http://10.21.52.79:8080/test/getFullInfo?uid=1 ", null, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
                 console.log(xmlHttp.responseText)
                 outThis.userName = result.userName
                 outThis.birthday = result.birthday
                 outThis.introduction = result.intro
                 if (result.role == 1) {
-                    outThis.role = "User"
+                    outThis.role = "User "
                 } else {
-                    outThis.role = "Developer"
+                    outThis.role = "Developer "
                 }
-                if (result.sex == "M") {
-                    outThis.gender = "Man"
+                if (result.sex == "M ") {
+                    outThis.gender = "Man "
                 } else {
-                    outThis.gender = "Woman"
+                    outThis.gender = "Woman "
                 }
-                outThis.balance = "$" + result.balance
+                outThis.balance = "$ " + result.balance
             })
         },
         methods: {
             modifyUserInfo: function() {
-                if (this.modify == "Modify") {
+                if (this.modify == "Modify ") {
                     this.userNameSeen = false
                     this.birthdaySeen = false
                     this.genderSeen = false
                     this.roleSeen = false
                     this.introductionSeen = false
-                    this.modify = "Submit"
+                    this.modify = "Submit "
                 } else {
                     this.userNameSeen = true
                     this.birthdaySeen = true
                     this.genderSeen = true
                     this.roleSeen = true
                     this.introductionSeen = true
-                    this.modify = "Modify"
+                    this.modify = "Modify "
                     var formData = new FormData()
 
                 }
 
             },
             uploadAvatar: function() {
-                var fileObj = document.getElementById("userAvatar").files[0]
+                var fileObj = document.getElementById("userAvatar ").files[0]
                 if (fileObj != null) {
+                    ouTthis = this
                     var formData = new FormData()
-                    formData.append("??", fileObj)
-                    ajax("post", "url", formData, function() {
-                        alert("avatar changed successfully!")
+                    formData.append("avatar ", fileObj)
+                    formData.append("id ", 1)
+                    ajax("post ", "http://10.21.52.79:8080/test/changeAvatar ", formData, function(xmlHttp) {
+                        alert("avatar changed successfully! ")
+                        var url = xmlHttp.responseText
+                        outThis.avatarUrl = url
                         location.reload()
                     })
                 } else {
-                    alert("you cancled change avatar")
+                    alert("you cancled change avatar ")
                 }
             },
             recharge: function() {
                 window.open('register.html', 'newwindow', 'height=100, width=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')
             },
-            uploadGame: function() {
+            // uploadGame: function() {
+            //     var hideDiv = document.getElementById("hideDiv ")
+            //     var uploadGameDiv = document.getElementById("uploadGameDiv ")
+            //     hideDiv.style.display = "block "
+            //     hideDiv.style.opacity = 0.6
+            //     hideDiv.style.zIndex = 6
+            //     uploadGameDiv.style.display = "block "
+            // },
+            // submitGame: function() {
+            //     this.cancleSubmitGame()
+            // },
+            // cancleSubmitGame: function() {
+            //     var hideDiv = document.getElementById("hideDiv ")
+            //     var uploadGameDiv = document.getElementById("uploadGameDiv ")
+            //     hideDiv.style.opacity = 0
+            //     hideDiv.style.zIndex = -1
+            //     uploadGameDiv.style.display = "none "
+            // },
+            // modifyGame:function(){
+            //     var hideDiv = document.getElementById("hideDiv ")
+            //     var uploadGameDiv = document.getElementById("modifyGameDiv ")
+            //     hideDiv.style.display = "block "
+            //     hideDiv.style.opacity = 0.6
+            //     hideDiv.style.zIndex = 6
+            //     uploadGameDiv.style.display = "block "
+            // },
+            show: function(divID) {
                 var hideDiv = document.getElementById("hideDiv")
-                var uploadGameDiv = document.getElementById("uploadGameDiv")
-                hideDiv.style.display = "block"
+                var showDiv = document.getElementById(divID)
+                hideDiv.style.display = "block "
                 hideDiv.style.opacity = 0.6
                 hideDiv.style.zIndex = 6
-                uploadGameDiv.style.display = "block"
+                showDiv.style.display = "block "
             },
-            submitGame: function() {
-                this.cancleSubmitGame()
-            },
-            cancleSubmitGame: function() {
+            hide: function(divID) {
                 var hideDiv = document.getElementById("hideDiv")
-                var uploadGameDiv = document.getElementById("uploadGameDiv")
+                var showDiv = document.getElementById(divID)
                 hideDiv.style.opacity = 0
                 hideDiv.style.zIndex = -1
-                uploadGameDiv.style.display = "none"
+                showDiv.style.display = "none "
             }
         }
     })
