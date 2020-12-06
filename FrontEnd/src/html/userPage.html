@@ -121,6 +121,23 @@
         <div class="inlineDiv">
             <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
         </div>
+
+        <p class="clasify">
+            <span id="reminder">Administrator Option</span>
+        </p>
+
+        <div class="inlineDiv" style="position: relative;">
+            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+            <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <p class="imgReminder">OPTION ONE</p>
+        </div>
+        <div class="inlineDiv" style="position: relative;">
+            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+            <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+            <p class="imgReminder">OPTION TWO</p>
+        </div>
+
+
         <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
             <label class="userInfo" style="width:150px;margin-top: 50px;">game name:</label><input type="text" class="userInfo" style="margin-left: 0;margin-top: 50px;"></br>
             <label class="userInfo" style="width:150px;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
