@@ -24,8 +24,8 @@
 
         </div>
         <a class="button" href="#" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a>
-        <a class="button" href="#" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">developer</a>
-        <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">administrator</a>
+        <a class="button" v-bind:href="'developerGame.html?userName='+userName" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&developer">developer</a>
+        <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&administrator">administrator</a>
         <a class="button" v-bind:href="'friend.html?userName='+userName" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
         <a class="button" href="#" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
         <a class="button" href="#" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
@@ -239,6 +239,16 @@
                 }
                 outThis.balance = "$ " + result.balance
             })
+            if (this.role = "Developer") {
+                this.developer = true
+            } else {
+                this.developer = false
+            }
+            if (this.role = "Administrator") {
+                this.administrator = true
+            } else {
+                this.administrator = false
+            }
         },
         methods: {
             modifyUserInfo: function() {
