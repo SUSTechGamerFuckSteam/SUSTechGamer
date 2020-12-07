@@ -47,7 +47,7 @@
         data: {
             friendList: [{
                 "avatar": null,
-                "userName": "hh",
+                "userName": "huanghao",
                 "remarkName": "dja"
             }, {
                 "avatar": null,
@@ -57,7 +57,11 @@
             userName: "hh",
         },
         created: function() {
-
+            var pageUrl = location.href
+            var index = pageUrl.indexOf("?")
+            var temp = pageUrl.substr(index + 1)
+            index = temp.indexOf("=")
+            this.userName = temp.substr(index + 1)
         },
         methods: {
             send: function() {

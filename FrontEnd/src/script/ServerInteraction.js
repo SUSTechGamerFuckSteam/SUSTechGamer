@@ -69,3 +69,25 @@ function sign_in() {
         window.location.href = "Store.html"; //跳转
     }
 }
+
+function parsePageUrl(pageUrl) {
+    var result = "{"
+    var index = pageUrl.indexOf("?")
+    var temp = pageUrl.substr(index + 1)
+    var strList = temp.split("&")
+    for (var str in strList) {
+        index = strList[str].indexOf("=")
+        if (result != "{") { result += "," }
+        result += '"'
+        result += strList[str].substr(0, index)
+        result += '"'
+        result += ":"
+        result += '"'
+        result += strList[str].substr(index + 1)
+        result += '"'
+
+    }
+    result += "}"
+    console.log(result)
+    return JSON.parse(result)
+}

@@ -26,7 +26,7 @@
         <a class="button" href="#" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a>
         <a class="button" href="#" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">developer</a>
         <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">administrator</a>
-        <a class="button" href="friend.html" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
+        <a class="button" v-bind:href="'friend.html?userName='+userName" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
         <a class="button" href="#" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
         <a class="button" href="#" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
         <a class="button" href="#" style="position: absolute;top:380px;width:120px;height:30px;line-height: 30px;" v-if="visitor">add friend</a>
@@ -50,7 +50,7 @@
                 </select></br>
                     <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
                     <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
-                    <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click="modifyUserInfo">{{modify}}</a>
+                    <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click="modifyUserInfo" v-if="!visitor">{{modify}}</a>
 
                 </div>
                 <p class="imgReminder">User Info</p>
@@ -61,7 +61,7 @@
 
             <div class="inlineDiv" style="position:relative;">
                 <img id="userImg" v-bind:src="avatarUrl" title="change avatar">
-                <input type="file" id="userAvatar" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
+                <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
 
                 <p class="imgReminder">Talyor Swift</p>
             </div>
@@ -79,7 +79,7 @@
                 <p style="text-align: center;margin-top: 20px;">500</p>
             </div> -->
                 <div id="moneyDiv">{{balance}}</div>
-                <a class="button" href="#" v-on:click="recharge" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
+                <a class="button" href="#" v-on:click="recharge" v-if="!visitor" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
                 <p class="imgReminder">My Account</p>
             </div>
             <p class="clasify">
@@ -195,7 +195,7 @@
         el: "#vueDiv ",
         data: {
             userNameSeen: true,
-            userName: "hh ",
+            userName: "huanghao",
             birthdaySeen: true,
             birthday: "2019-08-05 ",
             genderSeen: true,
@@ -214,7 +214,12 @@
 
         },
         created: function() {
-
+            var jsonObj = parsePageUrl(location.href)
+            if (jsonObj.userName != jsonObj.visitor) {
+                this.visitor = true
+            } else {
+                this.visitor = false
+            }
             outThis = this
             ajax("get ", "http://10.21.52.79:8080/test/getFullInfo?uid=1 ", null, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
@@ -267,7 +272,7 @@
                         alert("avatar changed successfully! ")
                         var url = xmlHttp.responseText
                         outThis.avatarUrl = url
-                        location.reload()
+
                     })
                 } else {
                     alert("you cancled change avatar ")

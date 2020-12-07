@@ -31,7 +31,11 @@
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">upload DLC/update</label></br>
-                <input class="gameInfo" type="file" style="width:180px;margin-left:10px;" v-on:change="DLCchanged(index,$event)">
+                <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">upload branch</label></br>
+                <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">price</label></br>
@@ -39,19 +43,19 @@
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">release date</label></br>
-                <input class="gameInfo" type="date">
+                <input class="gameInfo" type="date" style="width:100px;font-size: 10px;">
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">discount</label></br>
-                <input class="gameInfo" type="text" style="width:100px;"> til
-                <input class="gameInfo" type="date">
+                <input class="gameInfo" type="text" style="width:80px;margin-right: 0px;">% til
+                <input class="gameInfo" type="date" style="width:100px;font-size: 10px;">
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">description</label></br>
-                <textarea style="width:150px;height:30px;"></textarea>
+                <textarea style="width:120px;height:30px;margin-left: 10px;"></textarea>
             </div>
             <div class="gameInfoDiv">
-                <button v-on:click="submit">submit</button>
+                <a class="button" href="#" style="margin: 40px 20px;width:80px;">submit</a>
             </div>
         </div>
     </div>
@@ -61,6 +65,9 @@
         el: "#vueDiv",
         data: {
             gameList: [{
+                gameName: "hh",
+                DLC: null,
+            }, {
                 gameName: "hh",
                 DLC: null,
             }, ],
