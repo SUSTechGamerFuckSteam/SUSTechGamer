@@ -12,56 +12,65 @@
 </head>
 
 <body>
-    <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
-    <div id="headerDiv">
-        <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
-        <a class="link">Community | </a>
-        <a>first | </a>
-        <a>first | </a>
-        <a class="link" style="margin-left: 1170px;" href="login.html">sign-in</a>
-        <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
-    </div>
-    <div id="mainDiv" style="position: relative">
-        <div class="inlineDiv" style="background-color: white;position: relative;">
-            <div class="userInfo">
-                <label class="userInfo" style="margin-top: 10px;">UserName:</label><span class="userInfo" v-if="userNameSeen" style="margin-top: 10px;">{{userName}}</span><input type="text" class="userInfo" v-model="userName" v-if="!userNameSeen" style="margin-top: 10px;"
-                /></br>
+    <div id="vueDiv" v-cloak>
+        <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
+        <div id="headerDiv">
+            <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
+            <a class="link">Community | </a>
+            <a>first | </a>
+            <a>first | </a>
+            <a class="link" style="margin-left: 100px;" href="login.html">sign-in</a>
+            <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
 
-                <label class="userInfo">Birthday:</label><span class="userInfo" v-if="birthdaySeen">{{birthday}}</span><input type="date" class="userInfo" v-if="!birthdaySeen" v-model="birthday" /></br>
+        </div>
+        <a class="button" href="#" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a>
+        <a class="button" href="#" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">developer</a>
+        <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">administrator</a>
+        <a class="button" href="friend.html" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
+        <a class="button" href="#" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
+        <a class="button" href="#" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
+        <a class="button" href="#" style="position: absolute;top:380px;width:120px;height:30px;line-height: 30px;" v-if="visitor">add friend</a>
+        <div id="mainDiv" style="position: relative">
+            <div class="inlineDiv" style="background-color: white;position: relative;">
+                <div class="userInfo">
+                    <label class="userInfo" style="margin-top: 10px;">UserName:</label><span class="userInfo" v-if="userNameSeen" style="margin-top: 10px;">{{userName}}</span><input type="text" class="userInfo" v-model="userName" v-if="!userNameSeen"
+                        style="margin-top: 10px;" /></br>
 
-                <label class="userInfo">Gender:</label><span class="userInfo" v-if="genderSeen">{{gender}}</span>
-                <select v-if="!genderSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="gender">
+                    <label class="userInfo">Birthday:</label><span class="userInfo" v-if="birthdaySeen">{{birthday}}</span><input type="date" class="userInfo" v-if="!birthdaySeen" v-model="birthday" /></br>
+
+                    <label class="userInfo">Gender:</label><span class="userInfo" v-if="genderSeen">{{gender}}</span>
+                    <select v-if="!genderSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="gender">
                     <option>Man</option>
                     <option>Woman</option>
                 </select></br>
-                <label class="userInfo">Role:</label><span class="userInfo" v-if="roleSeen">{{role}}</span>
-                <select v-if="!roleSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="role">
+                    <label class="userInfo">Role:</label><span class="userInfo" v-if="roleSeen">{{role}}</span>
+                    <select v-if="!roleSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="role">
                     <option>User</option>
                     <option>Developer</option>
                 </select></br>
-                <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
-                <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
-                <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click="modifyUserInfo">{{modify}}</a>
+                    <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
+                    <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
+                    <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click="modifyUserInfo">{{modify}}</a>
 
+                </div>
+                <p class="imgReminder">User Info</p>
             </div>
-            <p class="imgReminder">User Info</p>
-        </div>
 
 
 
 
-        <div class="inlineDiv" style="position:relative;">
-            <img id="userImg" v-bind:src="avatarUrl" title="change avatar">
-            <input type="file" id="userAvatar" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
+            <div class="inlineDiv" style="position:relative;">
+                <img id="userImg" v-bind:src="avatarUrl" title="change avatar">
+                <input type="file" id="userAvatar" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
 
-            <p class="imgReminder">Talyor Swift</p>
-        </div>
-
-
+                <p class="imgReminder">Talyor Swift</p>
+            </div>
 
 
-        <div class="inlineDiv" style="background-color: aquamarine;">
-            <!-- <div id="fansDiv">
+
+
+            <div class="inlineDiv" style="background-color: aquamarine;" v-if="!visitor">
+                <!-- <div id="fansDiv">
                 <p style="text-align: center; font-size:20px;height:50px;margin-top:70px;margin-bottom: 0px;">Fans</p>
                 <p style="text-align: center;margin-top: 20px;">100</p>
             </div>
@@ -69,104 +78,104 @@
                 <p style="text-align: center; font-size:20px;height:50px;margin-top: 70px;margin-bottom: 0px;">Followers</p>
                 <p style="text-align: center;margin-top: 20px;">500</p>
             </div> -->
-            <div id="moneyDiv">{{balance}}</div>
-            <a class="button" href="#" v-on:click="recharge" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
-            <p class="imgReminder">My Account</p>
-        </div>
-        <p class="clasify">
-            <span id="reminder">My Game</span>
-        </p>
-
-        <div class="inlineDiv" style="position: relative;">
-            <img class="gameImg" src="../../figures/temporary/userPageImgs/game01.jpg">
-            <p class="imgReminder">Game ONE</p>
-        </div>
-        <div class="inlineDiv" style="position: relative;">
-            <img class="gameImg" src="../../figures/temporary/userPageImgs/game02.jpg">
-            <p class="imgReminder">Game TWO</p>
-        </div>
-        <div class="inlineDiv" style="position: relative;">
-            <img class="gameImg" src="../../figures/temporary/userPageImgs/game03.jpg">
-            <p class="imgReminder">Game THREE</p>
-        </div>
-        <div class="inlineDiv"></div>
-        <div class="inlineDiv"></div>
-        <div class="inlineDiv"></div>
-        <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1100px;text-align: center;">
-            <a class="button" href="#" style="margin: 0px;width:30px;">&lt</a>
-        </div>
-        <div class="inlineDiv" style="width:30px;height:20px;margin-left: 0px;text-align: center;">
-            <a class="button" href="#" style="margin: 0px;width:30px;">&gt</a>
-        </div>
-
-        <p class="clasify">
-            <span id="reminder">Developer Option</span>
-        </p>
-
-        <div class="inlineDiv" style="position: relative;">
-            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="imgReminder">OPTION ONE</p>
-        </div>
-        <div class="inlineDiv" style="position: relative;">
-            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="imgReminder">OPTION TWO</p>
-        </div>
-        <div class="inlineDiv" style="position: relative;">
-            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="gamePage.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="imgReminder">OPTION THREE</p>
-        </div>
-        <div class="inlineDiv">
-            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-        </div>
-
-        <p class="clasify">
-            <span id="reminder">Administrator Option</span>
-        </p>
-
-        <div class="inlineDiv" style="position: relative;">
-            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="imgReminder">OPTION ONE</p>
-        </div>
-        <div class="inlineDiv" style="position: relative;">
-            <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-            <p class="imgReminder">OPTION TWO</p>
-        </div>
-
-
-        <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-            <label class="userInfo" style="width:150px;margin-top: 50px;">game name:</label><input type="text" class="userInfo" style="margin-left: 0;margin-top: 50px;"></br>
-            <label class="userInfo" style="width:150px;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
-            <label class="userInfo" style="width:150px;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
-            <label class="userInfo" style="width:150px;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
-            <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
-            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('uploadGameDiv')">Cancle</a>
-        </div>
-
-        <div id="modifyGameDiv" class="userInfo" style="height:620px;width:450px;position:fixed;top:10px;left:500px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-            <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;position: relative;">
-                <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
-                <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
-                <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
-                <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
-                <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
-                <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
-
+                <div id="moneyDiv">{{balance}}</div>
+                <a class="button" href="#" v-on:click="recharge" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
+                <p class="imgReminder">My Account</p>
             </div>
-            <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
-                <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
-                <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
-                <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
-                <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
-                <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
-                <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
+            <p class="clasify">
+                <span id="reminder">My Game</span>
+            </p>
 
+            <div class="inlineDiv" style="position: relative;">
+                <img class="gameImg" src="../../figures/temporary/userPageImgs/game01.jpg">
+                <p class="imgReminder">Game ONE</p>
             </div>
-            <!-- <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
+            <div class="inlineDiv" style="position: relative;">
+                <img class="gameImg" src="../../figures/temporary/userPageImgs/game02.jpg">
+                <p class="imgReminder">Game TWO</p>
+            </div>
+            <div class="inlineDiv" style="position: relative;">
+                <img class="gameImg" src="../../figures/temporary/userPageImgs/game03.jpg">
+                <p class="imgReminder">Game THREE</p>
+            </div>
+            <div class="inlineDiv"></div>
+            <div class="inlineDiv"></div>
+            <div class="inlineDiv"></div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1100px;text-align: center;">
+                <a class="button" href="#" style="margin: 0px;width:30px;">&lt</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 0px;text-align: center;">
+                <a class="button" href="#" style="margin: 0px;width:30px;">&gt</a>
+            </div>
+
+            <p class="clasify" v-if="developer">
+                <span id="reminder">Developer Option</span>
+            </p>
+
+            <div class="inlineDiv" style="position: relative;" v-if="developer">
+                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+                <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+                <p class="imgReminder">OPTION ONE</p>
+            </div>
+            <div class="inlineDiv" style="position: relative;" v-if="developer">
+                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+                <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+                <p class="imgReminder">OPTION TWO</p>
+            </div>
+            <div class="inlineDiv" style="position: relative;">
+                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+                <a href="gamePage.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+                <p class="imgReminder">OPTION THREE</p>
+            </div>
+            <div class="inlineDiv">
+                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+            </div>
+
+            <p class="clasify">
+                <span id="reminder">Administrator Option</span>
+            </p>
+
+            <div class="inlineDiv" style="position: relative;">
+                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+                <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+                <p class="imgReminder">OPTION ONE</p>
+            </div>
+            <div class="inlineDiv" style="position: relative;">
+                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
+                <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
+                <p class="imgReminder">OPTION TWO</p>
+            </div>
+
+
+            <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <label class="userInfo" style="width:150px;margin-top: 50px;">game name:</label><input type="text" class="userInfo" style="margin-left: 0;margin-top: 50px;"></br>
+                <label class="userInfo" style="width:150px;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+                <label class="userInfo" style="width:150px;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
+                <label class="userInfo" style="width:150px;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
+                <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('uploadGameDiv')">Cancle</a>
+            </div>
+
+            <div id="modifyGameDiv" class="userInfo" style="height:620px;width:450px;position:fixed;top:10px;left:500px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;position: relative;">
+                    <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
+                    <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
+                    <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
+                    <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
+                    <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
+                    <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
+
+                </div>
+                <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
+                    <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
+                    <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
+                    <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
+                    <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
+                    <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
+                    <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
+
+                </div>
+                <!-- <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
                 <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
                 <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
                 <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
@@ -174,15 +183,16 @@
                 <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
                 <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
             </div> -->
-            <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
-            <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('modifyGameDiv')">Cancle</a>
+                <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('modifyGameDiv')">Cancle</a>
+            </div>
         </div>
     </div>
 
 </body>
 <script>
     var vm = new Vue({
-        el: "#mainDiv ",
+        el: "#vueDiv ",
         data: {
             userNameSeen: true,
             userName: "hh ",
@@ -197,7 +207,10 @@
             balance: "$520 ",
             modify: "Modify ",
             uploadGameSeen: false,
-            avatarUrl: "D://SUSTech/workspaces/VS code workspace/game03.jpg "
+            avatarUrl: "D://SUSTech/workspaces/VS code workspace/game03.jpg",
+            visitor: false,
+            developer: true,
+            administrator: false,
 
         },
         created: function() {

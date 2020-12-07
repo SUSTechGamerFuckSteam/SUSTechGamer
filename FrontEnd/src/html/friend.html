@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>friend</title>
+    <link rel="stylesheet" type="text/css" href="../css/friend.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="vueDiv">
+        <div id="headerDiv">
+            <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
+            <a class="link">Community | </a>
+            <a>first | </a>
+            <a>first | </a>
+            <a class="link" style="margin-left: 1150px;" href="login.html">sign-in</a>
+            <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
+        </div>
+        <div style="height:100px;"></div>
+
+
+        <div class="friendForDiv" v-for="(friend,index) in  friendList">
+            <div class="avatarDiv" style="position: relative;">
+                <img src="../../figures/icon/dislike.png" style="position: absolute">
+                <a class="imgLink" v-bind:href="'userPage.html?userName='+friend.userName+'&visitor='+userName" style="position: absolute;display: block; width:100px;height:100px;"></a>
+            </div>
+            <div class="userInfoDiv">
+                <label class="userInfo">user name</label></br>
+                <input type="text" class="userInfo" v-model="friend.userName" readonly>
+            </div>
+            <div class="userInfoDiv">
+                <label class="userInfo">remark name</label></br>
+                <input type="text" class="userInfo" v-model="friend.remarkName">
+            </div>
+            <input type="text"><button v-on:click="send">send</button>
+
+        </div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#vueDiv",
+        data: {
+            friendList: [{
+                "avatar": null,
+                "userName": "hh",
+                "remarkName": "dja"
+            }, {
+                "avatar": null,
+                "userName": "fty",
+                "remarkName": "xiaofeng"
+            }, ],
+            userName: "hh",
+        },
+        created: function() {
+
+        },
+        methods: {
+            send: function() {
+                console.log(this.friendList[1].remarkName)
+            }
+        }
+    })
+</script>
+
+</html>
