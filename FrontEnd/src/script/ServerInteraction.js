@@ -91,3 +91,20 @@ function parsePageUrl(pageUrl) {
     console.log(result)
     return JSON.parse(result)
 }
+
+function show(divID) {
+    var hideDiv = document.getElementById("hideDiv")
+    var showDiv = document.getElementById(divID)
+    hideDiv.style.display = "block "
+    hideDiv.style.opacity = 0.6
+    hideDiv.style.zIndex = 6
+    showDiv.style.display = "block "
+}
+
+function hide(divID) {
+    var hideDiv = document.getElementById("hideDiv")
+    var showDiv = document.getElementById(divID)
+    hideDiv.style.opacity = 0
+    hideDiv.style.zIndex = -1
+    showDiv.style.display = "none "
+}

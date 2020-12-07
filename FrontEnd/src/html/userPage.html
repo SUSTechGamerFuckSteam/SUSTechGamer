@@ -23,13 +23,13 @@
             <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
 
         </div>
-        <a class="button" href="#" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a>
+        <a class="button" href="#" v-on:click.prevent="changePassword('changePasswordDiv')" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a>
         <a class="button" v-bind:href="'developerGame.html?userName='+userName" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&developer">developer</a>
         <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&administrator">administrator</a>
         <a class="button" v-bind:href="'friend.html?userName='+userName" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
-        <a class="button" href="#" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
-        <a class="button" href="#" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
-        <a class="button" href="#" style="position: absolute;top:380px;width:120px;height:30px;line-height: 30px;" v-if="visitor">add friend</a>
+        <a class="button" href="#" v-on:click.prevent="changeEmail('changeEmailDiv')" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
+        <a class="button" v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
+        <a class="button" href="#" v-on:cilck.prevent="" style="position: absolute;top:380px;width:120px;height:30px;line-height: 30px;" v-if="visitor">add friend</a>
         <div id="mainDiv" style="position: relative">
             <div class="inlineDiv" style="background-color: white;position: relative;">
                 <div class="userInfo">
@@ -50,7 +50,7 @@
                 </select></br>
                     <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
                     <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
-                    <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click="modifyUserInfo" v-if="!visitor">{{modify}}</a>
+                    <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click.prevent="modifyUserInfo" v-if="!visitor">{{modify}}</a>
 
                 </div>
                 <p class="imgReminder">User Info</p>
@@ -79,7 +79,7 @@
                 <p style="text-align: center;margin-top: 20px;">500</p>
             </div> -->
                 <div id="moneyDiv">{{balance}}</div>
-                <a class="button" href="#" v-on:click="recharge" v-if="!visitor" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
+                <a class="button" href="#" v-on:click.prevent="recharge" v-if="!visitor" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
                 <p class="imgReminder">My Account</p>
             </div>
             <p class="clasify">
@@ -186,6 +186,20 @@
                 <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('modifyGameDiv')">Cancle</a>
             </div>
+            <div id="changePasswordDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;"></br>
+                <input type="text" placeHolder="new password" style="margin: 10px 125px;width:150px;"></br>
+                <input type="text" placeHolder="confirm password" style="margin: 10px 125px;width:150px;">
+                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submit">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('changePasswordDiv')">Cancle</a>
+            </div>
+            <div id="changeEmailDiv" style="height:200px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <input type="text" placeHolder="new email address" style="margin: 10px 125px;width:150px;"></br>
+                <a class="button" href="#" style="width:85px;margin:10px 125px;margin-right: 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="getConfirm">Confirm</a>{{counter+counterReminder}}
+                <input type="text" placeHolder="confirm number" style="margin: 10px 125px;width:150px;">
+                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submit">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('changeEmailDiv')">Cancle</a>
+            </div>
         </div>
     </div>
 
@@ -206,22 +220,29 @@
             introduction: "hh\nhh\nnima ",
             balance: "$520 ",
             modify: "Modify ",
-            uploadGameSeen: false,
             avatarUrl: "D://SUSTech/workspaces/VS code workspace/game03.jpg",
             visitor: false,
+            visitorName: "adad",
             developer: true,
             administrator: false,
+            counter: "",
+            timer: null,
+            verifyNum: 0,
+            emailAddress: 13,
+            counterReminder: ""
 
         },
         created: function() {
             var jsonObj = parsePageUrl(location.href)
             if (jsonObj.userName != jsonObj.visitor) {
                 this.visitor = true
+                this.visitorName = jsonObj.visitor
             } else {
                 this.visitor = false
             }
+            this.userName = jsonObj.userName
             outThis = this
-            ajax("get ", "http://10.21.52.79:8080/test/getFullInfo?uid=1 ", null, function(xmlHttp) {
+            ajax("get", "http://10.21.52.79:8080/test/getFullInfo?uid=1", null, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
                 console.log(xmlHttp.responseText)
                 outThis.userName = result.userName
@@ -317,20 +338,36 @@
             //     hideDiv.style.zIndex = 6
             //     uploadGameDiv.style.display = "block "
             // },
-            show: function(divID) {
-                var hideDiv = document.getElementById("hideDiv")
-                var showDiv = document.getElementById(divID)
-                hideDiv.style.display = "block "
-                hideDiv.style.opacity = 0.6
-                hideDiv.style.zIndex = 6
-                showDiv.style.display = "block "
+
+            changePassword: function(divID) {
+                show(divID)
             },
-            hide: function(divID) {
-                var hideDiv = document.getElementById("hideDiv")
-                var showDiv = document.getElementById(divID)
-                hideDiv.style.opacity = 0
-                hideDiv.style.zIndex = -1
-                showDiv.style.display = "none "
+            changeEmail: function(divID) {
+                show(divID)
+            },
+            cancle: function(divID) {
+                hide(divID)
+            },
+            getConfirm: function() {
+                if (this.counter == "") {
+                    outthis = this
+                    ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
+                        outthis.verifyNum = xmlHttp.responseText
+
+                    })
+                    this.counter = 60
+                    this.counterReminder = "s before re-send"
+                    this.timer = setInterval(this.countDown, 1000)
+                }
+            },
+            countDown: function() {
+                if (this.counter > 1) {
+                    this.counter--
+                } else {
+                    clearInterval(this.timer)
+                    this.counter = ""
+                    this.counterReminder = "ready to send"
+                }
             }
         }
     })
