@@ -12,7 +12,7 @@ function ajax(type, url, data, f) {
     } else {
         xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
     }
-    xmlHttp.onreadystatechange = function () {
+    xmlHttp.onreadystatechange = function() {
         if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
             f(xmlHttp)
         } else {
@@ -20,33 +20,35 @@ function ajax(type, url, data, f) {
         }
     }
     xmlHttp.open(type, url, true);
-    xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    if (type == "get" | type == "GET") {
+        xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
+    }
     xmlHttp.send(data);
 }
 
 
 function login_ajax() {
-    
+
     let logname = document.getElementsByTagName('input')['Username'].value;
     let logpass = document.getElementsByTagName('input')['Password'].value;
 
-    if (logname == "" || logpass == "" ) {
+    if (logname == "" || logpass == "") {
         // var obj = document.getElementById("errorMsg");
         alert("用户名或密码不能为空！");
         // obj.setAttribute("class", "tip-box visiblility-show");
     }
-    
+
     var userinfo = "inAccount=" + logname + "&inPsw=" + logpass;
 
-    var url = "http://10.21.52.79:8080/test/login?name="+logname+"&password="+logpass;
+    var url = "http://10.21.52.79:8080/test/login?name=" + logname + "&password=" + logpass;
 
     xmlhttprequest = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
-    xmlhttprequest.onreadystatechange = function () {
+    xmlhttprequest.onreadystatechange = function() {
         if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
             var result = xmlhttprequest.responseText;
-            if (result!="Fail") {
-                window.location.href = "Store.html" ;
+            if (result != "Fail") {
+                window.location.href = "Store.html";
             } else {
                 // document.getElementById("xiaoxi").innerHTML = "登录失败！";
                 alert("用户名或密码错误！")
@@ -64,6 +66,6 @@ function sign_in() {
     let success = 1;
     //todo 
     if (success) {
-        window.location.href = "Store.html";//跳转
+        window.location.href = "Store.html"; //跳转
     }
 }
