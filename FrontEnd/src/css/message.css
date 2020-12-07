@@ -49,7 +49,7 @@ a.button:hover {
 div.messageForDiv {
     background-color: aquamarine;
     width: 800px;
-    height: 120px;
+    height: 130px;
     margin: 20px auto;
     position: relative;
 }
@@ -57,6 +57,6 @@ div.messageForDiv {
 div.avatarDiv {
     float: left;
     background-color: chartreuse;
-    height: 120px;
+    height: 130px;
     width: 180px;
 }

@@ -28,14 +28,14 @@
         <div class="messageForDiv" v-for="(msg,index) in messageList">
             <div class="avatarDiv" style="position: relative;">
                 <img src="../../figures/icon/dislike.png" style="position: absolute;width:100px;height:100px;"></br>
-                <span style="top: 90px;display: inline-block;position: absolute;">{{msg.senderName}}</span> <span style="top: 92px;display: inline-block;position: absolute;left:30px;">{{msg.date}}</span>
+                <span style="top: 90px;display: inline-block;position: absolute;left:30px;">{{msg.userName}}</span> <span style="top: 110px;display: inline-block;position: absolute;left:30px;">{{msg.sendTime}}</span>
                 <a class=" imgLink " v-bind:href="'userPage.html?userName='+msg.senderName+'&visitor='+userName" style="position: absolute;display: block; width:100px;height:100px; "></a>
             </div>
             <textarea style="margin: 15px 60px;width:350px;height:80px;" readonly>{{msg.content}}</textarea>
         </div>
         <div id="leaveMessageDiv" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-            <textarea style="width:360px;height:170px;margin:20px 20px;resize: none;" resizable="false"></textarea>
-            <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submit">Submit</a>
+            <textarea style="width:360px;height:170px;margin:20px 20px;resize: none;" resizable="false" v-model="messageToLeave"></textarea>
+            <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitMessage('leaveMessageDiv')">Submit</a>
             <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('leaveMessageDiv')">Cancle</a>
         </div>
     </div>
@@ -45,19 +45,20 @@
         el: "#vueDiv ",
         data: {
             messageList: [{
-                senderName: "xcq",
+                userName: "xcq",
                 senderAvatar: " ",
-                date: "2019-05-12",
+                sendTime: "2019-05-12",
                 content: "nihao\n hengaoxingrenshini\n haha!",
             }, {
-                senderName: "fty",
+                userName: "fty",
                 senderAvatar: " ",
-                date: "2020-05-12 15:35:05",
+                sendTime: "2020-05-12 15:35:05",
                 content: "nihao\n hengaoxingrenshini\n haha!",
             }],
             userName: "huanghao",
             visitor: false,
             visitorName: "hh",
+            messageToLeave: "",
         },
         created: function() {
             var jsonObj = parsePageUrl(location.href)
@@ -67,6 +68,15 @@
             } else {
                 this.visitor = false
             }
+            outThis = this
+            ajax("get", "http://10.21.52.79:8080/test/getById?uid=1", null, function(xmlHttp) {
+                console.log(xmlHttp.responseText)
+                var jsonObj = JSON.parse(xmlHttp.responseText)
+                for (var msg in jsonObj) {
+                    outThis.messageList.push(jsonObj[msg])
+                }
+                console.log(outThis.messageList)
+            })
         },
         methods: {
             leaveMessage: function(divID) {
@@ -74,7 +84,19 @@
             },
             cancle: function(divID) {
                 hide(divID)
+            },
+            submitMessage: function(divID) {
+                outThis = this
+                console.log(outThis.messageToLeave)
+                ajax("get", "http://10.21.52.79:8080/test/addChat?sender=2&recv=1&content=" + encodeURI(this.messageToLeave), null, function(x) {
+
+
+                    console.log(x.responseText)
+                })
+                outThis.cancle(divID)
+                this.messageToLeave = ""
             }
+
         }
     })
 </script>
