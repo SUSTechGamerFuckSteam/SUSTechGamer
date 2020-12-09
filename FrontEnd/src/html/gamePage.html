@@ -11,7 +11,7 @@
 </head>
 
 <body>
-    <div id="vueDiv">
+    <div id="vueDiv" v-cloak>
         <div id="headerDiv">
             <a style="margin-left: 20px;">first | </a>
             <a>first ad| </a>
@@ -29,47 +29,47 @@
                       </video>
             </div>
             <div id="gameGetDiv">
-                <div id="priceDiv">{{'$'+me}}</div>
-                <a class="button" href="https://img2.woyaogexing.com/2020/12/09/d3805f2e32d841c38c0d7638abb50242!1242x9999.jpeg" download="../../figures/icon/dislike.png" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Purchase</a>
-                <a class="button" href="#" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Download</a>
+                <div id="priceDiv">{{'$'+price}}</div>
+                <a v-on:click.prevent="" class="button" href="https://img2.woyaogexing.com/2020/12/09/d3805f2e32d841c38c0d7638abb50242!1242x9999.jpeg" download="../../figures/icon/dislike.png" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Purchase</a>
+                <a class="button" href="#downloadBranch" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Download</a>
             </div>
-            <p id="gameDescription">this is the test description aaaaaaaaaaaaa aaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaa</p>
+            <textarea id="gameDescription" style="resize: none;width:90%;height:150px;">{{gameDescription}}</textarea>
         </div>
         <div id="gamePictureDiv" style="position: relative;">
-            <p class="clasify">
+            <p id="downloadBranch" class="clasify">
                 <span id="reminder">Screenshots</span>
             </p>
             <div class="inlineDiv" style="margin-left: 0px;"></div>
             <div class="inlineDiv"></div>
             <div class="inlineDiv"></div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
-                <a class="button" href="#" style="margin: 0px;">&lt</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
-                <a class="button" href="#" style="margin: 0px;">&gt</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
 
 
             <p class="clasify">
                 <span id="reminder">Branches</span>
             </p>
-            <div class="branchDiv">
+            <div class="branchDiv" v-for="(branch,index) in branches" v-if="(index>=branchIndex&&index<branchIndex+3)?true:false">
+                <textarea class="branchInfo" resizable="false">{{branch.info}}</textarea>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <!-- <div class="branchDiv">
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
             </div>
             <div class="branchDiv">
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
-            </div>
-            <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
-            </div>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div> -->
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
-                <a class="button" href="#" style="margin: 0px;">&lt</a>
+                <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
-                <a class="button" href="#" style="margin: 0px;">&gt</a>
+                <a v-on:click.prevent="nextBranch" class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
 
             <p class="clasify">
@@ -77,23 +77,22 @@
             </p>
             <div class="branchDiv">
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
             </div>
             <div class="branchDiv">
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
             </div>
             <div class="branchDiv">
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
             </div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
-                <a class="button" href="#" style="margin: 0px;">&lt</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
-                <a class="button" href="#" style="margin: 0px;">&gt</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
-
 
         </div>
 
@@ -118,6 +117,13 @@
             <div class="userCommentDiv">
                 this is a comment by user 13
             </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
+                <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
+                <a v-on:click.prevent="nextBranch" class="button" href="#" style="margin: 0px;">&gt</a>
+            </div>
+
         </div>
     </div>
 </body>
@@ -126,10 +132,33 @@
         el: '#vueDiv',
         data: {
             me: 120,
-            test: "hh\nnima\nhh"
+            test: "hh\nnima\nhh",
+            gameVideoUrl: "",
+            price: "520",
+            gameDescription: "this is the best game in SUSTech\nLOL!!!!!",
+            screenshotsUrl: "",
+            branches: [{
+                info: "asasaas"
+            }, {
+                info: "dadsdada"
+            }, {
+                info: "dadadadadad"
+            }, {
+                info: "x"
+            }, ],
+            DLCs: "",
+            branchIndex: 0,
         },
         created: function() {
             this.me = 150
+        },
+        methods: {
+            nextBranch: function() {
+                this.branchIndex += 3
+            },
+            prevBranch: function() {
+                this.branchIndex -= 3
+            }
         }
     })
 </script>

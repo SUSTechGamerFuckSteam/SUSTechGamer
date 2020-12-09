@@ -22,7 +22,7 @@ body {
     height: 1200px;
     margin: 0 auto;
     position: relative;
-    top: 140px;
+    top: 10px;
 }
 
 .inlineDiv {
@@ -78,7 +78,7 @@ span.userInfo {
 }
 
 input.userInfo {
-    background-color: rgb(70, 115, 121);
+    background-color: white;
     display: inline-block;
     width: 130px;
     margin-left: 30px;
@@ -169,6 +169,28 @@ a.button:hover {
     text-align: center
 }
 
+div.branchDiv {
+    float: left;
+    background-color: darksalmon;
+    width: 1100px;
+    height: 90px;
+    font-size: 25px;
+    margin: 10px 30px;
+}
+
+textarea.branchInfo {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 900px;
+    height: 60px;
+    background: #cc8c8c;
+    color: white;
+    float: left;
+    resize: none;
+    font-size: 20px;
+    border: 1px solid white;
+}
+
 .optionImg {
     float: left;
     width: 350px;
@@ -195,16 +217,14 @@ a.button:hover {
     height: 270px;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-
-
-.navigation{
+.navigation {
     position: fixed;
     width: 50px;
     height: 100%;
@@ -214,37 +234,37 @@ a.button:hover {
 }
 
 .navigation:hover,
-.navigation.active{
-     width: 160px;
+.navigation.active {
+    width: 160px;
 }
 
-.navigation ul{
+.navigation ul {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
 }
 
-.navigation ul li{
-     position: relative;
-     width: 100%;
-     list-style: none;
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
 }
 
-.navigation ul li:hover{
+.navigation ul li:hover {
     background: #ea1d63;
 }
 
-.navigation ul li a{
-     position: relative;
-     display: none;
-     width: 100%;
-     display: flex;
-     text-decoration: none;
-     color: #fff;
+.navigation ul li a {
+    position: relative;
+    display: none;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: #fff;
 }
 
-.navigation ul li a .icon{
+.navigation ul li a .icon {
     position: relative;
     display: block;
     min-width: 60px;
@@ -253,11 +273,11 @@ a.button:hover {
     text-align: center;
 }
 
-.navigation ul li a .icon .fa{
+.navigation ul li a .icon .fa {
     font-size: 24px;
 }
 
-.navigation ul li a .title{
+.navigation ul li a .title {
     position: relative;
     display: block;
     padding: 0 10px;
@@ -268,7 +288,7 @@ a.button:hover {
     white-space: nowrap;
 }
 
-.toggle{
+.toggle {
     position: absolute;
     top: 0;
     right: 0;
@@ -278,11 +298,11 @@ a.button:hover {
     cursor: pointer;
 }
 
-.toggle.active{
+.toggle.active {
     background: #ea1d63;
 }
 
-.toggle:before{
+.toggle:before {
     content: '\f0c9';
     font-family: fontAwesome;
     position: absolute;
@@ -294,16 +314,19 @@ a.button:hover {
     color: #fff;
 }
 
-.toggle.active:before{
+.toggle.active:before {
     content: '\f00d';
 }
 
+[v-cloak] {
+    display: none;
+}
 
-@media (max-width: 767px){
-    .navigation{
+@media (max-width: 767px) {
+    .navigation {
         left: -60px;
     }
-    .navigation.active{
+    .navigation.active {
         left: 0px;
         width: 100%;
     }

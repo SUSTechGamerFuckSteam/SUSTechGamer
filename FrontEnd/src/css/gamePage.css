@@ -173,4 +173,9 @@ textarea.branchInfo {
     background: #cc8c8c;
     float: left;
     resize: none;
+    border: 1px solid white;
+}
+
+[v-cloak] {
+    display: none;
 }

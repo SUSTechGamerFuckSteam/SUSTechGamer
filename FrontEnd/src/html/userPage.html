@@ -13,21 +13,14 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css">
-    
+
 </head>
 
 
 <body>
-    <!-- <a class="button" v-bind:href="'developerGame.html?userName='+userName" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&developer">developer</a>
-    <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&administrator">administrator</a>
-    <a class="button" v-bind:href="'friend.html?userName='+userName" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
-    <a class="button" href="#" v-on:click.prevent="changeEmail('changeEmailDiv')" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
-    <a class="button" v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
-    <a class="button" href="#" v-on:cilck.prevent="" style="position: absolute;top:380px;width:120px;height:30px;line-height: 30px;" v-if="visitor">add friend</a> -->
-  
     <div class="toggle" onclick="toggleMenu()"></div>
     <script type="text/javascript">
-        function toggleMenu(){
+        function toggleMenu() {
             let navigation = document.querySelector('.navigation');
             let toggle = document.querySelector('.toggle');
             navigation.classList.toggle('active');
@@ -36,62 +29,62 @@
     </script>
 
     <div id="vueDiv" v-cloak>
-          <div class="navigation">
-        <ul>
-            <li>
-                <a href="Store.html">
-                    <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-                    <span class="title">Home</span>
-                </a>
-            </li>
-            <li>
-                <a href="friend.html?userName='+userName">
-                    <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                    <span class="title">Friends</span>
-                </a>
-            </li>
-            <li>
-                <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName" >
-                    <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
-                    <span class="title">Messages</span>
-                </a>
-            </li>
-            <li>
-                <a href="#" v-on:click.prevent="changePassword('changePasswordDiv')"  v-if="!visitor">
-                    <span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>
-                    <span class="title">Password</span>
-                </a>
-            </li>
-            <li>
-                <a href="#">
-                    <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
-                    <span class="title">Administrator</span>
-                </a>
-            </li>
-           
-            <li>
-                <a href="Community.html">
-                    <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
-                    <span class="title">Community</span>
-                </a>
-                
-            </li>
-            <li>
-                <a href="developerGame.html?userName='+userName">
-                    <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
-                    <span class="title">Developer</span>
-                </a>
-            </li>
-        </ul>
-    </div>
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="Store.html">
+                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                        <span class="title">Home</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="friend.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="title">Friends</span>
+                    </a>
+                </li>
+                <li>
+                    <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName">
+                        <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
+                        <span class="title">Messages</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#" v-on:click.prevent="changePassword('changePasswordDiv')" v-if="!visitor">
+                        <span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                        <span class="title">Administrator</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="Community.html">
+                        <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
+                        <span class="title">Community</span>
+                    </a>
+
+                </li>
+                <li>
+                    <a href="developerGame.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+                        <span class="title">Developer</span>
+                    </a>
+                </li>
+            </ul>
+        </div>
         <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
         <!-- <div id="headerDiv"> -->
-            <!-- <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a> -->
-            <!-- <a class="link">Community | </a> -->
-            <a class="link" style="margin-left: 1250px;;" href="login.html">sign-in</a>
-            <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
+        <!-- <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a> -->
+        <!-- <a class="link">Community | </a> -->
+        <a class="link" style="margin-left: 1250px;;" href="login.html">sign-in</a>
+        <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
         <!-- </div>  -->
-         <!-- <a class="button" href="#" v-on:click.prevent="changePassword('changePasswordDiv')" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a> -->
+        <!-- <a class="button" href="#" v-on:click.prevent="changePassword('changePasswordDiv')" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a> -->
         <!-- <a class="button" v-bind:href="'developerGame.html?userName='+userName" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&developer">developer</a> -->
         <!-- <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&administrator">administrator</a> -->
         <!-- <a class="button" v-bind:href="'friend.html?userName='+userName" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a> -->
@@ -128,7 +121,7 @@
 
 
             <div class="inlineDiv" style="position:relative;">
-                <img id="userImg" v-bind:src="avatarUrl" title="change avatar">
+                <img id="userImg" v-bind:src="avatarUrl" title="change avatar" style="position: absolute">
                 <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
 
                 <p class="imgReminder">Talyor Swift</p>
@@ -138,16 +131,8 @@
 
 
             <div class="inlineDiv" style="background-color: aquamarine;" v-if="!visitor">
-                <!-- <div id="fansDiv">
-                <p style="text-align: center; font-size:20px;height:50px;margin-top:70px;margin-bottom: 0px;">Fans</p>
-                <p style="text-align: center;margin-top: 20px;">100</p>
-            </div>
-            <div id="followerDiv">
-                <p style="text-align: center; font-size:20px;height:50px;margin-top: 70px;margin-bottom: 0px;">Followers</p>
-                <p style="text-align: center;margin-top: 20px;">500</p>
-            </div> -->
                 <div id="moneyDiv">{{balance}}</div>
-                <a class="button" href="#" v-on:click.prevent="recharge" v-if="!visitor" style="width:85px;margin: 0px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
+                <a class="button" href="#" v-on:click.prevent="recharge" v-if="!visitor" style="width:85px;margin: 30px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
                 <p class="imgReminder">My Account</p>
             </div>
             <p class="clasify">
@@ -177,27 +162,41 @@
             </div>
 
             <p class="clasify" v-if="developer">
-                <span id="reminder">Developer Option</span>
+                <span id="reminder">My Branch</span>
             </p>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&lt</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&gt</a>
+            </div>
 
-            <div class="inlineDiv" style="position: relative;" v-if="developer">
-                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-                <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-                <p class="imgReminder">OPTION ONE</p>
+            <p class="clasify" v-if="developer">
+                <span id="reminder">My DLC</span>
+            </p>
+            <div class="branchDiv" v-for="(branch,index) in branches" v-if="(index>=branchIndex&&index<branchIndex+3)?true:false">
+                <textarea class="branchInfo" resizable="false">{{branch.info}}</textarea>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
             </div>
-            <div class="inlineDiv" style="position: relative;" v-if="developer">
-                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-                <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-                <p class="imgReminder">OPTION TWO</p>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
+                <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
-            <div class="inlineDiv" style="position: relative;">
-                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-                <a href="gamePage.html" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
-                <p class="imgReminder">OPTION THREE</p>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
+                <a v-on:click.prevent="nextBranch" class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
-            <div class="inlineDiv">
-                <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
-            </div>
+
 
             <p class="clasify">
                 <span id="reminder">Administrator Option</span>
@@ -297,13 +296,23 @@
             timer: null,
             verifyNum: 0,
             emailAddress: 13,
-            counterReminder: ""
+            counterReminder: "",
+            branches: [{
+                info: "asasaas"
+            }, {
+                info: "dadsdada"
+            }, {
+                info: "dadadadadad"
+            }, {
+                info: "x"
+            }, ],
+            branchIndex: 0,
 
         },
         created: function() {
             var jsonObj = parsePageUrl(location.href)
             if (jsonObj.userName != jsonObj.visitor) {
-                this.visitor = true
+                this.visitor = false
                 this.visitorName = jsonObj.visitor
             } else {
                 this.visitor = false
@@ -356,7 +365,25 @@
                     this.introductionSeen = true
                     this.modify = "Modify "
                     var formData = new FormData()
+                    formData.append("name", this.userName)
+                    if (this.gender == "Man") {
+                        formData.append("sex", 'M')
+                    } else {
+                        formData.append("sex", 'W')
+                    }
+                    if (this.role == "Developer") {
+                        formData.append("role", 2)
+                    } else {
+                        formData.append("role", 1)
+                    }
+                    formData.append("uid", 1)
+                    formData.append("birth", this.birthday)
+                    formData.append("description", this.introduction)
+                    ajax("post", "http://10.21.52.79:8080/test/changeInfo", formData, function(x) {
+                        alert(x.responseText)
+                    })
 
+                    location.reload()
                 }
 
             },
@@ -436,6 +463,12 @@
                     this.counter = ""
                     this.counterReminder = "ready to send"
                 }
+            },
+            nextBranch: function() {
+                this.branchIndex += 3
+            },
+            prevBranch: function() {
+                this.branchIndex -= 3
             }
         }
     })
