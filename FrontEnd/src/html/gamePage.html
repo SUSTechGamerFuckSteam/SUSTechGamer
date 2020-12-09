@@ -35,7 +35,7 @@
             </div>
             <p id="gameDescription">this is the test description aaaaaaaaaaaaa aaaaaaaaaa aaaaaaaaaaa aaaaaaaaaaaaa aaaaaaaaaaaa aaaaaaaaaa</p>
         </div>
-        <div id="gamePictureDiv">
+        <div id="gamePictureDiv" style="position: relative;">
             <p class="clasify">
                 <span id="reminder">Screenshots</span>
             </p>
@@ -48,7 +48,55 @@
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
                 <a class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
+
+
+            <p class="clasify">
+                <span id="reminder">Branches</span>
+            </p>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
+                <a class="button" href="#" style="margin: 0px;">&lt</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
+                <a class="button" href="#" style="margin: 0px;">&gt</a>
+            </div>
+
+            <p class="clasify">
+                <span id="reminder">DLCs</span>
+            </p>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="branchDiv">
+                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
+                <a class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
+                <a class="button" href="#" style="margin: 0px;">&lt</a>
+            </div>
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
+                <a class="button" href="#" style="margin: 0px;">&gt</a>
+            </div>
+
+
         </div>
+
         <div id="gameCommentDiv">
             <p class="clasify">
                 <span id="reminder">Comments</span>
@@ -78,6 +126,7 @@
         el: '#vueDiv',
         data: {
             me: 120,
+            test: "hh\nnima\nhh"
         },
         created: function() {
             this.me = 150
