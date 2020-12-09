@@ -1,29 +1,101 @@
-<!DOCTYPE html>
-<html lang="en">
+
+<!DOCTYPE>
+<html>
 
 <head>
-    <meta charset="UTF-8">
+    <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Register</title>
+
+    <link rel="stylesheet" type="text/css" href="../css/register.css" />
+    <script type="text/javascript" src="../script/ServerInteraction.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <!-- <link rel="stylesheet" type="text/css" href="font-awesome.css"/> -->
+    <div id="gamer">
+        <h1 align="center"> </h1>
+        <h1 align="center"> Sustech Gamer</h1>
+    </div>
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.css" rel="stylesheet">
 </head>
 
-<body>
-    <div style="height:690px; width:750px; background-color:aqua;float: left;"></div>
-    <div style="height:690px; width:750px; background-color:cornflowerblue;float: left;"></div>
-    <div id="formDiv" style="position: absolute;border:1px black solid;top:260px;left:620px;">
-        <form id="userInfoForm" @submit.prevent="getComfirm">
-            <input type="text" v-model="emailAddress" name="email" placeholder="E-Mail"></br>
-            <input type="text" placeholder="Name" name="uname" v-model="userName"></br>
-            <input type="text" placeholder="PassWord" name="password" v-model="password"></br>
-            <label>Gender: </label><input type="radio" name="sex" value="M" v-model="gender"><span>Man</span><input type="radio" value="W" name="sex" v-model="gender"><span>Woman</span></br>
-            <label>Role: </label><input type="radio" name="role" value="1" v-model="role"><span>User</span><input type="radio" value="2" name="role" v-model="role"><span>Developer</span></br>
-            <button v-on:click="getComfirm">get Verify code</button>
-            <label>{{counter+counterReminder}}</label></br>
-        </form>
-        <input type="text" v-model="userNum"> <button v-on:click="numberVerify">verify</button>{{verifyNum}}
+<body >
+    <div id="login_box">
+
+        <!-- <h1> LOGIN</h1> -->
+        <div id="switch">
+            <a href="login.html">Login/</a>
+            <a href="register.html">Register</a>
+            <!-- <a class="linkABlue" id="toAccountLogin" href="login.html">账号登录/</a>  -->
+            <!-- <span class="register-line"></span>  -->
+            <!-- <a class="linkAGray" id="toVCodeLogin" href="register.html">账号注册</a>  -->
+        </div>
+        <br>
+        <div id="form">
+            <div class="search-box-wrap">
+                <div class="search-box">
+                    <input placeholder="E-Mail" name="email" v-model="emailAddress" type="text" class="search-input">
+                    <a href="#" class="search-btn">
+                        <i class="fa fa-envelope" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <br>
+
+            <div class="search-box-wrap">
+                <div class="search-box">
+                    <input placeholder="Name" name="uname" v-model="userName" type="text" class="search-input">
+                    <a href="#" class="search-btn">
+                        <i class="fa fa-user" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+            <!-- </template> -->
+            <br>
+            <div class="search-box-wrap">
+                <div class="search-box">
+                    <input placeholder="PassWord" name="password" v-model="password" type="password"
+                        class="search-input">
+                    <a href="#" class="search-btn">
+                        <i class="fa fa-key" aria-hidden="true"></i>
+                    </a>
+                </div>
+            </div>
+
+            <label >Gender: </label><input type="radio" name="sex" value="M" v-model="gender"><i class="fa fa-Mars" style="font-size:48px;color:rgb(0, 153, 255)"></i><span>Man</span><input
+                type="radio" value="W" name="sex" v-model="gender"><i class="fa fa-venus" style="font-size:48px;color:rgb(255, 192, 192)"></i><span>Woman</span></br>
+            <label>Role: </label><input type="radio" name="role" value="1" v-model="role">  <i class="fa fa-user" aria-hidden="true" ></i><span>User</span><input
+                type="radio" value="2" name="role" v-model="role"><i class="fa fa-key" aria-hidden="true"></i><span>Developer</span></br>
+
+            <br>
+
+
+
+        </div>
+<!-- 
+        <div class="btn" id="a" input type="button" onclick="login_ajax()">Get VerifyCode
+            <!-- <button id="a" input type="button" ">Sign in</button> -->
+        <!-- </div>  -->
+
+        <div id="formDiv" >
+            <form id="userInfoForm" @submit.prevent="getComfirm">
+    
+                <!-- <label>Gender: </label><input type="radio" name="sex" value="M" v-model="gender"><span>Man</span><input type="radio" value="W" name="sex" v-model="gender"><span>Woman</span></br>
+                <label>Role: </label><input type="radio" name="role" value="1" v-model="role"><span>User</span><input type="radio" value="2" name="role" v-model="role"><span>Developer</span></br> -->
+                <!-- <button v-on:click="getComfirm">get Verify code</button> -->
+                <div v-on:click="getComfirm" class="btn" id="a" input type="button" onclick="login_ajax()">Get VerifyCode</div>
+                <label>{{counter+counterReminder}}</label>
+            </form>
+            <input type="text" v-model="userNum">
+            <!-- <button v-on:click="numberVerify">verify</button> -->
+            {{verifyNum}}
+            <div v-on:click="numberVerify" class="btn2" id="b" input type="button">Sign up</div>
+           
+        </div>
     </div>
+
+
+    
 </body>
 <script>
     var vm = new Vue({
@@ -43,10 +115,10 @@
 
         },
         methods: {
-            getComfirm: function() {
+            getComfirm: function () {
                 if (this.counter == "") {
                     outthis = this
-                    this.ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
+                    this.ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, function (xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
 
                     })
@@ -55,14 +127,14 @@
                     this.timer = setInterval(this.countDown, 1000)
                 }
             },
-            ajax: function(type, url, data, f) {
+            ajax: function (type, url, data, f) {
                 let xmlHttp = null;
                 if (window.XMLHttpRequest) {
                     xmlHttp = new XMLHttpRequest();
                 } else {
                     xmlHttp = new ActiveXObject("Microsoft.XMLHTTP");
                 }
-                xmlHttp.onreadystatechange = function() {
+                xmlHttp.onreadystatechange = function () {
                     if (xmlHttp.readyState === 4 && xmlHttp.status === 200) {
                         f(xmlHttp)
 
@@ -75,7 +147,7 @@
                 xmlHttp.send(data);
 
             },
-            numberVerify: function() {
+            numberVerify: function () {
                 if (this.userNum == "0") {
                     var userInfo = "email=" + this.emailAddress + "&uname=" + this.userName + "&password=" + this.password + "&role=" + this.role + "&sex=" + this.gender
                     console.log(userInfo)
@@ -84,7 +156,7 @@
                     console.log(formData.get("sex"))
                     console.log(formData.get("name"))
                     console.log(formData.get("email"))
-                    this.ajax("get", "http://10.21.52.79:8080/test/signup?" + userInfo, null, function(xmlHttp) {})
+                    this.ajax("get", "http://10.21.52.79:8080/test/signup?" + userInfo, null, function (xmlHttp) { })
                 } else {
                     alert("wrong")
                 }
@@ -92,7 +164,7 @@
 
                 //window.location.href = "Store.html?userName=" + this.userName
             },
-            countDown: function() {
+            countDown: function () {
                 if (this.counter > 1) {
                     this.counter--
                 } else {

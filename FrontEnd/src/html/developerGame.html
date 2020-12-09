@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>DeveloperGame</title>
+    <link rel="stylesheet" type="text/css" href="../css/developerGame.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="vueDiv">
+        <div id="headerDiv">
+            <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
+            <a class="link">Community | </a>
+            <a>first | </a>
+            <a>first | </a>
+            <a class="link" style="margin-left: 1150px;" href="login.html">sign-in</a>
+            <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
+        </div>
+        <div style="height:100px;"></div>
+        <div class="gameDiv" v-for="(game,index) in gameList">
+            <div class="gameImgDiv">
+                <img>
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">game name</label></br>
+                <input class="gameInfo" type="text" v-model="game.gameName">
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">upload DLC/update</label></br>
+                <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">upload branch</label></br>
+                <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">price</label></br>
+                <input class="gameInfo" type="text">
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">release date</label></br>
+                <input class="gameInfo" type="date" style="width:100px;font-size: 10px;">
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">discount</label></br>
+                <input class="gameInfo" type="text" style="width:80px;margin-right: 0px;">% til
+                <input class="gameInfo" type="date" style="width:100px;font-size: 10px;">
+            </div>
+            <div class="gameInfoDiv">
+                <label class="gameInfo">description</label></br>
+                <textarea style="width:120px;height:30px;margin-left: 10px;"></textarea>
+            </div>
+            <div class="gameInfoDiv">
+                <a class="button" href="#" style="margin: 40px 20px;width:80px;">submit</a>
+            </div>
+        </div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#vueDiv",
+        data: {
+            gameList: [{
+                gameName: "hh",
+                DLC: null,
+            }, {
+                gameName: "hh",
+                DLC: null,
+            }, ],
+
+        },
+        methods: {
+            submit: function() {
+
+
+            },
+            DLCchanged: function(index, event) {
+                this.gameList[index].DLC = event.target.files[0]
+                reader = new FileReader();
+                reader.onload = function FileReaderCompleted() {
+
+                    console.log(reader.result);
+                };
+                console.log(typeof(this.gameList[index].DLC))
+                reader.readAsText(this.gameList[index].DLC);
+            }
+        }
+    })
+</script>
+
+</html>

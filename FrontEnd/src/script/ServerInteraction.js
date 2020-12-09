@@ -34,6 +34,7 @@ function login_ajax() {
         // var obj = document.getElementById("errorMsg");
         alert("用户名或密码不能为空！");
         // obj.setAttribute("class", "tip-box visiblility-show");
+        return;
     }
     
     var userinfo = "inAccount=" + logname + "&inPsw=" + logpass;

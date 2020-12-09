@@ -85,9 +85,10 @@
 body {
 	/* background: url(./1.jpg); */
 	/* background-repeat: repeat; */
-	background-size: 100% auto;
+	/* background-size: 100% auto; */
 	/* background-color: rgb(190, 145, 233); */
-	background-image: linear-gradient(150deg, #33b0a6,#fb5f21);
+	background: linear-gradient(150deg, #33b0a6,#fb5f21);
+	/* background-color: thistle; */
 }
 
 #login_box {
@@ -143,6 +144,8 @@ body {
 	color: #FFFFFF;
 	font-size: 15px;
 	background: linear-gradient(45deg, rgb(144, 238, 238), lightblue, lightgoldenrodyellow);
+
+	
 }
 #login_box #switch{
 	font-size: 25px;
@@ -217,49 +220,4 @@ button {
 	padding-top: 3%;
 	font-size: 20px;
 	/* color: #666 */
-}
-
-.layui-form-checkbox[lay-skin=primary] span {
-	float: right;
-	padding-right: 15px;
-	line-height: 18px;
-	background: 0 0;
-	color: #666
-}
-
-.layui-form-checkbox[lay-skin=primary] i {
-	top: 0;
-	width: 16px;
-	height: 16px;
-	line-height: 16px;
-	border: 1px solid #d2d2d2;
-	font-size: 123x;
-	border-radius: 2px;
-	background-color: #fff;
-	-webkit-transition: .1s linear;
-	transition: .1s linear
-}
-
-.layui-form-checkbox[lay-skin=primary]:hover i {
-	border-color: #32A5E7;
-	color: #fff
-}
-
-.layui-form-checked[lay-skin=primary] i {
-	border-color: #32A5E7;
-	background-color: #32A5E7;
-	color: #fff
-}
-
-.layui-checkbox-disbaled[lay-skin=primary] span {
-	background: 0 0!important;
-	color: #c2c2c2
-}
-
-.layui-checkbox-disbaled[lay-skin=primary]:hover i {
-	border-color: #d2d2d2
-}
-
-.layui-form-item .layui-form-checkbox[lay-skin=primary] {
-	margin-top: 10px
 }

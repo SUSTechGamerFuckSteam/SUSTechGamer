@@ -251,7 +251,7 @@
 	width: 260px;
 	height: 16px;
 	left: 50%;
-	bottom: 0;
+    bottom: 0;
 	margin-left: -135px;
 	z-index: 999;
 }
@@ -261,7 +261,7 @@
 .circles ol li{
 	float: left;
 	margin-right: 10px;
-	background-color: #eee;
+    background-color: #eee;
 	width: 16px;
 	height: 16px;
 	border-radius: 50%;
