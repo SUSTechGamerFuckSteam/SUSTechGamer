@@ -49,10 +49,11 @@ function login_ajax() {
         if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
             var result = xmlhttprequest.responseText;
             if (result != "Fail") {
-                window.location.href = "Store.html";
+                window.location.href = "Store.html?userName=" + logname;
             } else {
                 // document.getElementById("xiaoxi").innerHTML = "登录失败！";
                 alert("用户名或密码错误！")
+
             }
         }
     }
