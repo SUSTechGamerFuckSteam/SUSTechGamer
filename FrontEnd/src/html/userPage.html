@@ -16,15 +16,27 @@
     
 </head>
 
+
 <body>
-<<<<<<< HEAD
     <!-- <a class="button" v-bind:href="'developerGame.html?userName='+userName" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&developer">developer</a>
     <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&administrator">administrator</a>
     <a class="button" v-bind:href="'friend.html?userName='+userName" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
     <a class="button" href="#" v-on:click.prevent="changeEmail('changeEmailDiv')" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
     <a class="button" v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
     <a class="button" href="#" v-on:cilck.prevent="" style="position: absolute;top:380px;width:120px;height:30px;line-height: 30px;" v-if="visitor">add friend</a> -->
-    <div class="navigation">
+  
+    <div class="toggle" onclick="toggleMenu()"></div>
+    <script type="text/javascript">
+        function toggleMenu(){
+            let navigation = document.querySelector('.navigation');
+            let toggle = document.querySelector('.toggle');
+            navigation.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
+
+    <div id="vueDiv" v-cloak>
+          <div class="navigation">
         <ul>
             <li>
                 <a href="Store.html">
@@ -39,7 +51,7 @@
                 </a>
             </li>
             <li>
-                <a href="login.html">
+                <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName" >
                     <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
                     <span class="title">Messages</span>
                 </a>
@@ -72,17 +84,6 @@
             </li>
         </ul>
     </div>
-    <div class="toggle" onclick="toggleMenu()"></div>
-    <script type="text/javascript">
-        function toggleMenu(){
-            let navigation = document.querySelector('.navigation');
-            let toggle = document.querySelector('.toggle');
-            navigation.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
-    </script>
-
-    <div id="vueDiv" v-cloak>
         <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
         <!-- <div id="headerDiv"> -->
             <!-- <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a> -->
@@ -119,48 +120,6 @@
                     <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
                     <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click.prevent="modifyUserInfo" v-if="!visitor">{{modify}}</a>
 
-=======
-    <div id="vueDiv" v-cloak>
-        <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
-        <div id="headerDiv">
-            <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
-            <a class="link">Community | </a>
-            <a>first | </a>
-            <a>first | </a>
-            <a class="link" style="margin-left: 100px;" href="login.html">sign-in</a>
-            <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
-
-        </div>
-        <a class="button" href="#" v-on:click.prevent="changePassword('changePasswordDiv')" style="position: absolute;top:140px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">password</a>
-        <a class="button" v-bind:href="'developerGame.html?userName='+userName" style="position: absolute;top:180px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&developer">developer</a>
-        <a class="button" href="#" style="position: absolute;top:220px;width:120px;height:30px;line-height: 30px;" v-if="!visitor&administrator">administrator</a>
-        <a class="button" v-bind:href="'friend.html?userName='+userName" style="position: absolute;top:260px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">friend</a>
-        <a class="button" href="#" v-on:click.prevent="changeEmail('changeEmailDiv')" style="position: absolute;top:300px;width:120px;height:30px;line-height: 30px;" v-if="!visitor">e-mail</a>
-        <a class="button" v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName" style="position: absolute;top:340px;width:120px;height:30px;line-height: 30px;">message</a>
-        <a class="button" href="#" v-on:cilck.prevent="" style="position: absolute;top:380px;width:120px;height:30px;line-height: 30px;" v-if="visitor">add friend</a>
-        <div id="mainDiv" style="position: relative">
-            <div class="inlineDiv" style="background-color: white;position: relative;">
-                <div class="userInfo">
-                    <label class="userInfo" style="margin-top: 10px;">UserName:</label><span class="userInfo" v-if="userNameSeen" style="margin-top: 10px;">{{userName}}</span><input type="text" class="userInfo" v-model="userName" v-if="!userNameSeen"
-                        style="margin-top: 10px;" /></br>
-
-                    <label class="userInfo">Birthday:</label><span class="userInfo" v-if="birthdaySeen">{{birthday}}</span><input type="date" class="userInfo" v-if="!birthdaySeen" v-model="birthday" /></br>
-
-                    <label class="userInfo">Gender:</label><span class="userInfo" v-if="genderSeen">{{gender}}</span>
-                    <select v-if="!genderSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="gender">
-                    <option>Man</option>
-                    <option>Woman</option>
-                </select></br>
-                    <label class="userInfo">Role:</label><span class="userInfo" v-if="roleSeen">{{role}}</span>
-                    <select v-if="!roleSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="role">
-                    <option>User</option>
-                    <option>Developer</option>
-                </select></br>
-                    <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
-                    <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
-                    <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click.prevent="modifyUserInfo" v-if="!visitor">{{modify}}</a>
-
->>>>>>> cb4c2182a91a4839bf3d548aeb8fcc6d916a3278
                 </div>
                 <p class="imgReminder">User Info</p>
             </div>
