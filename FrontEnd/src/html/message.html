@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Message</title>
+    <link rel="stylesheet" type="text/css" href="../css/message.css" />
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
+</head>
+
+<body>
+
+    <div id="vueDiv">
+        <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
+        <div id="headerDiv">
+            <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
+            <a class="link">Community | </a>
+            <a>first | </a>
+            <a>first | </a>
+            <a class="link" style="margin-left: 1150px;" href="login.html">sign-in</a>
+            <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
+        </div>
+        <div style="height:100px;"></div>
+        <a class="button" href="#" v-on:click.prevent="leaveMessage('leaveMessageDiv')" style="position: absolute;top:120px;width:120px;height:30px;line-height: 30px;left:170px;" v-if="visitor">leave message</a>
+        <div class="messageForDiv" v-for="(msg,index) in messageList">
+            <div class="avatarDiv" style="position: relative;">
+                <img src="../../figures/icon/dislike.png" style="position: absolute;width:100px;height:100px;"></br>
+                <span style="top: 90px;display: inline-block;position: absolute;left:30px;">{{msg.userName}}</span> <span style="top: 110px;display: inline-block;position: absolute;left:30px;">{{msg.sendTime}}</span>
+                <a class=" imgLink " v-bind:href="'userPage.html?userName='+msg.senderName+'&visitor='+userName" style="position: absolute;display: block; width:100px;height:100px; "></a>
+            </div>
+            <textarea style="margin: 15px 60px;width:350px;height:80px;" readonly>{{msg.content}}</textarea>
+        </div>
+        <div id="leaveMessageDiv" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+            <textarea style="width:360px;height:170px;margin:20px 20px;resize: none;" resizable="false" v-model="messageToLeave"></textarea>
+            <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitMessage('leaveMessageDiv')">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('leaveMessageDiv')">Cancle</a>
+        </div>
+    </div>
+</body>
+<script>
+    var vm = new Vue({
+        el: "#vueDiv ",
+        data: {
+            messageList: [{
+                userName: "xcq",
+                senderAvatar: " ",
+                sendTime: "2019-05-12",
+                content: "nihao\n hengaoxingrenshini\n haha!",
+            }, {
+                userName: "fty",
+                senderAvatar: " ",
+                sendTime: "2020-05-12 15:35:05",
+                content: "nihao\n hengaoxingrenshini\n haha!",
+            }],
+            userName: "huanghao",
+            visitor: false,
+            visitorName: "hh",
+            messageToLeave: "",
+        },
+        created: function() {
+            var jsonObj = parsePageUrl(location.href)
+            if (jsonObj.userName != jsonObj.visitor) {
+                this.visitor = true
+                this.visitorName = jsonObj.visitor
+            } else {
+                this.visitor = false
+            }
+            outThis = this
+            ajax("get", "http://10.21.52.79:8080/test/getById?uid=1", null, function(xmlHttp) {
+                console.log(xmlHttp.responseText)
+                var jsonObj = JSON.parse(xmlHttp.responseText)
+                for (var msg in jsonObj) {
+                    outThis.messageList.push(jsonObj[msg])
+                }
+                console.log(outThis.messageList)
+            })
+        },
+        methods: {
+            leaveMessage: function(divID) {
+                show(divID)
+            },
+            cancle: function(divID) {
+                hide(divID)
+            },
+            submitMessage: function(divID) {
+                outThis = this
+                console.log(outThis.messageToLeave)
+                ajax("get", "http://10.21.52.79:8080/test/addChat?sender=2&recv=1&content=" + encodeURI(this.messageToLeave), null, function(x) {
+
+
+                    console.log(x.responseText)
+                })
+                outThis.cancle(divID)
+                this.messageToLeave = ""
+            }
+
+        }
+    })
+</script>
+
+</html>
