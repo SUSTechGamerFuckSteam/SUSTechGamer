@@ -5,7 +5,7 @@
  * @param func: (函数)需要执行的操作
  * @param arguments: func中所需要的参数
  */
-function ajax(type, url, data, f) {
+function ajax(type, url, data, isAsynchronous, f) {
     let xmlHttp = null;
     if (window.XMLHttpRequest) {
         xmlHttp = new XMLHttpRequest();
@@ -19,7 +19,7 @@ function ajax(type, url, data, f) {
             return null;
         }
     }
-    xmlHttp.open(type, url, true);
+    xmlHttp.open(type, url, isAsynchronous);
     if (type == "get" | type == "GET") {
         xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     }

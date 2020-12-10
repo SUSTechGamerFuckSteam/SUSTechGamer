@@ -115,7 +115,7 @@
             getComfirm: function() {
                 if (this.counter == "") {
                     outthis = this
-                    ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
+                    ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, true, function(xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
 
                     })
@@ -134,7 +134,7 @@
                     console.log(formData.get("sex"))
                     console.log(formData.get("name"))
                     console.log(formData.get("email"))
-                    ajax("get", "http://10.21.52.79:8080/test/signup?" + userInfo, null, function(xmlHttp) {})
+                    ajax("get", "http://10.21.52.79:8080/test/signup?" + userInfo, null, true, function(xmlHttp) {})
                     alert("success")
                     window.location.href = "login.html?userName=" + this.userName
                 } else {

@@ -8,6 +8,7 @@
     <title>Document</title>
     <link rel="stylesheet" type="text/css" href="../css/gamePage.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
 </head>
 
 <body>
@@ -29,8 +30,11 @@
                       </video>
             </div>
             <div id="gameGetDiv">
-                <div id="priceDiv">{{'$'+price}}</div>
-                <a v-on:click.prevent="" class="button" href="https://img2.woyaogexing.com/2020/12/09/d3805f2e32d841c38c0d7638abb50242!1242x9999.jpeg" download="../../figures/icon/dislike.png" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Purchase</a>
+                <div id="priceDiv">
+                    <p style="font-size: 45px;height:70px;width:200px;margin: 0 auto;">{{'$'+price}}</p>
+                    <span style="font-size: 12px;">{{discount}}</span>
+                </div>
+                <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Purchase</a>
                 <a class="button" href="#downloadBranch" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Download</a>
             </div>
             <textarea id="gameDescription" style="resize: none;width:90%;height:150px;">{{gameDescription}}</textarea>
@@ -77,7 +81,9 @@
             </p>
             <div class="branchDiv">
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <div style="float: left;width:110px;height:25px;font-size: 20px;text-align: center;">$120</div>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 5px 20px;width:110px;float: left;display: inline-block;font-size: 20px;">purchase</a>
+                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px 20px;width:110px;float: left;display: inline-block;font-size: 18px;">download</a>
             </div>
             <div class="branchDiv">
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
@@ -131,7 +137,7 @@
     var vm = new Vue({
         el: '#vueDiv',
         data: {
-            me: 120,
+            userBalance: 120,
             test: "hh\nnima\nhh",
             gameVideoUrl: "",
             price: "520",
@@ -148,9 +154,18 @@
             }, ],
             DLCs: "",
             branchIndex: 0,
+            discount: "(discount 87%, original $600)",
+            uid: 1,
+            gid: 6,
         },
         created: function() {
-            this.me = 150
+            outThis = this
+            ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=6", null, true, function(x) {
+                outThis.price = x.responseText
+            })
+            ajax("get", "http://10.21.100.129:9090/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
+                outThis.userBalance = x.responseText
+            })
         },
         methods: {
             nextBranch: function() {
@@ -158,6 +173,34 @@
             },
             prevBranch: function() {
                 this.branchIndex -= 3
+            },
+            purchaseGame: function() {
+                var purchasable = false
+                ajax("get", "http://10.21.100.129:9090/dev_game/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid, null, false, function(x) {
+                    if (x.responseText == 0) {
+                        purchasable = true
+                    }
+                })
+                if (!purchasable) {
+                    alert("you have purchased already")
+                    return
+                }
+                if (this.userBalance < this.price) {
+                    alert("your balance is not enough")
+                    return
+                }
+                ajax("get", "http://10.21.100.129:9090/dev_game/buyByuidBygid?uid=" + this.uid + "&gid=" + this.gid, null, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("purchase successfully")
+                    } else {
+                        alert("purchase failed")
+                    }
+
+                })
+                location.reload()
+            },
+            purchaseDLC: function() {
+
             }
         }
     })

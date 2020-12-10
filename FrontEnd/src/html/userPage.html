@@ -319,7 +319,7 @@
             }
             this.userName = jsonObj.userName
             outThis = this
-            ajax("get", "http://10.21.52.79:8080/test/getFullInfo?uid=1", null, function(xmlHttp) {
+            ajax("get", "http://10.21.52.79:8080/test/getFullInfo?uid=1", null, true, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
                 console.log(xmlHttp.responseText)
                 outThis.userName = result.userName
@@ -379,7 +379,7 @@
                     formData.append("uid", 1)
                     formData.append("birth", this.birthday)
                     formData.append("description", this.introduction)
-                    ajax("post", "http://10.21.52.79:8080/test/changeInfo", formData, function(x) {
+                    ajax("post", "http://10.21.52.79:8080/test/changeInfo", formData, true, function(x) {
                         alert(x.responseText)
                     })
 
@@ -394,7 +394,7 @@
                     var formData = new FormData()
                     formData.append("avatar ", fileObj)
                     formData.append("id ", 1)
-                    ajax("post ", "http://10.21.52.79:8080/test/changeAvatar ", formData, function(xmlHttp) {
+                    ajax("post ", "http://10.21.52.79:8080/test/changeAvatar ", formData, true, function(xmlHttp) {
                         alert("avatar changed successfully! ")
                         var url = xmlHttp.responseText
                         outThis.avatarUrl = url
@@ -446,7 +446,7 @@
             getConfirm: function() {
                 if (this.counter == "") {
                     outthis = this
-                    ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, function(xmlHttp) {
+                    ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, true, function(xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
 
                     })
