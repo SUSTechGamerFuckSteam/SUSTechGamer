@@ -17,12 +17,12 @@ body {
 }
 
 #mainDiv {
-    /* background-color: bisque; */
-    width: 1250px;
-    height: 1200px;
+    background: #a1f5a1;
+    width: 1140px;
+    height: 1600px;
     margin: 0 auto;
     position: relative;
-    top: 140px;
+    top: 10px;
 }
 
 .inlineDiv {
@@ -30,10 +30,10 @@ body {
     background: #a1f5a1;
     /* color: rgba(20, 20, 80, 1); */
     width: 350px;
-    height: 270px;
+    height: 250px;
     /* left: 30px;
     right: 30px; */
-    margin-left: 30px;
+    margin-left: 0px;
     margin-right: 30px;
     margin-bottom: 20px;
     /* border: 1px solid; */
@@ -47,7 +47,7 @@ body {
     background-color: aquamarine;
     color: rgb(70, 115, 121);
     width: 300px;
-    height: 200px;
+    height: 120px;
     margin: 25px 25px;
     margin-bottom: 0px;
     font-family: 微软雅黑, 宋体, Arial, Helvetica, Verdana, sans-serif;
@@ -58,29 +58,29 @@ body {
 #userImg {
     float: left;
     display: block;
-    width: 350px;
-    height: 270px;
+    width: 300px;
+    height: 200px;
 }
 
 label.userInfo {
     /* background-color: blue; */
     display: inline-block;
-    width: 100px;
+    width: 80px;
     margin-left: 30px;
     margin-bottom: 5px;
     text-align: left;
 }
 
 span.userInfo {
-    width: 100px;
+    width: 80px;
     margin-left: 30px;
     text-align: left;
 }
 
 input.userInfo {
-    background-color: rgb(70, 115, 121);
+    background-color: white;
     display: inline-block;
-    width: 130px;
+    width: 110px;
     margin-left: 30px;
 }
 
@@ -92,7 +92,7 @@ input.userInfo {
     font-size: 50px;
     font-weight: bold;
     width: 110px;
-    height: 80px;
+    height: 60px;
     margin: 15px 120px;
     text-align: center;
     padding-top: 50px;
@@ -154,12 +154,12 @@ a.button:hover {
 } */
 
 .clasify {
-    width: 1170px;
+    width: 1110px;
     height: 50px;
     float: left;
     margin-top: 20px;
     margin-bottom: 20px;
-    margin-left: 30px;
+    margin-left: 0px;
     background-color: #e6751e;
     color: white;
     font-family: 微软雅黑, 宋体, Arial, Helvetica, Verdana, sans-serif;
@@ -167,6 +167,28 @@ a.button:hover {
     font-size: 30px;
     line-height: 50px;
     text-align: center
+}
+
+div.branchDiv {
+    float: left;
+    background-color: darksalmon;
+    width: 1050px;
+    height: 90px;
+    font-size: 25px;
+    margin: 10px 30px;
+}
+
+textarea.branchInfo {
+    margin-top: 10px;
+    margin-left: 20px;
+    width: 900px;
+    height: 60px;
+    background: #cc8c8c;
+    color: white;
+    float: left;
+    resize: none;
+    font-size: 20px;
+    border: 1px solid white;
 }
 
 .optionImg {
@@ -180,7 +202,7 @@ a.button:hover {
     color: rgb(70, 115, 121);
     position: absolute;
     width: 350px;
-    margin-top: 230px;
+    margin-top: 210px;
     height: 40px;
     text-align: center;
     font-family: 微软雅黑, 宋体, Arial, Helvetica, Verdana, sans-serif;
@@ -192,19 +214,17 @@ a.button:hover {
 .gameImg {
     float: left;
     width: 350px;
-    height: 270px;
+    height: 250px;
 }
 
-*{
+* {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
     font-family: 'Poppins', sans-serif;
 }
 
-
-
-.navigation{
+.navigation {
     position: fixed;
     width: 50px;
     height: 100%;
@@ -214,37 +234,37 @@ a.button:hover {
 }
 
 .navigation:hover,
-.navigation.active{
-     width: 160px;
+.navigation.active {
+    width: 160px;
 }
 
-.navigation ul{
+.navigation ul {
     position: absolute;
     top: 0;
     left: 0;
     width: 100%;
 }
 
-.navigation ul li{
-     position: relative;
-     width: 100%;
-     list-style: none;
+.navigation ul li {
+    position: relative;
+    width: 100%;
+    list-style: none;
 }
 
-.navigation ul li:hover{
+.navigation ul li:hover {
     background: #ea1d63;
 }
 
-.navigation ul li a{
-     position: relative;
-     display: none;
-     width: 100%;
-     display: flex;
-     text-decoration: none;
-     color: #fff;
+.navigation ul li a {
+    position: relative;
+    display: none;
+    width: 100%;
+    display: flex;
+    text-decoration: none;
+    color: #fff;
 }
 
-.navigation ul li a .icon{
+.navigation ul li a .icon {
     position: relative;
     display: block;
     min-width: 60px;
@@ -253,11 +273,11 @@ a.button:hover {
     text-align: center;
 }
 
-.navigation ul li a .icon .fa{
+.navigation ul li a .icon .fa {
     font-size: 24px;
 }
 
-.navigation ul li a .title{
+.navigation ul li a .title {
     position: relative;
     display: block;
     padding: 0 10px;
@@ -268,7 +288,7 @@ a.button:hover {
     white-space: nowrap;
 }
 
-.toggle{
+.toggle {
     position: absolute;
     top: 0;
     right: 0;
@@ -278,11 +298,11 @@ a.button:hover {
     cursor: pointer;
 }
 
-.toggle.active{
+.toggle.active {
     background: #ea1d63;
 }
 
-.toggle:before{
+.toggle:before {
     content: '\f0c9';
     font-family: fontAwesome;
     position: absolute;
@@ -294,16 +314,19 @@ a.button:hover {
     color: #fff;
 }
 
-.toggle.active:before{
+.toggle.active:before {
     content: '\f00d';
 }
 
+[v-cloak] {
+    display: none;
+}
 
-@media (max-width: 767px){
-    .navigation{
+@media (max-width: 767px) {
+    .navigation {
         left: -60px;
     }
-    .navigation.active{
+    .navigation.active {
         left: 0px;
         width: 100%;
     }

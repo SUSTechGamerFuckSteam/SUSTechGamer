@@ -69,7 +69,7 @@
                 this.visitor = false
             }
             outThis = this
-            ajax("get", "http://10.21.52.79:8080/test/getById?uid=1", null, function(xmlHttp) {
+            ajax("get", "http://10.21.52.79:8080/test/getById?uid=1", null, true, function(xmlHttp) {
                 console.log(xmlHttp.responseText)
                 var jsonObj = JSON.parse(xmlHttp.responseText)
                 for (var msg in jsonObj) {
@@ -88,7 +88,7 @@
             submitMessage: function(divID) {
                 outThis = this
                 console.log(outThis.messageToLeave)
-                ajax("get", "http://10.21.52.79:8080/test/addChat?sender=2&recv=1&content=" + encodeURI(this.messageToLeave), null, function(x) {
+                ajax("get", "http://10.21.52.79:8080/test/addChat?sender=2&recv=1&content=" + encodeURI(this.messageToLeave), null, true, function(x) {
 
 
                     console.log(x.responseText)

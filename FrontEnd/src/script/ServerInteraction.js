@@ -5,7 +5,7 @@
  * @param func: (函数)需要执行的操作
  * @param arguments: func中所需要的参数
  */
-function ajax(type, url, data, f) {
+function ajax(type, url, data, isAsynchronous, f) {
     let xmlHttp = null;
     if (window.XMLHttpRequest) {
         xmlHttp = new XMLHttpRequest();
@@ -19,7 +19,7 @@ function ajax(type, url, data, f) {
             return null;
         }
     }
-    xmlHttp.open(type, url, true);
+    xmlHttp.open(type, url, isAsynchronous);
     if (type == "get" | type == "GET") {
         xmlHttp.setRequestHeader("Content-Type", "application/x-www-form-urlencoded");
     }
@@ -49,10 +49,11 @@ function login_ajax() {
         if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
             var result = xmlhttprequest.responseText;
             if (result != "Fail") {
-                window.location.href = "Store.html";
+                window.location.href = "Store.html?userName=" + logname;
             } else {
                 // document.getElementById("xiaoxi").innerHTML = "登录失败！";
                 alert("用户名或密码错误！")
+
             }
         }
     }
@@ -77,6 +78,11 @@ function parsePageUrl(pageUrl) {
     var temp = pageUrl.substr(index + 1)
     var strList = temp.split("&")
     for (var str in strList) {
+        index = strList[str].indexOf("#")
+        while (index >= 0) {
+            strList[str] = strList[str].substr(0, index)
+            index = strList[str].indexOf("#")
+        }
         index = strList[str].indexOf("=")
         if (result != "{") { result += "," }
         result += '"'
@@ -89,7 +95,7 @@ function parsePageUrl(pageUrl) {
 
     }
     result += "}"
-    console.log(result)
+
     return JSON.parse(result)
 }
 
