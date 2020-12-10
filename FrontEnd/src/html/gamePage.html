@@ -32,12 +32,13 @@
             <div id="gameGetDiv">
                 <div id="priceDiv">
                     <p style="font-size: 45px;height:70px;width:200px;margin: 0 auto;">{{'$'+price}}</p>
-                    <span style="font-size: 12px;">{{discount}}</span>
+                    <span style="font-size: 15px;">{{discount}}</span>
                 </div>
                 <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Purchase</a>
                 <a class="button" href="#downloadBranch" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Download</a>
             </div>
-            <textarea id="gameDescription" style="resize: none;width:90%;height:150px;">{{gameDescription}}</textarea>
+            <textarea id="gameDescription" style="resize: none;width:77%;height:150px;">{{gameDescription}}</textarea>
+            <a class="button" v-on:click.prevent="purchaseGame" href="#" style="width:180px;height:60px;margin-top:70px;margin-left:30px;font-size: 30px;font-weight: bold;display: block;float: left;color: white;line-height: 60px;">Community</a>
         </div>
         <div id="gamePictureDiv" style="position: relative;">
             <p id="downloadBranch" class="clasify">
@@ -59,21 +60,14 @@
             </p>
             <div class="branchDiv" v-for="(branch,index) in branches" v-if="(index>=branchIndex&&index<branchIndex+3)?true:false">
                 <textarea class="branchInfo" resizable="false">{{branch.info}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <a class="button" href="http://10.21.100.129:9090/download?uid=1&gid=8" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
             </div>
-            <!-- <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
-            </div>
-            <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
-            </div> -->
+
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
-                <a v-on:click.prevent="nextBranch" class="button" href="#" style="margin: 0px;">&gt</a>
+                <a v-on:click.prevent="nextBranch" class="button" href="" style="margin: 0px;">&gt</a>
             </div>
 
             <p class="clasify">
@@ -93,6 +87,7 @@
                 <textarea class="branchInfo" resizable="false">{{test}}</textarea>
                 <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
             </div>
+
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
@@ -102,7 +97,7 @@
 
         </div>
 
-        <div id="gameCommentDiv">
+        <div id="gameCommentDiv" style="position: relative;">
             <p class="clasify">
                 <span id="reminder">Comments</span>
             </p>
@@ -114,15 +109,28 @@
                     points ranked by users
                 </span>
             </div>
-            <div class="userCommentDiv">
-                this is a comment by user 11
+            <div class="userCommentDiv" v-for="(comment,index) in commentList">
+                <div style="float: left;width:150px;height:150px;position: relative;">
+                    <img src="../../figures/icon/like.png" style="display:block;width:100px;height:80px;position: absolute;top:0px;left:25px;">
+                    <a href="userPage.html" style="position: absolute;width:150px;height:150px;"></a>
+                    <span style="position: absolute;top:90px;left:15px;font-size: 20px;">{{comment.userName}}</span>
+                    <span style="position: absolute;top:110px;left:15px;font-size: 20px;">{{comment.points}}</span>
+                </div>
+                <textarea style="width:750px;height:100px;margin-top:25px;margin-left:20px;background: #a1f5a1;resize: none;float: left;" readonly>{{comment.content}}</textarea>
+                <!-- <div style="float: left;width:30px;height:30px;margin-top: 100px;margin-left: 20px;position: relative;">
+                    <img src="../../figures/icon/like.png" style="width:30px;height:30px;position:absolute;">
+                    <a v-on:click.prevent="purchaseGame" href="#" style="width:30px;height:30px;z-index: 3;position: absolute;opacity: 0;"></a>
+                </div>
+                <div style="float: left;width:30px;height:30px;margin-top: 100px;margin-left: 10px;position: relative;">
+                    <img src="../../figures/icon/dislike.png" style="width:30px;height:30px;position:absolute;">
+                    <a v-on:click.prevent="purchaseGame" href="#" style="width:30px;height:30px;z-index: 3;position: absolute;opacity: 0;"></a>
+                </div> -->
+                <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:90px;height:30px;margin-top:100px;margin-left:20px;font-size: 20px;font-weight: bold;float: left;line-height: 30px;">see more</a>
             </div>
-            <div class="userCommentDiv">
-                this is a comment by user 12
-            </div>
-            <div class="userCommentDiv">
-                this is a comment by user 13
-            </div>
+
+            <textarea style="width:920px;height:80px;margin-top: 20px;margin-left:10px;resize: none;float: left;" placeholder="leave your comment and picture here" v-model="userComment"></textarea>
+            <input type="file" id="u" v-on:change="pictureComment($event)" capture="camera" accept="image/*" style="margin-top:30px;margin-left:20px;width:110px;cursor:pointer;font-size: 17px;float: left;" title="picture" />
+            <a v-on:click.prevent="sendComment" class="button" href="#" style="margin-top:10px;margin-left:20px;margin-bottom:10px;width:110px;display: inline-block;font-size: 25px;float: left;">Comment</a>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
@@ -143,28 +151,39 @@
             price: "520",
             gameDescription: "this is the best game in SUSTech\nLOL!!!!!",
             screenshotsUrl: "",
-            branches: [{
-                info: "asasaas"
-            }, {
-                info: "dadsdada"
-            }, {
-                info: "dadadadadad"
-            }, {
-                info: "x"
-            }, ],
+            branches: [],
             DLCs: "",
             branchIndex: 0,
             discount: "(discount 87%, original $600)",
             uid: 1,
             gid: 6,
+            userComment: "",
+            commentList: [{
+                avatarUrl: "",
+                points: "gives 4.5 points",
+                content: "lajiyouxi,chaping!",
+                userName: "ShowMaker",
+            }],
+            fileObj: ""
         },
         created: function() {
             outThis = this
+            var jsonObj = parsePageUrl(location.href)
+            console.log(JSON.stringify(jsonObj))
             ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=6", null, true, function(x) {
                 outThis.price = x.responseText
             })
             ajax("get", "http://10.21.100.129:9090/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
                 outThis.userBalance = x.responseText
+            })
+            ajax("get", "http://10.21.100.129:9090/game/findBranchBygid?id=8", null, true, function(x) {
+                var JsonRe = JSON.parse(x.responseText)
+                console.log(JsonRe)
+                for (var obj in JsonRe) {
+                    outThis.branches.push({
+                        info: JsonRe[obj].description
+                    })
+                }
             })
         },
         methods: {
@@ -201,6 +220,26 @@
             },
             purchaseDLC: function() {
 
+            },
+            pictureComment: function(event) {
+                var fileObj = event.target.files[0]
+                this.fileObj = fileObj
+            },
+            sendComment: function() {
+                var formData = new FormData()
+                if (this.fileObj != null)
+                    formData.append("picture", this.fileObj)
+                formData.append("content", encodeURI(this.userComment))
+                formData.append("gid", 8)
+                formData.append("uid", 1)
+                formData.append("points", 4.8)
+                ajax("post", "http://10.21.100.129:9090/postbar/setupPostbar", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("comment successfully")
+                    } else {
+                        alert("comment failed")
+                    }
+                })
             }
         }
     })

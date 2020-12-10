@@ -78,6 +78,11 @@ function parsePageUrl(pageUrl) {
     var temp = pageUrl.substr(index + 1)
     var strList = temp.split("&")
     for (var str in strList) {
+        index = strList[str].indexOf("#")
+        while (index >= 0) {
+            strList[str] = strList[str].substr(0, index)
+            index = strList[str].indexOf("#")
+        }
         index = strList[str].indexOf("=")
         if (result != "{") { result += "," }
         result += '"'
@@ -90,7 +95,7 @@ function parsePageUrl(pageUrl) {
 
     }
     result += "}"
-    console.log(result)
+
     return JSON.parse(result)
 }
 

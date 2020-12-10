@@ -101,7 +101,7 @@ a.button:hover {
 }
 
 #gameCommentDiv {
-    background-color: rgba(230, 230, 230, 1);
+    background: #a1f5a1;
     /* background-color: fuchsia; */
     width: 1100px;
     height: 700px;
