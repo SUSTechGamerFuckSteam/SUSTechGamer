@@ -3237,6 +3237,7 @@ a.list-group-item-warning.active, a.list-group-item-warning.active:focus, a.list
 }
 
 .carousel-inner {
+    
     position: relative;
     width: 100%;
     overflow: hidden

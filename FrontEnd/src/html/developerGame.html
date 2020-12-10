@@ -75,14 +75,11 @@
         },
         methods: {
             submit: function() {
-
-
             },
             DLCchanged: function(index, event) {
                 this.gameList[index].DLC = event.target.files[0]
                 reader = new FileReader();
                 reader.onload = function FileReaderCompleted() {
-
                     console.log(reader.result);
                 };
                 console.log(typeof(this.gameList[index].DLC))
