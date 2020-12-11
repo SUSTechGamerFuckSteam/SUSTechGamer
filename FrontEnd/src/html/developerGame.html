@@ -44,14 +44,7 @@
                 <a class="button" href="#" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Delete</a>
                 <a class="button" href="#" v-on:click="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Submit</a>
             </div>
-            <!-- <div class="gameInfoDiv">
-                <label class="gameInfo">upload DLC/update</label></br>
-                <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
-            </div>
-            <div class="gameInfoDiv">
-                <label class="gameInfo">upload branch</label></br>
-                <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
-            </div> -->
+
 
             <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Description</label></br>
@@ -59,16 +52,25 @@
             </div>
             <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Branch</label></br>
-                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;"></textarea>
+                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly></textarea>
             </div>
             <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;margin-bottom: 20px;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">DLC</label></br>
-                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;"></textarea>
+                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly></textarea>
             </div>
-            <!-- <div class="gameInfoDiv">
-                
-            </div> -->
+
+            <div id="addBranchDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">upload description:</label><input v-on:change="newBranchDescriptionUpload($event,index)" type="file" class="userInfo"
+                    style="margin-left: 0;width:200px;margin-top: 50px;"></br>
+                </br>
+                <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload branch:</label><input v-on:change="newBranchUpload($event,index)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+                <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addBranchDiv')">Cancle</a>
+            </div>
         </div>
+
+
+
         <a class="button" v-on:click.prevent="show('uploadGameDiv')" href="#" style="margin-top:10px;margin-left:1245px;width:120px;height:30px;font-size: 20px;">New Game</a>
         <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
             <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">game name:</label><input type="text" v-model="gameName" class="userInfo" style="margin-left:0;margin-top: 50px;"></br>
@@ -80,12 +82,7 @@
             <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('uploadGameDiv')">Cancle</a>
         </div>
 
-        <div id="addBranchDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-            <textarea v-model="gameName" class="userInfo" placeholder="please enter branch description" style="margin-left:80px;margin-top: 50px;width:230px;height:80px;resize: none"></textarea></br>
-            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload branch:</label><input v-on:change="newGameUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
-            <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewGame('uploadGameDiv')">Submit</a>
-            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addBranchDiv')">Cancle</a>
-        </div>
+
 
         <div id="addDLCDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
             <textarea v-model="gameName" class="userInfo" placeholder="please enter DLC description" style="margin-left:80px;margin-top: 50px;width:230px;height:80px;resize: none"></textarea></br>
@@ -102,6 +99,10 @@
             gameList: [{
                 gameName: "hh",
                 DLC: null,
+                branch: {
+                    description: "",
+                    file: ""
+                },
                 gid: "",
                 gamePrice: "36",
                 gameDate: "",
@@ -111,6 +112,10 @@
             }, {
                 gameName: "LOL",
                 DLC: null,
+                branch: {
+                    description: "",
+                    file: ""
+                },
                 gid: "",
                 gamePrice: "250",
                 gameDate: "",
@@ -134,7 +139,7 @@
                 formData.append("discount", this.gameList[index].discount)
                 formData.append("end_time", this.gameList[index].discountTime)
                 formData.append("g_des", this.gameList[index].gameDescription)
-                formData.append("gid", 1)
+                formData.append("gid", 9)
                 ajax("post", "http://10.21.100.129:9090/game/update", formData, false, function(x) {
 
                 })
@@ -179,8 +184,25 @@
             newGameUpload: function(event) {
                 this.gameFile = event.target.files[0]
             },
-            newDescriptionUpload: function(event) {
-                this.gameDescription = event.target.files[0]
+            newBranchDescriptionUpload: function(event, index) {
+                this.gameList[index].branch.description = event.target.files[0]
+            },
+            newBranchUpload: function(event, index) {
+                this.gameList[index].branch.file = event.target.files[0]
+            },
+            submitNewBranch: function(divID, index) {
+                var formData = new FormData()
+                formData.append("gid", 8)
+                formData.append("Description", this.gameList[index].branch.description)
+                formData.append("path", this.gameList[index].branch.file)
+                ajax("post", "http://10.21.100.129:9090/game/newBranch", formData, true, function(x) {
+                    if (x.responseText == 1) {
+                        alert("add successfully")
+                    } else {
+                        alert("add failed")
+                    }
+                })
+                hide(divID)
             }
         }
     })
