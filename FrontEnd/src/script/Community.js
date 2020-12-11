@@ -44,7 +44,7 @@ function publish(){
 
     var uid=1;
     var gid=1;
-    var url = "http://10.21.100.129:9090/postbar/setupPostbar?title=" + text;
+    var url = "http://10.21.100.129:9090/postbar/setupPostbar?title=" + text+"&uid="+uid+"&gid="+gid;
 
     xmlhttprequest = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 

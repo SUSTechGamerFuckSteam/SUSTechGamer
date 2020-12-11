@@ -8,6 +8,8 @@
     <link rel="stylesheet" href="../css/Community.css"/>
     <script src="../script/jquery-3.4.1.min.js"></script>
     <script src="../script/bootstrap.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
 </head>
 <body style="padding-top: 50px">
 <div class="navbar navbar-fixed-top navbar-default" role="navigation">
@@ -32,7 +34,7 @@
                 <div class="form-group">
                     <input id="top-nav-search" type="text" class="form-control" placeholder="Findings...">
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn">Search</button>
             </form>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
@@ -50,7 +52,7 @@
                     </div>
                     <div style="padding-left: 15px;padding-right: 15px;text-align: center" class="caption">
                         <h3 id="user-name">The shy</h3>
-                        <p>我的个性签名</p>
+                        <p>I am a boy</p>
                     </div>
                 </div>
             </div>
@@ -88,18 +90,22 @@
             </div>
 
         </div><!-- 左窗口-->
-        <div class="col-md-6 col-sm-8" id="centerBox">
+        <div class="col-md-6 col-sm-8" id="vueDiv" v-cloak>
             <div id="center-window">
                 <div id="textBox_new">
                 <textarea id="txtNew" prefix class="form-control textBox-input"
-                          placeholder="有什么开心的事，快告诉你的朋友们吧~"></textarea>
+                          placeholder="Say...."></textarea>
                     <div id="button-textBox">
                         <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-default"><span class="icon-star"></span> Emotions</button>
-                            <button type="button" class="btn btn-default"><span class="icon-camera"></span> Pictures</button>
-                            <button type="button" class="btn btn-default"><span class="icon-comment"></span> Topics</button>
+                        
+                            <label type="button" class="btn">
+                                    Pictures
+                                    <input type="file" name="" id="">
+                            </label>
+                            
+                            <button type="button" class="btn "><span class="icon-comment"></span> Topics</button>
                         </div>
-                        <a id="submitNew" href="#" class="btn btn-success pull-right" role="button">Publish</a>
+                        <a id="submitNew"  v-on:click.prevent="sendComment" href="#" class="btn btn-success pull-right" role="button">Publish</a>
                     </div>
                 </div>
             </div>
@@ -350,8 +356,109 @@
     </div>
     <div style="height: 700px"></div>
 </div><!-- 主窗口结束 -->
+<div id="vueDiv" >
 
 
+    <div class="friendForDiv" v-for="(friend,index) in  friendList">
+        <div class="avatarDiv" ">
+            <img src="../../figures/icon/dislike.png" style="position: absolute">
+            <a class="imgLink" v-bind:href="'userPage.html?userName='+friend.userName+'&visitor='+userName" style="position: absolute;display: block; width:100px;height:100px;"></a>
+        </div>
+        <div class="userInfoDiv">
+            <label class="userInfo">user name</label></br>
+            <input type="text" class="userInfo" v-model="friend.userName" readonly>
+        </div>
+        <div class="userInfoDiv">
+            <label class="userInfo">remark name</label></br>
+            <input type="text" class="userInfo" v-model="friend.remarkName">
+        </div>
+        <input type="text"><button v-on:click="send">send</button>
+
+    </div>
+</div>
+<script>
+    var vm = new Vue({
+        el: '#vueDiv',
+        data: {
+
+            test: "hh\nnima\nhh",
+            gameVideoUrl: "",
+
+            gameDescription: "this is the best game in SUSTech\nLOL!!!!!",
+            screenshotsUrl: "",
+
+            discount: "(discount 87%, original $600)",
+            uid: 1,
+            gid: 6,
+            userComment: "",
+            commentList: [{
+                avatarUrl: "",
+                points: "gives 4.5 points",
+                content: "lajiyouxi,chaping!",
+                userName: "ShowMaker",
+                uid: "",
+                tid: "",
+            }],
+            fileObj: "",
+            userPoint: 5,
+        },
+        created: function() {
+            outThis = this
+            var jsonObj = parsePageUrl(location.href)
+            console.log(JSON.stringify(jsonObj))
+            ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=6", null, true, function(x) {
+                outThis.price = x.responseText
+            })
+            ajax("get", "http://10.21.100.129:9090/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
+                outThis.userBalance = x.responseText
+            })
+            ajax("get", "http://10.21.100.129:9090/game/findBranchBygid?id=8", null, true, function(x) {
+                var JsonRe = JSON.parse(x.responseText)
+                console.log(JsonRe)
+                for (var obj in JsonRe) {
+                    outThis.branches.push({
+                        info: JsonRe[obj].description
+                    })
+                }
+            })
+            ajax("get", "http://10.21.100.129:9090/postbar/infoByGid?gid=8", null, true, function(x) {
+                var jsonRe = JSON.parse(x.responseText)
+                for (var obj in jsonRe) {
+                    outThis.commentList.push({
+                        avatarUrl: jsonRe[obj].user_picture,
+                        points: "gives " + jsonRe[obj].points + " points",
+                        content: jsonRe[obj].content,
+                        userName: jsonRe[obj].name,
+                        uid: jsonRe[obj].uid,
+                        tid: jsonRe[obj].tid
+                    })
+                }
+            })
+        },
+        methods: {
+            pictureComment: function(event) {
+                var fileObj = event.target.files[0]
+                this.fileObj = fileObj
+            },
+            sendComment: function() {
+                var formData = new FormData()
+                if (this.fileObj != null)
+                    formData.append("picture", this.fileObj)
+                formData.append("content", encodeURI(this.userComment))
+                formData.append("gid", 8)
+                formData.append("uid", 1)
+                formData.append("points", this.userPoint)
+                ajax("post", "http://10.21.100.129:9090/postbar/setupPostbar", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("comment successfully")
+                    } else {
+                        alert("comment failed")
+                    }
+                })
+            }
+        }
+    })
+</script>
 <script src="js/layout_for_page.js"></script>
 <script src="js/otherFn.js"></script>
 </body>
