@@ -111,7 +111,7 @@
             </div>
             <div class="userCommentDiv" v-for="(comment,index) in commentList">
                 <div style="float: left;width:150px;height:150px;position: relative;">
-                    <img src="../../figures/icon/like.png" style="display:block;width:100px;height:80px;position: absolute;top:0px;left:25px;">
+                    <img v-bind:src="comment.avatarUrl" style="display:block;width:100px;height:80px;position: absolute;top:0px;left:25px;">
                     <a href="userPage.html" style="position: absolute;width:150px;height:150px;"></a>
                     <span style="position: absolute;top:90px;left:15px;font-size: 20px;">{{comment.userName}}</span>
                     <span style="position: absolute;top:110px;left:15px;font-size: 20px;">{{comment.points}}</span>
@@ -128,8 +128,12 @@
                 <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:90px;height:30px;margin-top:100px;margin-left:20px;font-size: 20px;font-weight: bold;float: left;line-height: 30px;">see more</a>
             </div>
 
-            <textarea style="width:920px;height:80px;margin-top: 20px;margin-left:10px;resize: none;float: left;" placeholder="leave your comment and picture here" v-model="userComment"></textarea>
-            <input type="file" id="u" v-on:change="pictureComment($event)" capture="camera" accept="image/*" style="margin-top:30px;margin-left:20px;width:110px;cursor:pointer;font-size: 17px;float: left;" title="picture" />
+            <textarea style="width:920px;height:100px;margin-top: 20px;margin-left:10px;resize: none;float: left;" placeholder="leave your comment and picture here (need purchase first)" v-model="userComment"></textarea>
+            <label style="float: left;width:100px;font-size:15px;margin-top:20px;font-weight: bold;">rank the game</label>
+            <select v-model="userPoint" style="float: left;margin-top:20px;">
+                <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
+            </select>
+            <input type="file" id="u" v-on:change="pictureComment($event)" capture="camera" accept="image/*" style="margin-top:20px;margin-left:20px;width:110px;cursor:pointer;font-size: 17px;float: left;" title="picture" />
             <a v-on:click.prevent="sendComment" class="button" href="#" style="margin-top:10px;margin-left:20px;margin-bottom:10px;width:110px;display: inline-block;font-size: 25px;float: left;">Comment</a>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
@@ -163,8 +167,11 @@
                 points: "gives 4.5 points",
                 content: "lajiyouxi,chaping!",
                 userName: "ShowMaker",
+                uid: "",
+                tid: "",
             }],
-            fileObj: ""
+            fileObj: "",
+            userPoint: 5,
         },
         created: function() {
             outThis = this
@@ -182,6 +189,19 @@
                 for (var obj in JsonRe) {
                     outThis.branches.push({
                         info: JsonRe[obj].description
+                    })
+                }
+            })
+            ajax("get", "http://10.21.100.129:9090/postbar/infoByGid?gid=8", null, true, function(x) {
+                var jsonRe = JSON.parse(x.responseText)
+                for (var obj in jsonRe) {
+                    outThis.commentList.push({
+                        avatarUrl: jsonRe[obj].user_picture,
+                        points: "gives " + jsonRe[obj].points + " points",
+                        content: jsonRe[obj].content,
+                        userName: jsonRe[obj].name,
+                        uid: jsonRe[obj].uid,
+                        tid: jsonRe[obj].tid
                     })
                 }
             })
@@ -232,7 +252,7 @@
                 formData.append("content", encodeURI(this.userComment))
                 formData.append("gid", 8)
                 formData.append("uid", 1)
-                formData.append("points", 4.8)
+                formData.append("points", this.userPoint)
                 ajax("post", "http://10.21.100.129:9090/postbar/setupPostbar", formData, false, function(x) {
                     if (x.responseText == 1) {
                         alert("comment successfully")
