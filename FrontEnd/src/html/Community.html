@@ -32,7 +32,7 @@
                 <div class="form-group">
                     <input id="top-nav-search" type="text" class="form-control" placeholder="Findings...">
                 </div>
-                <button type="submit" class="btn btn-primary">Search</button>
+                <button type="submit" class="btn">Search</button>
             </form>
         </div><!-- /.nav-collapse -->
     </div><!-- /.container -->
@@ -50,7 +50,7 @@
                     </div>
                     <div style="padding-left: 15px;padding-right: 15px;text-align: center" class="caption">
                         <h3 id="user-name">The shy</h3>
-                        <p>我的个性签名</p>
+                        <p>I am a boy</p>
                     </div>
                 </div>
             </div>
@@ -92,12 +92,16 @@
             <div id="center-window">
                 <div id="textBox_new">
                 <textarea id="txtNew" prefix class="form-control textBox-input"
-                          placeholder="有什么开心的事，快告诉你的朋友们吧~"></textarea>
+                          placeholder="Say...."></textarea>
                     <div id="button-textBox">
                         <div class="btn-group btn-group-sm">
-                            <button type="button" class="btn btn-default"><span class="icon-star"></span> Emotions</button>
-                            <button type="button" class="btn btn-default"><span class="icon-camera"></span> Pictures</button>
-                            <button type="button" class="btn btn-default"><span class="icon-comment"></span> Topics</button>
+                        
+                            <label type="button" class="btn">
+                                    Pictures
+                                    <input type="file" name="" id="">
+                            </label>
+                            
+                            <button type="button" class="btn "><span class="icon-comment"></span> Topics</button>
                         </div>
                         <a id="submitNew" href="#" class="btn btn-success pull-right" role="button">Publish</a>
                     </div>
@@ -350,8 +354,56 @@
     </div>
     <div style="height: 700px"></div>
 </div><!-- 主窗口结束 -->
+<div id="vueDiv" >
 
 
+
+    <div class="friendForDiv" v-for="(friend,index) in  friendList">
+        <div class="avatarDiv" ">
+            <img src="../../figures/icon/dislike.png" style="position: absolute">
+            <a class="imgLink" v-bind:href="'userPage.html?userName='+friend.userName+'&visitor='+userName" style="position: absolute;display: block; width:100px;height:100px;"></a>
+        </div>
+        <div class="userInfoDiv">
+            <label class="userInfo">user name</label></br>
+            <input type="text" class="userInfo" v-model="friend.userName" readonly>
+        </div>
+        <div class="userInfoDiv">
+            <label class="userInfo">remark name</label></br>
+            <input type="text" class="userInfo" v-model="friend.remarkName">
+        </div>
+        <input type="text"><button v-on:click="send">send</button>
+
+    </div>
+</div>
+<script>
+    var vm = new Vue({
+        el: "#vueDiv",
+        data: {
+            friendList: [{
+                "avatar": null,
+                "userName": "huanghao",
+                "remarkName": "dja"
+            }, {
+                "avatar": null,
+                "userName": "fty",
+                "remarkName": "xiaofeng"
+            }, ],
+            userName: "hh",
+        },
+        created: function() {
+            var pageUrl = location.href
+            var index = pageUrl.indexOf("?")
+            var temp = pageUrl.substr(index + 1)
+            index = temp.indexOf("=")
+            this.userName = temp.substr(index + 1)
+        },
+        methods: {
+            send: function() {
+                console.log(this.friendList[1].remarkName)
+            }
+        }
+    })
+</script>
 <script src="js/layout_for_page.js"></script>
 <script src="js/otherFn.js"></script>
 </body>

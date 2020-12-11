@@ -40,21 +40,6 @@
     border-radius: 2%;
     margin-bottom: 10px;
 }
-.right_nav_ad{
-    background-color: #FFFFFF;
-    border: 1px solid #e5e9ef;
-    border-radius: 2%;
-    margin-bottom: 10px;
-    padding-left: 10px;
-    padding-right: 10px;
-    padding-bottom: 10px;
-}
-.right_nav_ad_img{
-    margin-bottom: 7px;
-}
-.right_nav_ad_url{
-    margin-top: 5px;
-}
 #textBox_new{
     padding-bottom: 13px;
 }
@@ -103,56 +88,6 @@ h5 {
     margin-bottom: 15px;
 }
 
-/*QR标记*/
-#qrCode {
-    width: 140px;
-    height: 140px;
-    border: 1px solid #e5e9ef;
-    position: absolute;
-    top: 41%;
-    right: 125%;
-    display: none;
-}
-#qrCode>img {
-    width: 140px;
-    height: 140px;
-}
-/*两个三角形成尖角*/
-#qrCode:after {
-    border: 10px solid transparent;
-    border-left: 10px solid #e5e9ef;
-    width: 0;
-    height: 0;
-    position: absolute;
-    content: ' ';
-    left: 100%;
-    top: 24%;
-}
-#qrCode:before {
-    border: 10px solid transparent;
-    border-left: 10px solid #e5e9ef;
-    width: 0;
-    height: 0;
-    position: absolute;
-    content: ' ';
-    left: 100%;
-    top: 24%;
-}
-
-/* 粉丝列表 */
-.ty{
-    padding-left: 0;
-}
-.tx {
-    margin-bottom: 10px;
-}
-.addFollow{
-    margin-top: 5px;
-}
-.tx>a>img {
-    border: 1px solid #e5e9ef;
-}
-
 /*个人信息列表*/
 .info_list {
     padding-left: 10px;
@@ -161,4 +96,32 @@ h5 {
 }
 .info_list>li{
     margin-bottom: 10px;
+} 
+
+.btn{
+    position: relative;
+    display:inline-block;
+    width: 75px;
+    height: 25px;
+    overflow: hidden;
+    text-align: center;
+    font-size: 14px;
+    line-height: 25px;
+    vertical-align: center;
+    border-radius: 5px;
+    border: 1px solid #e5e9ef;
+    background-color: white;
+}
+.btn:hover{
+    cursor: pointer;
+    border: 1px solid #e5e9ef;
+    background-color: bisque;
+
+}
+.btn input{
+    position: absolute;
+    left: 5;
+    top: 5;
+    right: 5;
+    opacity: 0;
 }
