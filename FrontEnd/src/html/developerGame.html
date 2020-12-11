@@ -8,6 +8,7 @@
     <title>DeveloperGame</title>
     <link rel="stylesheet" type="text/css" href="../css/developerGame.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
+    <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
 </head>
 
 <body>
@@ -20,6 +21,7 @@
             <a class="link" style="margin-left: 1150px;" href="login.html">sign-in</a>
             <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
         </div>
+        <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
         <div style="height:100px;"></div>
         <div class="gameDiv" v-for="(game,index) in gameList">
             <div class="gameImgDiv">
@@ -43,20 +45,30 @@
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">release date</label></br>
-                <input class="gameInfo" type="date" style="width:100px;font-size: 10px;">
+                <input class="gameInfo" type="date" style="width:120px;font-size: 13px;margin-left: 10px;">
             </div>
             <div class="gameInfoDiv">
-                <label class="gameInfo">discount</label></br>
-                <input class="gameInfo" type="text" style="width:80px;margin-right: 0px;">% til
-                <input class="gameInfo" type="date" style="width:100px;font-size: 10px;">
+                <label class="gameInfo" style="margin-bottom: 0px;">discount</label></br>
+                <input class="gameInfo" type="text" style="width:80px;margin-right: 0px;font-size: 10px;margin-bottom:10px;margin-left: 10px;">% til
+                <input class="gameInfo" type="date" style="width:120px;font-size: 13px;margin-left: 10px;">
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">description</label></br>
                 <textarea style="width:120px;height:30px;margin-left: 10px;"></textarea>
             </div>
             <div class="gameInfoDiv">
-                <a class="button" href="#" style="margin: 40px 20px;width:80px;">submit</a>
+                <a class="button" href="#" style="margin-top:25px;margin-left:25px;width:80px;">submit</a>
+                <a class="button" href="#" style="margin-top:10px;margin-left:25px;width:80px;">delete</a>
             </div>
+        </div>
+        <a class="button" v-on:click.prevent="uploadGame('uploadGameDiv')" href="#" style="margin-top:10px;margin-left:1265px;width:120px;font-size: 20px;">new game</a>
+        <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+            <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">game name:</label><input type="text" class="userInfo" style="margin-left:0;margin-top: 50px;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
+            <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewGame('uploadGameDiv')">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('uploadGameDiv')">Cancle</a>
         </div>
     </div>
 </body>
@@ -74,8 +86,7 @@
 
         },
         methods: {
-            submit: function() {
-            },
+            submit: function() {},
             DLCchanged: function(index, event) {
                 this.gameList[index].DLC = event.target.files[0]
                 reader = new FileReader();
@@ -84,6 +95,15 @@
                 };
                 console.log(typeof(this.gameList[index].DLC))
                 reader.readAsText(this.gameList[index].DLC);
+            },
+            uploadGame: function(divID) {
+                show(divID)
+            },
+            hide: function(divID) {
+                hide(divID)
+            },
+            submitNewGame: function(divID) {
+                hide(divID)
             }
         }
     })

@@ -47,7 +47,7 @@ a.button:hover {
 }
 
 div.gameDiv {
-    background-color: cornflowerblue;
+    /* background-color: cornflowerblue; */
     width: 1340px;
     height: 100px;
     /* height: 100px; */
@@ -65,7 +65,7 @@ div.gameImgDiv {
 
 div.gameInfoDiv {
     float: left;
-    background-color: chartreuse;
+    /* background-color: chartreuse; */
     height: 100px;
     width: 150px;
     border: 1px solid black;
