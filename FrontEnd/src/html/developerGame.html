@@ -28,47 +28,70 @@
                 <img>
             </div>
             <div class="gameInfoDiv">
-                <label class="gameInfo">game name</label></br>
-                <input class="gameInfo" type="text" v-model="game.gameName">
+                <label class="gameInfo">game name</label>
+                <input class="gameInfo" type="text" v-model="game.gameName"></br>
+                <label class="gameInfo">price</label>
+                <input class="gameInfo" type="text" v-model="game.gamePrice"></br>
+                <label class="gameInfo">release date</label>
+                <input class="gameInfo" type="date" v-model="game.gameDate" style="width:120px;font-size: 13px;margin-left: 0px;"></br>
+                <label class="gameInfo" style="margin-bottom: 0px;">discount</label>
+                <input class="gameInfo" type="text" v-model="game.discount" style="width:60px;height:20px;margin-right: 0px;font-size: 15px;margin-bottom:10px;margin-left: 0px;">% til
+                <input class="gameInfo" type="date" v-model="game.discountTime" style="width:120px;font-size: 13px;margin-left: 10px;">
             </div>
-            <div class="gameInfoDiv">
+            <div style="float: left;width:148px;height:250px;background:aqua;">
+                <a class="button" href="#" v-on:click.prevent="show('addBranchDiv')" style="margin-top:45px;margin-left:10px;width:120px;font-size: 20px;">Add Branch</a>
+                <a class="button" href="#" v-on:click.prevent="show('addDLCDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Add DLC</a>
+                <a class="button" href="#" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Delete</a>
+                <a class="button" href="#" v-on:click="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Submit</a>
+            </div>
+            <!-- <div class="gameInfoDiv">
                 <label class="gameInfo">upload DLC/update</label></br>
                 <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">upload branch</label></br>
                 <input class="gameInfo" type="file" style="width:150px;margin-left:10px;font-size: 10px;" v-on:change="DLCchanged(index,$event)">
+            </div> -->
+
+            <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Description</label></br>
+                <textarea v-model="game.gameDescription" style="width:550px;height:60px;margin-left: 140px;resize: none;"></textarea>
             </div>
-            <div class="gameInfoDiv">
-                <label class="gameInfo">price</label></br>
-                <input class="gameInfo" type="text">
+            <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Branch</label></br>
+                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;"></textarea>
             </div>
-            <div class="gameInfoDiv">
-                <label class="gameInfo">release date</label></br>
-                <input class="gameInfo" type="date" style="width:120px;font-size: 13px;margin-left: 10px;">
+            <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;margin-bottom: 20px;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">DLC</label></br>
+                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;"></textarea>
             </div>
-            <div class="gameInfoDiv">
-                <label class="gameInfo" style="margin-bottom: 0px;">discount</label></br>
-                <input class="gameInfo" type="text" style="width:80px;margin-right: 0px;font-size: 10px;margin-bottom:10px;margin-left: 10px;">% til
-                <input class="gameInfo" type="date" style="width:120px;font-size: 13px;margin-left: 10px;">
-            </div>
-            <div class="gameInfoDiv">
-                <label class="gameInfo">description</label></br>
-                <textarea style="width:120px;height:30px;margin-left: 10px;"></textarea>
-            </div>
-            <div class="gameInfoDiv">
-                <a class="button" href="#" style="margin-top:25px;margin-left:25px;width:80px;">submit</a>
-                <a class="button" href="#" style="margin-top:10px;margin-left:25px;width:80px;">delete</a>
-            </div>
+            <!-- <div class="gameInfoDiv">
+                
+            </div> -->
         </div>
-        <a class="button" v-on:click.prevent="uploadGame('uploadGameDiv')" href="#" style="margin-top:10px;margin-left:1265px;width:120px;font-size: 20px;">new game</a>
+        <a class="button" v-on:click.prevent="show('uploadGameDiv')" href="#" style="margin-top:10px;margin-left:1245px;width:120px;height:30px;font-size: 20px;">New Game</a>
         <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-            <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">game name:</label><input type="text" class="userInfo" style="margin-left:0;margin-top: 50px;"></br>
-            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
-            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
-            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">game name:</label><input type="text" v-model="gameName" class="userInfo" style="margin-left:0;margin-top: 50px;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload game:</label><input v-on:change="newGameUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">description file:</label><input v-on:change="newDescriptionUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">price:</label><input v-model="gamePrice" type="text" class="userInfo" style="margin-left: 0;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">release date:</label><input v-model="gameDate" type="date" class="userInfo" style="margin-left: 0;"></br>
             <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewGame('uploadGameDiv')">Submit</a>
             <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('uploadGameDiv')">Cancle</a>
+        </div>
+
+        <div id="addBranchDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+            <textarea v-model="gameName" class="userInfo" placeholder="please enter branch description" style="margin-left:80px;margin-top: 50px;width:230px;height:80px;resize: none"></textarea></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload branch:</label><input v-on:change="newGameUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+            <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewGame('uploadGameDiv')">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addBranchDiv')">Cancle</a>
+        </div>
+
+        <div id="addDLCDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+            <textarea v-model="gameName" class="userInfo" placeholder="please enter DLC description" style="margin-left:80px;margin-top: 50px;width:230px;height:80px;resize: none"></textarea></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload branch:</label><input v-on:change="newGameUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+            <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewGame('uploadGameDiv')">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addDLCDiv')">Cancle</a>
         </div>
     </div>
 </body>
@@ -79,14 +102,44 @@
             gameList: [{
                 gameName: "hh",
                 DLC: null,
+                gid: "",
+                gamePrice: "36",
+                gameDate: "",
+                discount: "78",
+                discountTime: "",
+                gameDescription: "hhh",
             }, {
-                gameName: "hh",
+                gameName: "LOL",
                 DLC: null,
+                gid: "",
+                gamePrice: "250",
+                gameDate: "",
+                discount: "100",
+                discountTime: "",
+                gameDescription: "cool!",
             }, ],
+            gameName: "",
+            gamePrice: "",
+            gameFile: "",
+            gameDate: "2000-05-02",
+            gameDescription: "",
 
         },
         methods: {
-            submit: function() {},
+            submitChange: function(index) {
+                var formData = new FormData()
+                formData.append("name", this.gameList[index].gameName)
+                formData.append("price", this.gameList[index].gamePrice)
+                formData.append("release_date", this.gameList[index].gameDate)
+                formData.append("discount", this.gameList[index].discount)
+                formData.append("end_time", this.gameList[index].discountTime)
+                formData.append("g_des", this.gameList[index].gameDescription)
+                formData.append("gid", 1)
+                ajax("post", "http://10.21.100.129:9090/game/update", formData, false, function(x) {
+
+                })
+
+            },
             DLCchanged: function(index, event) {
                 this.gameList[index].DLC = event.target.files[0]
                 reader = new FileReader();
@@ -96,14 +149,38 @@
                 console.log(typeof(this.gameList[index].DLC))
                 reader.readAsText(this.gameList[index].DLC);
             },
-            uploadGame: function(divID) {
+            show: function(divID) {
                 show(divID)
             },
             hide: function(divID) {
                 hide(divID)
             },
             submitNewGame: function(divID) {
+                console.log(this.gameDate)
+                var formData = new FormData();
+                formData.append("uid", 1)
+                formData.append("name", this.gameName)
+                formData.append("Description", this.gameDescription)
+                formData.append("price", this.gamePrice)
+                formData.append("release", this.gameDate)
+                formData.append("path", this.gameFile)
+                console.log(this.gameDate)
+                ajax("post", "http://10.21.100.129:9090/game/setupGame", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("upload successfully")
+                    } else {
+                        alert("upload failed")
+                    }
+                })
                 hide(divID)
+                location.reload()
+
+            },
+            newGameUpload: function(event) {
+                this.gameFile = event.target.files[0]
+            },
+            newDescriptionUpload: function(event) {
+                this.gameDescription = event.target.files[0]
             }
         }
     })
