@@ -24,8 +24,9 @@
         <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
         <div style="height:100px;"></div>
         <div class="gameDiv" v-for="(game,index) in gameList">
-            <div class="gameImgDiv">
+            <div class="gameImgDiv" style="position: relative">
                 <img>
+                <input type="file" style="position: absolute;width:350px;height:250px;opacity: 0;" accept=".mp4" v-on:change="newGameVideoUpload($event,index)" title="upload your video">
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">game name</label>
@@ -67,6 +68,14 @@
                 <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addBranchDiv')">Cancle</a>
             </div>
+
+            <div id="addDLCDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">upload description:</label><input v-on:change="newDLCDescriptionUpload(index,$event)" type="file" class="userInfo" style="margin-left: 0;width:200px;margin-top: 50px;"></br>
+                </br>
+                <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload DLC:</label><input v-on:change="newDLCUpload(index,$event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+                <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewDLC('addDLCDiv',index)">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addDLCDiv')">Cancle</a>
+            </div>
         </div>
 
 
@@ -84,12 +93,7 @@
 
 
 
-        <div id="addDLCDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-            <textarea v-model="gameName" class="userInfo" placeholder="please enter DLC description" style="margin-left:80px;margin-top: 50px;width:230px;height:80px;resize: none"></textarea></br>
-            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload branch:</label><input v-on:change="newGameUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
-            <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewGame('uploadGameDiv')">Submit</a>
-            <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addDLCDiv')">Cancle</a>
-        </div>
+
     </div>
 </body>
 <script>
@@ -98,7 +102,11 @@
         data: {
             gameList: [{
                 gameName: "hh",
-                DLC: null,
+                gameVideo: "",
+                DLC: {
+                    description: "",
+                    file: ""
+                },
                 branch: {
                     description: "",
                     file: ""
@@ -111,7 +119,11 @@
                 gameDescription: "hhh",
             }, {
                 gameName: "LOL",
-                DLC: null,
+                gameVideo: "",
+                DLC: {
+                    description: "",
+                    file: ""
+                },
                 branch: {
                     description: "",
                     file: ""
@@ -145,14 +157,11 @@
                 })
 
             },
-            DLCchanged: function(index, event) {
-                this.gameList[index].DLC = event.target.files[0]
-                reader = new FileReader();
-                reader.onload = function FileReaderCompleted() {
-                    console.log(reader.result);
-                };
-                console.log(typeof(this.gameList[index].DLC))
-                reader.readAsText(this.gameList[index].DLC);
+            newDLCUpload: function(index, event) {
+                this.gameList[index].DLC.file = event.target.files[0]
+            },
+            newDLCDescriptionUpload: function(index, event) {
+                this.gameList[index].DLC.description = event.target.files[0]
             },
             show: function(divID) {
                 show(divID)
@@ -190,12 +199,40 @@
             newBranchUpload: function(event, index) {
                 this.gameList[index].branch.file = event.target.files[0]
             },
+            newGameVideoUpload: function(event, index) {
+                this.gameList[index].gameVideo = event.target.files[0]
+                var formData = new FormData()
+                formData.append("gid", 8)
+                formData.append("video", this.gameList[index].gameVideo)
+                ajax("post", "http://10.21.100.129:9090/game/newVideo", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("upload successfully")
+                    } else {
+                        alert("upload failed")
+                    }
+                })
+            },
             submitNewBranch: function(divID, index) {
                 var formData = new FormData()
                 formData.append("gid", 8)
                 formData.append("Description", this.gameList[index].branch.description)
                 formData.append("path", this.gameList[index].branch.file)
                 ajax("post", "http://10.21.100.129:9090/game/newBranch", formData, true, function(x) {
+                    if (x.responseText == 1) {
+                        alert("add successfully")
+                    } else {
+                        alert("add failed")
+                    }
+                })
+                hide(divID)
+            },
+            submitNewDLC: function(divID, index) {
+                var formData = new FormData()
+                formData.append("gid", 8)
+                formData.append("did", 1)
+                formData.append("Description", this.gameList[index].DLC.description)
+                formData.append("path", this.gameList[index].DLC.file)
+                ajax("post", "http://10.21.100.129:9090/game_dlc_path/setupGdp", formData, true, function(x) {
                     if (x.responseText == 1) {
                         alert("add successfully")
                     } else {
