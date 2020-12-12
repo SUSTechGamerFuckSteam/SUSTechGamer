@@ -129,8 +129,8 @@
             </div>
 
             <textarea style="width:920px;height:100px;margin-top: 20px;margin-left:10px;resize: none;float: left;" placeholder="leave your comment and picture here (need purchase first)" v-model="userComment"></textarea>
-            <!-- <label style="float: left;width:100px;font-size:15px;margin-top:20px;font-weight: bold;">rank the game</label>
-            <select v-model="userPoint" style="float: left;margin-top:20px;">
+
+            <!-- <select v-model="userPoint" style="float: left;margin-top:20px;">
                 <option>5</option><option>4</option><option>3</option><option>2</option><option>1</option>
             </select> -->
             <div class="starRating" style="float:left;width:150px;">
@@ -142,7 +142,9 @@
                     <li><a href="javascript:;">5</a></li>
                 </ul>
             </div>
-            <input type="file" id="u" v-on:change="pictureComment($event)" capture="camera" accept="image/*" style="margin-top:20px;margin-left:20px;width:110px;cursor:pointer;font-size: 17px;float: left;" title="picture" />
+            <label style="float: left;width:100px;font-size:15px;margin-top:0px;margin-left:10px;font-weight: bold;">rank the game:</label>
+            <input id="info" v-model="userPoint" style="float: left;width:20px;height:15px;" readonly>
+            <input type="file" id="u" v-on:change="pictureComment($event)" capture="camera" accept="image/*" style="margin-top:10px;margin-left:20px;width:110px;cursor:pointer;font-size: 17px;float: left;" title="picture" />
             <a v-on:click.prevent="sendComment" class="button" href="#" style="margin-top:10px;margin-left:20px;margin-bottom:10px;width:110px;display: inline-block;font-size: 25px;float: left;">Comment</a>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
@@ -301,17 +303,17 @@
             list[i - 1].index = i;
             list[i - 1].onmouseover = function(e) {
                 fnShow(this.index);
-                info.innerHTML = "评分: " + e.target.innerText;
+                info.value = e.target.innerText;
             }
             list[i - 1].onmouseout = function(e) {
                     fnShow(0);
-                    info.innerHTML = "评分: " + e.target.innerText;
+                    info.value = e.target.innerText;
                 }
                 // click事件会触发一次mouseover和一次mouseout，所以点击时改变tempnum确定鼠标离开时几颗星亮
             list[i - 1].onclick = function(e) {
                 tempNum = this.index;
                 console.log("评分: " + e.target.innerText);
-                info.innerHTML = "评分: " + e.target.innerText;
+                info.value = e.target.innerText;
             }
         }
         console.log("end");

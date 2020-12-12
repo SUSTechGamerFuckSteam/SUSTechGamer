@@ -181,8 +181,8 @@ textarea.branchInfo {
 }
 
 .starRating {
-    border: 1px solid black;
     width: 300px;
+    height: 70px;
     margin: 0 0;
     text-align: center;
 }
@@ -213,4 +213,5 @@ textarea.branchInfo {
     padding-top: 0px;
     margin-top: 8px;
     overflow: hidden;
+    opacity: 0;
 }
