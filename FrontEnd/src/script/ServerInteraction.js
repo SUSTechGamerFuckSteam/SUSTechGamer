@@ -40,7 +40,7 @@ function login_ajax() {
 
     var userinfo = "inAccount=" + logname + "&inPsw=" + logpass;
 
-    var url = "http://10.21.52.79:8080/test/login?name=" + logname + "&password=" + logpass;
+    var url = "http://10.21.100.129:9090/user/login?name=" + logname + "&password=" + logpass;
 
     xmlhttprequest = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
@@ -48,7 +48,7 @@ function login_ajax() {
         if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
             var result = xmlhttprequest.responseText;
             if (result != "Fail") {
-                window.location.href = "Store.html?uid=" + logname;
+                window.location.href = "Store.html?uid=" + result;
             } else {
                 // document.getElementById("xiaoxi").innerHTML = "登录失败！";
                 alert("用户名或密码错误！")
