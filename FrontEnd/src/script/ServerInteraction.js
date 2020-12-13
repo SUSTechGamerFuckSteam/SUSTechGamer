@@ -3,7 +3,6 @@
  * @param url: (String)请求的url
  * @param isAsynchronous: (boolean)请求是否为异步
  * @param func: (函数)需要执行的操作
- * @param arguments: func中所需要的参数
  */
 function ajax(type, url, data, isAsynchronous, f) {
     let xmlHttp = null;

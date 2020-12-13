@@ -8,8 +8,6 @@
     <link rel="stylesheet" href="../css/Community.css"/>
     <script src="../script/jquery-3.4.1.min.js"></script>
     <script src="../script/bootstrap.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-    <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
 </head>
 <body style="padding-top: 50px">
 <div class="navbar navbar-fixed-top navbar-default" role="navigation">
@@ -90,7 +88,7 @@
             </div>
 
         </div><!-- 左窗口-->
-        <div class="col-md-6 col-sm-8" id="vueDiv" v-cloak>
+        <div class="col-md-6 col-sm-8" id="centerBox">
             <div id="center-window">
                 <div id="textBox_new">
                 <textarea id="txtNew" prefix class="form-control textBox-input"
@@ -100,12 +98,26 @@
                         
                             <label type="button" class="btn">
                                     Pictures
-                                    <input type="file" name="" id="">
+                                    <input type="file" name="upload_pics" id="upload_pics">
                             </label>
-                            
+                            <script>
+                                let CURR_UID = 1;
+                                function publish(){
+                                    let pics = document.getElementById("upload_pics").files;
+                                    let text = document.getElementById("txtNew").value;
+                                    let curr_uid = CURR_UID;
+                                    let formData = new FormData();
+                                    formData.append("uid", curr_uid.toString());
+                                    formData.append("pics", pics);
+                                    formData.append("text", text);
+                                    ajax("post", "http://36058s3d36.zicp.vip/static/game/1game/picture/game.jpg", formData, true, function(x){
+                                        //todo
+                                    });
+                                }
+                            </script>
                             <button type="button" class="btn "><span class="icon-comment"></span> Topics</button>
                         </div>
-                        <a id="submitNew"  v-on:click.prevent="sendComment" href="#" class="btn btn-success pull-right" role="button">Publish</a>
+                        <a id="submitNew" href="#" class="btn btn-success pull-right" role="button" onclick="publish()">Publish</a>
                     </div>
                 </div>
             </div>
@@ -359,6 +371,7 @@
 <div id="vueDiv" >
 
 
+
     <div class="friendForDiv" v-for="(friend,index) in  friendList">
         <div class="avatarDiv" ">
             <img src="../../figures/icon/dislike.png" style="position: absolute">
@@ -378,83 +391,29 @@
 </div>
 <script>
     var vm = new Vue({
-        el: '#vueDiv',
+        el: "#vueDiv",
         data: {
-
-            test: "hh\nnima\nhh",
-            gameVideoUrl: "",
-
-            gameDescription: "this is the best game in SUSTech\nLOL!!!!!",
-            screenshotsUrl: "",
-
-            discount: "(discount 87%, original $600)",
-            uid: 1,
-            gid: 6,
-            userComment: "",
-            commentList: [{
-                avatarUrl: "",
-                points: "gives 4.5 points",
-                content: "lajiyouxi,chaping!",
-                userName: "ShowMaker",
-                uid: "",
-                tid: "",
-            }],
-            fileObj: "",
-            userPoint: 5,
+            friendList: [{
+                "avatar": null,
+                "userName": "huanghao",
+                "remarkName": "dja"
+            }, {
+                "avatar": null,
+                "userName": "fty",
+                "remarkName": "xiaofeng"
+            }, ],
+            userName: "hh",
         },
         created: function() {
-            outThis = this
-            var jsonObj = parsePageUrl(location.href)
-            console.log(JSON.stringify(jsonObj))
-            ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=6", null, true, function(x) {
-                outThis.price = x.responseText
-            })
-            ajax("get", "http://10.21.100.129:9090/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
-                outThis.userBalance = x.responseText
-            })
-            ajax("get", "http://10.21.100.129:9090/game/findBranchBygid?id=8", null, true, function(x) {
-                var JsonRe = JSON.parse(x.responseText)
-                console.log(JsonRe)
-                for (var obj in JsonRe) {
-                    outThis.branches.push({
-                        info: JsonRe[obj].description
-                    })
-                }
-            })
-            ajax("get", "http://10.21.100.129:9090/postbar/infoByGid?gid=8", null, true, function(x) {
-                var jsonRe = JSON.parse(x.responseText)
-                for (var obj in jsonRe) {
-                    outThis.commentList.push({
-                        avatarUrl: jsonRe[obj].user_picture,
-                        points: "gives " + jsonRe[obj].points + " points",
-                        content: jsonRe[obj].content,
-                        userName: jsonRe[obj].name,
-                        uid: jsonRe[obj].uid,
-                        tid: jsonRe[obj].tid
-                    })
-                }
-            })
+            var pageUrl = location.href
+            var index = pageUrl.indexOf("?")
+            var temp = pageUrl.substr(index + 1)
+            index = temp.indexOf("=")
+            this.userName = temp.substr(index + 1)
         },
         methods: {
-            pictureComment: function(event) {
-                var fileObj = event.target.files[0]
-                this.fileObj = fileObj
-            },
-            sendComment: function() {
-                var formData = new FormData()
-                if (this.fileObj != null)
-                    formData.append("picture", this.fileObj)
-                formData.append("content", encodeURI(this.userComment))
-                formData.append("gid", 8)
-                formData.append("uid", 1)
-                formData.append("points", this.userPoint)
-                ajax("post", "http://10.21.100.129:9090/postbar/setupPostbar", formData, false, function(x) {
-                    if (x.responseText == 1) {
-                        alert("comment successfully")
-                    } else {
-                        alert("comment failed")
-                    }
-                })
+            send: function() {
+                console.log(this.friendList[1].remarkName)
             }
         }
     })
