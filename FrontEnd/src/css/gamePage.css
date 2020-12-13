@@ -179,3 +179,39 @@ textarea.branchInfo {
 [v-cloak] {
     display: none;
 }
+
+.starRating {
+    width: 300px;
+    height: 70px;
+    margin: 0 0;
+    text-align: center;
+}
+
+.starRating ul {
+    overflow: hidden;
+    padding: 0px;
+}
+
+.starRating ul li {
+    float: left;
+    width: 30px;
+    height: 30px;
+    margin-left: 0px;
+    list-style: none;
+    background: url(../../figures/temporary/gamePageImg/star.png) no-repeat 50% 50%;
+    background-size: cover;
+}
+
+.starRating ul li.light {
+    background: url(../../figures/temporary/gamePageImg/star_actived.png) no-repeat 50% 0;
+    background-size: contain;
+}
+
+.starRating ul li a {
+    display: block;
+    width: 100%;
+    padding-top: 0px;
+    margin-top: 8px;
+    overflow: hidden;
+    opacity: 0;
+}
