@@ -98,12 +98,26 @@
                         
                             <label type="button" class="btn">
                                     Pictures
-                                    <input type="file" name="" id="">
+                                    <input type="file" name="upload_pics" id="upload_pics">
                             </label>
-                            
+                            <script>
+                                let CURR_UID = 1;
+                                function publish(){
+                                    let pics = document.getElementById("upload_pics").files;
+                                    let text = document.getElementById("txtNew").value;
+                                    let curr_uid = CURR_UID;
+                                    let formData = new FormData();
+                                    formData.append("uid", curr_uid.toString());
+                                    formData.append("pics", pics);
+                                    formData.append("text", text);
+                                    ajax("post", "http://36058s3d36.zicp.vip/static/game/1game/picture/game.jpg", formData, true, function(x){
+                                        //todo
+                                    });
+                                }
+                            </script>
                             <button type="button" class="btn "><span class="icon-comment"></span> Topics</button>
                         </div>
-                        <a id="submitNew" href="#" class="btn btn-success pull-right" role="button">Publish</a>
+                        <a id="submitNew" href="#" class="btn btn-success pull-right" role="button" onclick="publish()">Publish</a>
                     </div>
                 </div>
             </div>
