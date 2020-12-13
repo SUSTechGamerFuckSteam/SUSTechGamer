@@ -9,6 +9,15 @@
     <link rel="stylesheet" type="text/css" href="../css/developerGame.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
+    <style>
+        .firstScreenshot {
+            margin-left: 100px;
+        }
+        
+        .normalScreenshot {
+            margin-left: 50px;
+        }
+    </style>
 </head>
 
 <body>
@@ -40,13 +49,23 @@
                 <input class="gameInfo" type="date" v-model="game.discountTime" style="width:120px;font-size: 13px;margin-left: 10px;">
             </div>
             <div style="float: left;width:148px;height:250px;background:aqua;">
-                <a class="button" href="#" v-on:click.prevent="show('addBranchDiv')" style="margin-top:45px;margin-left:10px;width:120px;font-size: 20px;">Add Branch</a>
-                <a class="button" href="#" v-on:click.prevent="show('addDLCDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Add DLC</a>
-                <a class="button" href="#" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Delete</a>
-                <a class="button" href="#" v-on:click="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 20px;">Submit</a>
+                <a class="button" href="#" v-on:click.prevent="show('addBranchDiv')" style="margin-top:15px;margin-left:10px;width:120px;font-size: 15px;">Add Branch</a>
+                <a class="button" href="#" v-on:click.prevent="show('addDLCDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add DLC</a>
+                <a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add Tag</a>
+                <a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Screenshot</a>
+                <a class="button" href="#" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Delete</a>
+                <a class="button" href="#" v-on:click="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Submit</a>
             </div>
 
 
+
+            <div style="float: left;width:900px;height:150px;margin-left: 0px;border:1px solid gray;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Screenshots</label></br>
+                <img v-for="(img,imgIndex) in game.imgList" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex=screenshotIndex}" style="width:150px;height:100px;" src="../../figures/temporary/userPageImgs/game01.jpg" v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
+
+                <a class="button" href="#" style="margin-top:0px;margin-left:50px;width:80px;height:40px;font-size: 30px;line-height: 40px;" v-on:click.prevent="prevScreenshot">&lt</a>
+                <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="margin-top:0px;margin-left:10px;width:80px;height:40px;font-size: 30px;line-height: 40px;">&gt</a>
+            </div>
             <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Description</label></br>
                 <textarea v-model="game.gameDescription" style="width:550px;height:60px;margin-left: 140px;resize: none;"></textarea>
@@ -75,6 +94,16 @@
                 <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload DLC:</label><input v-on:change="newDLCUpload(index,$event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
                 <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewDLC('addDLCDiv',index)">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addDLCDiv')">Cancle</a>
+            </div>
+
+            <div id="addTagDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">Tag 1:</label><input type="text" v-model="game.tag[0]" class="userInfo" style="margin-left:0;margin-top: 50px;"></br>
+                <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">Tag 2:</label><input type="text" v-model="game.tag[1]" class="userInfo" style="margin-left:0;margin-top: 10px;"></br>
+                <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">Tag 3:</label><input type="text" v-model="game.tag[2]" class="userInfo" style="margin-left:0;margin-top: 10px;"></br>
+                <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">Tag 4:</label><input type="text" v-model="game.tag[3]" class="userInfo" style="margin-left:0;margin-top: 10px;"></br>
+                <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">Tag 5:</label><input type="text" v-model="game.tag[4]" class="userInfo" style="margin-left:0;margin-top: 10px;"></br>
+                <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewDLC('addDLCDiv',index)">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addTagDiv')">Cancle</a>
             </div>
         </div>
 
@@ -111,6 +140,8 @@
                     description: "",
                     file: ""
                 },
+                tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
+                imgList: [{}, {}, {}, {}, {}],
                 gid: "",
                 gamePrice: "36",
                 gameDate: "",
@@ -128,6 +159,8 @@
                     description: "",
                     file: ""
                 },
+                tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
+                imgList: [{}, {}, {}, {}, {}],
                 gid: "",
                 gamePrice: "250",
                 gameDate: "",
@@ -140,6 +173,7 @@
             gameFile: "",
             gameDate: "2000-05-02",
             gameDescription: "",
+            screenshotIndex: 2,
 
         },
         methods: {
@@ -240,6 +274,12 @@
                     }
                 })
                 hide(divID)
+            },
+            nextScreenshot: function() {
+                this.screenshotIndex += 3
+            },
+            prevScreenshot: function() {
+                this.screenshotIndex -= 3
             }
         }
     })

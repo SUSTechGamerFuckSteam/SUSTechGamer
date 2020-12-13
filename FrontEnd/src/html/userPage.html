@@ -13,6 +13,7 @@
     <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css">
+    <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.css" rel="stylesheet">
 
 </head>
 
@@ -37,7 +38,7 @@
                         <span class="title">Home</span>
                     </a>
                 </li>
-                <li>
+                <li v-if="!visitor">
                     <a href="friend.html?userName='+userName">
                         <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                         <span class="title">Friends</span>
@@ -49,7 +50,7 @@
                         <span class="title">Messages</span>
                     </a>
                 </li>
-                <li>
+                <li v-if="!visitor">
                     <a href="#" v-on:click.prevent="changePassword('changePasswordDiv')" v-if="!visitor">
                         <span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>
                         <span class="title">Password</span>
@@ -61,20 +62,33 @@
                         <span class="title">Administrator</span>
                     </a>
                 </li>
+                <li v-if="!visitor">
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <span class="title">E-Mail</span>
+                    </a>
+                </li>
 
-                <li>
+                <!-- <li>
                     <a href="Community.html">
                         <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
                         <span class="title">Community</span>
                     </a>
 
-                </li>
-                <li>
+                </li> -->
+                <li v-if="!visitor&developer">
                     <a href="developerGame.html?userName='+userName">
                         <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
                         <span class="title">Developer</span>
                     </a>
                 </li>
+                <li v-if="visitor">
+                    <a href="friend.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="title">Add Friend</span>
+                    </a>
+                </li>
+                <li>
             </ul>
         </div>
         <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
@@ -121,8 +135,8 @@
 
 
             <div class="inlineDiv" style="position:relative;">
-                <!-- <img id="userImg" v-bind:src="avatarUrl" title="change avatar" style="position: absolute"> -->
-                <!-- <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" /> -->
+                <img id="userImg" v-bind:src="avatarUrl" title="change avatar" style="position: absolute">
+                <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
 
                 <p class="imgReminder">Talyor Swift</p>
             </div>
@@ -130,7 +144,7 @@
 
 
 
-            <div class="inlineDiv" style="background-color: aquamarine;" v-if="!visitor">
+            <div class="inlineDiv" style="background-color: aquamarine;margin-right: 0px;" v-if="!visitor">
                 <div id="moneyDiv">{{balance}}</div>
                 <a class="button" href="#" v-on:click.prevent="recharge" v-if="!visitor" style="width:85px;margin: 30px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
                 <p class="imgReminder">My Account</p>
@@ -278,7 +292,7 @@
             introduction: "hh\nhh\nnima ",
             balance: "$520 ",
             modify: "Modify ",
-            avatarUrl: "D://SUSTech/workspaces/VS code workspace/game03.jpg",
+            avatarUrl: "../../figures/temporary/userPageImgs/zhubie.jpg",
             visitor: false,
             visitorName: "adad",
             developer: true,
@@ -303,7 +317,7 @@
         created: function() {
             var jsonObj = parsePageUrl(location.href)
             if (jsonObj.userName != jsonObj.visitor) {
-                this.visitor = false
+                this.visitor = true
                 this.visitorName = jsonObj.visitor
             } else {
                 this.visitor = false
