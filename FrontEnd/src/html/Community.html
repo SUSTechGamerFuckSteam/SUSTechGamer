@@ -8,6 +8,7 @@
     <link rel="stylesheet" href="../css/Community.css"/>
     <script src="../script/jquery-3.4.1.min.js"></script>
     <script src="../script/bootstrap.min.js"></script>
+    <script src="../script/ServerInteraction.js"></script>
 </head>
 <body style="padding-top: 50px">
 <div class="navbar navbar-fixed-top navbar-default" role="navigation">
@@ -103,14 +104,18 @@
                             <script>
                                 let CURR_UID = 1;
                                 function publish(){
-                                    let pics = document.getElementById("upload_pics").files;
+                                    let pics = document.getElementById("upload_pics").files[0];
                                     let text = document.getElementById("txtNew").value;
                                     let curr_uid = CURR_UID;
                                     let formData = new FormData();
                                     formData.append("uid", curr_uid.toString());
-                                    formData.append("pics", pics);
-                                    formData.append("text", text);
-                                    ajax("post", "http://36058s3d36.zicp.vip/static/game/1game/picture/game.jpg", formData, true, function(x){
+                                    if (pics.length !== 1){
+                                        formData.append("picture", pics);
+                                    }else {
+                                        alert("Only one pic is allowed!");
+                                    }
+                                    formData.append("content", text);
+                                    ajax("post", "http://10.21.100.129:9090/comment/addComment?tid=8", formData, true, function(x){
                                         //todo
                                     });
                                 }
