@@ -232,15 +232,35 @@ $(function() {
 /**
  * 点赞点踩功能
  */
+let LIKE_CLICKED = false;
+let DISLIKE_CLICKED = false;
 function community_like(){//todo
-	ajax("get", "http://10.21.100.129:9090/comment/like?cid=7", null, true, function (){});
-    let like = document.getElementById("like");
-    like.src = "../../figures/icon/liked.png";
-    console.log("like");
+	if (!LIKE_CLICKED && !DISLIKE_CLICKED){
+		ajax("get", "http://10.21.100.129:9090/comment/like?cid=7", null, true, function (){});
+    	let like = document.getElementById("like");
+    	like.src = "../../figures/icon/liked.png";
+    	console.log("like");
+    	LIKE_CLICKED = true;
+	}else if (LIKE_CLICKED && !DISLIKE_CLICKED){
+		ajax("get", "http://http://10.21.100.129:9090/comment/likeWithdraw?cid=7", null, true, function (){});
+		let like = document.getElementById("like");
+		like.src = "../../figures/icon/like.png";
+		console.log("like withdraw");
+		LIKE_CLICKED = false;
+	}
 }
 function community_dislike(){//todo
-    ajax("get", "http://10.21.100.129:9090/comment/dislike?cid=7", null, true, function(){});
-    let dislike = document.getElementById("dislike");
-    dislike.src = "../../figures/icon/disliked.png";
-    console.log("dislike");
+	if (!LIKE_CLICKED && !DISLIKE_CLICKED) {
+		ajax("get", "http://10.21.100.129:9090/comment/dislike?cid=7", null, true, function () {});
+		let dislike = document.getElementById("dislike");
+		dislike.src = "../../figures/icon/disliked.png";
+		console.log("dislike");
+		DISLIKE_CLICKED = true;
+	}else if (!LIKE_CLICKED && DISLIKE_CLICKED){
+		ajax("get", "http://http://10.21.100.129:9090/comment/likeWithdraw?cid=7", null, true, function (){});
+		let dislike = document.getElementById("dislike");
+		dislike.src = "../../figures/icon/dislike.png";
+		console.log("dislike withdraw");
+		DISLIKE_CLICKED = false;
+	}
 }
