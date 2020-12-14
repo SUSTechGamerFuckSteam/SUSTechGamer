@@ -14,15 +14,8 @@ function login() {
  */
 function search(){
 	let query = document.getElementById("search_content").value;
-	let game_list = []
-	ajax("get", "http://10.21.100.129:9090/game/findByName?name="+query.toString(), null, false, function(x){
-		let result = JSON.parse(x.responseText);
-		console.log(result);
-		if (result!==null){
-			alert(" search yes");
-			//todo
-		}
-	});
+	window.location.href = "./Search.html" + "?query=" + query;
+
 }
 
 /**
@@ -242,7 +235,7 @@ function community_like(){//todo
     	console.log("like");
     	LIKE_CLICKED = true;
 	}else if (LIKE_CLICKED && !DISLIKE_CLICKED){
-		ajax("get", "http://http://10.21.100.129:9090/comment/likeWithdraw?cid=7", null, true, function (){});
+		ajax("get", "http://10.21.100.129:9090/comment/likeWithdraw?cid=7", null, true, function (){});
 		let like = document.getElementById("like");
 		like.src = "../../figures/icon/like.png";
 		console.log("like withdraw");
@@ -257,7 +250,7 @@ function community_dislike(){//todo
 		console.log("dislike");
 		DISLIKE_CLICKED = true;
 	}else if (!LIKE_CLICKED && DISLIKE_CLICKED){
-		ajax("get", "http://http://10.21.100.129:9090/comment/likeWithdraw?cid=7", null, true, function (){});
+		ajax("get", "http://10.21.100.129:9090/comment/dislikeWithdraw?cid=7", null, true, function (){});
 		let dislike = document.getElementById("dislike");
 		dislike.src = "../../figures/icon/dislike.png";
 		console.log("dislike withdraw");
