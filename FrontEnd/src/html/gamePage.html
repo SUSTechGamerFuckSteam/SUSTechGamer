@@ -9,6 +9,18 @@
     <link rel="stylesheet" type="text/css" href="../css/gamePage.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
+
+    <style>
+        .firstScreenshot {
+            float: left;
+            background-color: rgba(255, 255, 255, 0.9);
+            /* color: rgba(20, 20, 80, 1); */
+            width: 350px;
+            height: 250px;
+            margin-bottom: 20px;
+            margin-left: 0px;
+        }
+    </style>
 </head>
 
 <body>
@@ -44,14 +56,15 @@
             <p id="downloadBranch" class="clasify">
                 <span id="reminder">Screenshots</span>
             </p>
-            <div class="inlineDiv" style="margin-left: 0px;"></div>
-            <div class="inlineDiv"></div>
-            <div class="inlineDiv"></div>
+            <div v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false" class="inlineDiv" v-for="(img,imgIndex) in screenshotsUrl" v-bind:class="{'firstScreenshot':imgIndex==screenshotIndex}">
+                <img v-bind:src="img.url" style="width:350px;height:250px;">
+            </div>
+
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&lt</a>
+                <a v-on:click.prevent="prevScreenshot" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&gt</a>
+                <a v-on:click.prevent="nextScreenshpt" class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
 
 
@@ -165,7 +178,9 @@
             gameVideoUrl: "http://36058s3d36.zicp.vip/static/game/8game/video/game.mp4",
             price: "520",
             gameDescription: "this is the best game in SUSTech\nLOL!!!!!",
-            screenshotsUrl: "",
+            screenshotsUrl: [{
+                url: "../../figures/temporary/gamePageImg/star.png"
+            }],
             branches: [],
             DLCs: "",
             branchIndex: 0,
@@ -184,6 +199,7 @@
             fileObj: "",
             userPoint: 5,
             gamePoint: "",
+            screenshotIndex: 0,
         },
         created: function() {
             outThis = this
@@ -220,7 +236,15 @@
             ajax("get", "http://10.21.100.129:9090/postbar/getPoints?gid=8", null, true, function(x) {
                 outThis.gamePoint = x.responseText
             })
-
+            ajax("get", "http://10.21.100.129:9090/game/getShoot?gid=8", null, true, function(x) {
+                console.log("number: " + x.responseText)
+                for (var i = 1; i <= x.responseText; i++) {
+                    console.log("i: " + i)
+                    outThis.screenshotsUrl.push({
+                        url: "http://36058s3d36.zicp.vip/static/game/" + outThis.gid + "game/shoot/" + i + "shoot.jpg"
+                    })
+                }
+            })
         },
         methods: {
             nextBranch: function() {
@@ -228,6 +252,12 @@
             },
             prevBranch: function() {
                 this.branchIndex -= 3
+            },
+            nextScreenshpt: function() {
+                this.screenshotIndex += 3
+            },
+            prevScreenshot: function() {
+                this.screenshotIndex -= 3
             },
             purchaseGame: function() {
                 var purchasable = false
