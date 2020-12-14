@@ -103,7 +103,7 @@ function getWindowHeight(){
 window.onscroll = function() {
     if(getScrollTop() + getWindowHeight() === getScrollHeight()) {
 		if (GAME_LIST_COUNT === 0) {
-			ajax("get", "http://10.21.100.129:9090/game/getAllGame", null, false, function (game_list) {
+			ajax("get", "http://10.21.100.129:9090/game/getAllGame", null, true, function (game_list) {
 				console.log("entering return");
 				let result = JSON.parse(game_list.responseText);
 				console.log(result);
@@ -229,6 +229,9 @@ $(function() {
 	}
 })
 
+/**
+ * 点赞点踩功能
+ */
 function community_like(){//todo
 	ajax("get", "http://10.21.100.129:9090/comment/like?cid=7", null, true, function (){});
     let like = document.getElementById("like");
