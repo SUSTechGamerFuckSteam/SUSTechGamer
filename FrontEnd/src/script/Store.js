@@ -229,9 +229,15 @@ $(function() {
 	}
 })
 
-function community_like(){
-    alert("community like");
+function community_like(){//todo
+	ajax("get", "http://10.21.100.129:9090/comment/like?cid=7", null, true, function (){});
+    let like = document.getElementById("like");
+    like.src = "../../figures/icon/liked.png";
+    console.log("like");
 }
-function community_dislike(){
-    alert("community dislike");
+function community_dislike(){//todo
+    ajax("get", "http://10.21.100.129:9090/comment/dislike?cid=7", null, true, function(){});
+    let dislike = document.getElementById("dislike");
+    dislike.src = "../../figures/icon/disliked.png";
+    console.log("dislike");
 }
