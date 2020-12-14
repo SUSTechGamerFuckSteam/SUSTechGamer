@@ -313,6 +313,7 @@
             }, ],
             branchIndex: 0,
             uid: "",
+            test: "huh",
 
         },
         created: function() {
@@ -325,7 +326,7 @@
             }
             this.userName = jsonObj.userName
             outThis = this
-            ajax("get", "http://10.21.52.79:8080/test/getFullInfo?uid=1", null, true, function(xmlHttp) {
+            ajax("get", "http://10.21.100.129:9090/user/getFullInfo?uid=1", null, true, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
                 console.log(xmlHttp.responseText)
                 outThis.userName = result.userName
@@ -385,11 +386,11 @@
                     formData.append("uid", 1)
                     formData.append("birth", this.birthday)
                     formData.append("description", this.introduction)
-                    ajax("post", "http://10.21.52.79:8080/test/changeInfo", formData, true, function(x) {
+                    ajax("post", "http://10.21.100.129:9090/user/changeInfo", formData, false, function(x) {
                         alert(x.responseText)
                     })
 
-                    location.reload()
+
                 }
 
             },

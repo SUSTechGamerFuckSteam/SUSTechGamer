@@ -52,7 +52,7 @@
                 <a class="button" href="#" v-on:click.prevent="show('addBranchDiv')" style="margin-top:15px;margin-left:10px;width:120px;font-size: 15px;">Add Branch</a>
                 <a class="button" href="#" v-on:click.prevent="show('addDLCDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add DLC</a>
                 <a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add Tag</a>
-                <a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Screenshot</a>
+                <span style="margin-top:20px;margin-left:10px;width:120px;height:17px;position: relative;display:inline-block;"><a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:0px;margin-left:0px;width:120px;font-size: 15px;position: absolute">Screenshot</a></span>
                 <a class="button" href="#" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Delete</a>
                 <a class="button" href="#" v-on:click="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Submit</a>
             </div>
@@ -61,7 +61,7 @@
 
             <div style="float: left;width:900px;height:150px;margin-left: 0px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Screenshots</label></br>
-                <img v-for="(img,imgIndex) in game.imgList" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex=screenshotIndex}" style="width:150px;height:100px;" src="../../figures/temporary/userPageImgs/game01.jpg" v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
+                <img v-for="(img,imgIndex) in game.imgList" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex==screenshotIndex}" style="width:150px;height:100px;" src="../../figures/temporary/userPageImgs/game01.jpg" v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
 
                 <a class="button" href="#" style="margin-top:0px;margin-left:50px;width:80px;height:40px;font-size: 30px;line-height: 40px;" v-on:click.prevent="prevScreenshot">&lt</a>
                 <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="margin-top:0px;margin-left:10px;width:80px;height:40px;font-size: 30px;line-height: 40px;">&gt</a>
@@ -175,6 +175,17 @@
             gameDescription: "",
             screenshotIndex: 2,
 
+        },
+        created: function() {
+            var outThis = this
+            ajax("get", "", null, true, function(x) {
+
+            })
+            ajax("get", "http://10.21.100.129:9090/game/getShoot", null, true, function(x) {
+                for (var i = 1; i <= x.responseText; i++) {
+
+                }
+            })
         },
         methods: {
             submitChange: function(index) {
