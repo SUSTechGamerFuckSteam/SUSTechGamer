@@ -256,7 +256,7 @@
     left: 400px;
     font-family: Arial Black, Gadget, sans-serif;
 }
-.game_list_div span:hove{
+.game_list_div span:hover{
     color: deepskyblue;
 }
 .game_list_div img{
