@@ -32,7 +32,7 @@
 			try{
 				let q = parsePageUrl(window.location.href);
 				if (q.hasOwnProperty("uid"))
-					UID = UID.uid;
+					UID = q.uid;
 			}catch (Exception){
 				console.log(Exception)
 			}

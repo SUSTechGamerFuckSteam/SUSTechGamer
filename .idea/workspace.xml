@@ -19,14 +19,10 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8a5e03d-8d0e-42e7-9023-bf5be97b753a" name="Default Changelist" comment="实现了点赞逻辑并与后端交互，实现了搜索，优化了主页面游戏列表风格">
-      <change afterPath="$PROJECT_DIR$/FrontEnd/figures/background/cyberpunk2077.gif" afterDir="false" />
+    <list default="true" id="c8a5e03d-8d0e-42e7-9023-bf5be97b753a" name="Default Changelist" comment="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/src/css/Search.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/css/Search.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/src/css/Store.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/css/Store.css" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Search.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Search.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/src/script/Store.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/script/Store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
     <option name="HIGHLIGHT_CONFLICTS" value="true" />
@@ -66,7 +62,7 @@
       <option name="presentableId" value="Default" />
       <updated>1607694926674</updated>
       <workItem from="1607694928610" duration="15219000" />
-      <workItem from="1607953681735" duration="13934000" />
+      <workItem from="1607953681735" duration="14421000" />
     </task>
     <task id="LOCAL-00001" summary="新增简易主页面交互，社区交互">
       <created>1607871237478</created>
@@ -110,7 +106,21 @@
       <option name="project" value="LOCAL" />
       <updated>1607958802783</updated>
     </task>
-    <option name="localTasksCounter" value="7" />
+    <task id="LOCAL-00007" summary="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。">
+      <created>1607971159036</created>
+      <option name="number" value="00007" />
+      <option name="presentableId" value="LOCAL-00007" />
+      <option name="project" value="LOCAL" />
+      <updated>1607971159036</updated>
+    </task>
+    <task id="LOCAL-00008" summary="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。">
+      <created>1607971179445</created>
+      <option name="number" value="00008" />
+      <option name="presentableId" value="LOCAL-00008" />
+      <option name="project" value="LOCAL" />
+      <updated>1607971179445</updated>
+    </task>
+    <option name="localTasksCounter" value="9" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -135,7 +145,8 @@
     <MESSAGE value="主页面能够正确地显示开场动画，修复了网络卡顿导致的网页停止响应的问题" />
     <MESSAGE value="新增点赞点踩逻辑，交互未测试" />
     <MESSAGE value="实现了点赞逻辑并与后端交互，实现了搜索，优化了主页面游戏列表风格" />
-    <option name="LAST_COMMIT_MESSAGE" value="实现了点赞逻辑并与后端交互，实现了搜索，优化了主页面游戏列表风格" />
+    <MESSAGE value="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。" />
+    <option name="LAST_COMMIT_MESSAGE" value="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。" />
   </component>
   <component name="WindowStateProjectService">
     <state x="180" y="101" key="MergeDialog" timestamp="1607871343528">
@@ -146,10 +157,10 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="534" y="328" key="MultipleFileMergeDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1607871343575" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1607958810482">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1607971187098">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1607958810482" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1607971187098" />
     <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607871258544">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
@@ -160,7 +171,7 @@
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/FrontEnd/src/html/gamePage.html</url>
-          <line>263</line>
+          <line>293</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>
