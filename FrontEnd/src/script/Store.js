@@ -4,8 +4,7 @@ let GAME_LIST = [];
  * 登陆功能
  */
 function login() {
-    window.location.href = "Login.html";
-    //todo: 若已经登陆，则不显示登陆按钮，显示用户头像
+	window.location.href = "./Login.html";
 }
 
 
@@ -13,9 +12,13 @@ function login() {
  * 主页面搜索功能
  */
 function search(){
+	let uid = parsePageUrl(window.location.href).uid
 	let query = document.getElementById("search_content").value;
-	window.location.href = "./Search.html" + "?query=" + query;
-
+	if(uid === null){
+		window.location.href = "./Search.html" + "?query=" + query;
+	}else {
+		window.location.href = "./Search.html?uid="+parsePageUrl(window.location.href).uid + "&query=" + query;
+	}
 }
 
 /**
@@ -28,10 +31,12 @@ function arrange_game_list(){
     let game_list = [];
 	let game_pics = [];
 	let game_descriptions = [];
+	let gid = [];
     for (let i = GAME_LIST_COUNT; i < GAME_LIST_COUNT+5 && i < list.length; i++){
     	game_list.push(list[i]["name"]);
     	game_pics.push("http://36058s3d36.zicp.vip/static/game/"+list[i]["gid"].toString()+"game/picture/game.jpg");
 		game_descriptions.push(list[i]["g_des"]);
+		gid.push(list[i]["gid"]);
 	}
 
     let game_list_div = document.getElementById("game_list");
@@ -52,6 +57,14 @@ function arrange_game_list(){
         let description = document.createElement("p");
         description.innerHTML = game_descriptions[i];
         game_list_div.children[i + GAME_LIST_COUNT].appendChild(description);
+
+        game_list_div.children[i + GAME_LIST_COUNT].addEventListener("click", function(){
+        	if (parsePageUrl(window.location.href).uid === null) {
+				window.location.href = "./gamePage.html?gid=" + gid[i].toString();
+			}else {
+        		window.location.href = "./gamePage.html?uid="+parsePageUrl(window.location.href).uid+"&gid=" + gid[i].toString();
+			}
+		});
     }
     GAME_LIST_COUNT += game_list.length;
 }
@@ -227,7 +240,7 @@ $(function() {
  */
 let LIKE_CLICKED = false;
 let DISLIKE_CLICKED = false;
-function community_like(){//todo
+function community_like(){
 	if (!LIKE_CLICKED && !DISLIKE_CLICKED){
 		ajax("get", "http://10.21.100.129:9090/comment/like?cid=7", null, true, function (){});
     	let like = document.getElementById("like");
@@ -242,7 +255,7 @@ function community_like(){//todo
 		LIKE_CLICKED = false;
 	}
 }
-function community_dislike(){//todo
+function community_dislike(){
 	if (!LIKE_CLICKED && !DISLIKE_CLICKED) {
 		ajax("get", "http://10.21.100.129:9090/comment/dislike?cid=7", null, true, function () {});
 		let dislike = document.getElementById("dislike");
