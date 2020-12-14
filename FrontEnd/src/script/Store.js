@@ -14,15 +14,8 @@ function login() {
  */
 function search(){
 	let query = document.getElementById("search_content").value;
-	let game_list = []
-	ajax("get", "http://10.21.100.129:9090/game/findByName?name="+query.toString(), null, false, function(x){
-		let result = JSON.parse(x.responseText);
-		console.log(result);
-		if (result!==null){
-			alert(" search yes");
-			//todo
-		}
-	});
+	window.location.href = "./Search.html" + "?query=" + query;
+
 }
 
 /**
@@ -103,7 +96,7 @@ function getWindowHeight(){
 window.onscroll = function() {
     if(getScrollTop() + getWindowHeight() === getScrollHeight()) {
 		if (GAME_LIST_COUNT === 0) {
-			ajax("get", "http://10.21.100.129:9090/game/getAllGame", null, false, function (game_list) {
+			ajax("get", "http://10.21.100.129:9090/game/getAllGame", null, true, function (game_list) {
 				console.log("entering return");
 				let result = JSON.parse(game_list.responseText);
 				console.log(result);
@@ -229,9 +222,38 @@ $(function() {
 	}
 })
 
-function community_like(){
-    alert("community like");
+/**
+ * 点赞点踩功能
+ */
+let LIKE_CLICKED = false;
+let DISLIKE_CLICKED = false;
+function community_like(){//todo
+	if (!LIKE_CLICKED && !DISLIKE_CLICKED){
+		ajax("get", "http://10.21.100.129:9090/comment/like?cid=7", null, true, function (){});
+    	let like = document.getElementById("like");
+    	like.src = "../../figures/icon/liked.png";
+    	console.log("like");
+    	LIKE_CLICKED = true;
+	}else if (LIKE_CLICKED && !DISLIKE_CLICKED){
+		ajax("get", "http://10.21.100.129:9090/comment/likeWithdraw?cid=7", null, true, function (){});
+		let like = document.getElementById("like");
+		like.src = "../../figures/icon/like.png";
+		console.log("like withdraw");
+		LIKE_CLICKED = false;
+	}
 }
-function community_dislike(){
-    alert("community dislike");
+function community_dislike(){//todo
+	if (!LIKE_CLICKED && !DISLIKE_CLICKED) {
+		ajax("get", "http://10.21.100.129:9090/comment/dislike?cid=7", null, true, function () {});
+		let dislike = document.getElementById("dislike");
+		dislike.src = "../../figures/icon/disliked.png";
+		console.log("dislike");
+		DISLIKE_CLICKED = true;
+	}else if (!LIKE_CLICKED && DISLIKE_CLICKED){
+		ajax("get", "http://10.21.100.129:9090/comment/dislikeWithdraw?cid=7", null, true, function (){});
+		let dislike = document.getElementById("dislike");
+		dislike.src = "../../figures/icon/dislike.png";
+		console.log("dislike withdraw");
+		DISLIKE_CLICKED = false;
+	}
 }

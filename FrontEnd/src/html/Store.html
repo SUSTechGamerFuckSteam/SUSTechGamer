@@ -17,18 +17,17 @@
 	<div id="loading"></div>
 	<style type="text/css">
 		#loading{
-			z-index:100;
-			padding:10000px 10000px 10000px 10000px;
+			z-index:500;
+			padding:9000px 9000px 10000px 10000px;
 			background:url(../../figures/icon/logo.gif) no-repeat 10px top;
-			left:0;top:0;width:90px;
+			left:-110px;top:-150px;width:90px;
 			position:fixed;
 			height:21px
 		}
 	</style>
 	<script type="text/javascript">
 		window.onload=function (){
-			setTimeout(function (){}, 2000);
-			$("#loading").fadeOut(1000);
+			setTimeout("$(\"#loading\").fadeOut(100);", 1600);
 		}
 	</script>
 	<div id="top_bar">

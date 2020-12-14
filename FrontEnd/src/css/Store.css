@@ -86,7 +86,7 @@
     border-top: 5px solid #eee;
     border-right: 5px solid #eee;
     transform: rotate(45deg);
-    z-index: 999;
+    z-index: 100;
 }
 .left_btn{
     position: absolute;
@@ -98,7 +98,7 @@
     border-bottom: 5px solid #eee;
     border-left: 5px solid #eee;
     transform: rotate(45deg);
-    z-index: 999;
+    z-index: 100;
 }
 .circles{
     position: absolute;
@@ -107,7 +107,7 @@
     left: 50%;
     bottom: 0;
     margin-left: -135px;
-    z-index: 999;
+    z-index: 100;
 }
 .circles ol{
     list-style: none;
@@ -215,14 +215,26 @@
 /* game list*/
 .game_list_div{
     width: 1080px;
-    height: 500px;
+    height: 200px;
     background-color: beige;
     margin: 30px auto auto;
+    position: relative;
 }
 .game_list_div span{
+    position: absolute;
+    background-color: beige;
+    top: 50px;
+    left: 400px;
     font-family: Arial Black, Gadget, sans-serif;
 }
 .game_list_div img{
-    max-height: 100%;
-    width: auto;
+    width: 356px;
+    height: 200px;
+}
+.game_list_div p{
+    position: absolute;
+    background-color: beige;
+    top: 100px;
+    left: 400px;
+
 }
