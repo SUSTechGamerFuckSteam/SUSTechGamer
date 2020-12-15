@@ -64,6 +64,7 @@ body {
 
 label.userInfo {
     /* background-color: blue; */
+    color: rgb(70, 115, 121);
     display: inline-block;
     width: 80px;
     margin-left: 30px;
@@ -79,9 +80,14 @@ span.userInfo {
 
 input.userInfo {
     background-color: white;
+    color: rgb(70, 115, 121);
     display: inline-block;
-    width: 110px;
+    width: 130px;
     margin-left: 30px;
+}
+
+select.userInfo {
+    width: 130px;
 }
 
 #moneyDiv {
