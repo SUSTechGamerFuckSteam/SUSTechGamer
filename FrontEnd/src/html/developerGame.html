@@ -7,6 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DeveloperGame</title>
     <link rel="stylesheet" type="text/css" href="../css/developerGame.css" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
     <style>
@@ -21,15 +22,94 @@
 </head>
 
 <body>
+
+    <div class="toggle" onclick="toggleMenu()"></div>
+    <script type="text/javascript">
+        function toggleMenu() {
+            let navigation = document.querySelector('.navigation');
+            let toggle = document.querySelector('.toggle');
+            navigation.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
     <div id="vueDiv">
-        <div id="headerDiv">
+
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="Store.html">
+                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                        <span class="title">Store</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="userPage.html">
+                        <span class="icon"><i class="fa fa-folder" aria-hidden="true"></i></span>
+                        <span class="title">Library</span>
+                    </a>
+                </li>
+                <li v-if="!visitor">
+                    <a href="friend.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="title">Friends</span>
+                    </a>
+                </li>
+                <li>
+                    <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName">
+                        <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
+                        <span class="title">Messages</span>
+                    </a>
+                </li>
+                <li v-if="!visitor">
+                    <a href="#" v-on:click.prevent="changePassword('changePasswordDiv')" v-if="!visitor">
+                        <span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                        <span class="title">Administrator</span>
+                    </a>
+                </li>
+                <li v-if="!visitor">
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
+                        <span class="title">E-Mail</span>
+                    </a>
+                </li>
+
+                <li>
+                    <a href="Community.html">
+                        <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
+                        <span class="title">Community</span>
+                    </a>
+                </li>
+                <li v-if="!visitor&developer">
+                    <a href="developerGame.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
+                        <span class="title">Developer</span>
+                    </a>
+                </li>
+                <li v-if="visitor">
+                    <a href="friend.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="title">Add Friend</span>
+                    </a>
+                </li>
+                <li>
+            </ul>
+        </div>
+        <a class="link" style="margin-left: 1250px;;" href="login.html">sign-in</a>
+        <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
+        <!-- <div id="headerDiv">
             <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
             <a class="link">Community | </a>
             <a>first | </a>
             <a>first | </a>
             <a class="link" style="margin-left: 1150px;" href="login.html">sign-in</a>
             <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
-        </div>
+        </div> -->
         <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
         <div style="height:100px;"></div>
         <div class="gameDiv" v-for="(game,index) in gameList">

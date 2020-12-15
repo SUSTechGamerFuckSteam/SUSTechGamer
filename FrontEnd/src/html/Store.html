@@ -26,23 +26,62 @@
 		}
 	</style>
 	<script type="text/javascript">
+		let UID = null;
 		window.onload=function (){
 			setTimeout("$(\"#loading\").fadeOut(100);", 1600);
+			try{
+				let q = parsePageUrl(window.location.href);
+				if (q.hasOwnProperty("uid"))
+					UID = q.uid;
+			}catch (Exception){
+				console.log(Exception)
+			}
+			if (UID !== null){
+				let buttons = document.getElementsByClassName("top_bar_btn");
+				for (let i = 0; i < buttons.length; i ++){
+					buttons[i].href = buttons[i].href + "?uid=" + UID.toString();
+				}
+				add_user_info();
+			}
+		}
+		function add_user_info(){
+			let login_btn = document.getElementById("login_btn");
+			login_btn.remove();
+			let user_info = document.createElement("div");
+			user_info.id = "user_info";
+			let user_avatar = document.createElement("img");
+			user_avatar.id = "user_avatar";
+			let user_name = document.createElement("b");
+			user_name.id = "user_name";
+			user_avatar.src = "http://36058s3d36.zicp.vip/static/user/"+UID.toString()+"/photo.jpg";
+			ajax("get", "http://10.21.100.129:9090/user/findNameByUid?uid="+UID.toString(), null, true, function(ua){
+				user_name.innerHTML = ua.responseText;
+			});
+			user_info.appendChild(user_name);
+			user_info.appendChild(user_avatar);
+			user_info.addEventListener("click", function(){
+				window.location.href = "userPage.html?uid="+UID.toString();
+			});
+			let tb = document.getElementById("top_bar");
+			tb.appendChild(user_info);
 		}
 	</script>
+	<div id="head_gif">
+
+	</div>
 	<div id="top_bar">
 		<ul id="top_bar_item">
-			<a href="Store.html">Store</a>
-			<a href="userPage.html">Library</a>
-			<a href="Community.html">Community</a>
-			<a href="About.html">About</a>
+			<a class="top_bar_btn" href="Store.html">Store</a>
+			<a class="top_bar_btn" href="userPage.html">Library</a>
+			<a class="top_bar_btn" href="Community.html">Community</a>
+			<a class="top_bar_btn" href="About.html">About</a>
 			
 			<label><input type="text" id="search_content"></label>
 			<img src="../../figures/icon/search_white_16.png" onclick=search()>
-			<a href="login.html">Login</a>
+			<a id="login_btn" href="login.html">Login</a>
 		</ul>
 	</div>
-	<div id="game_recommend">
+	<div id="game_recommend" >
         <div class="carousel">
 			<div class="carousel_img">
 				<ul>
