@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DeveloperGame</title>
     <link rel="stylesheet" type="text/css" href="../css/developerGame.css" />
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css">
+
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
     <style>
@@ -23,93 +23,17 @@
 
 <body>
 
-    <div class="toggle" onclick="toggleMenu()"></div>
-    <script type="text/javascript">
-        function toggleMenu() {
-            let navigation = document.querySelector('.navigation');
-            let toggle = document.querySelector('.toggle');
-            navigation.classList.toggle('active');
-            toggle.classList.toggle('active');
-        }
-    </script>
+
     <div id="vueDiv">
 
-        <div class="navigation">
-            <ul>
-                <li>
-                    <a href="Store.html">
-                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
-                        <span class="title">Store</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="userPage.html">
-                        <span class="icon"><i class="fa fa-folder" aria-hidden="true"></i></span>
-                        <span class="title">Library</span>
-                    </a>
-                </li>
-                <li v-if="!visitor">
-                    <a href="friend.html?userName='+userName">
-                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <span class="title">Friends</span>
-                    </a>
-                </li>
-                <li>
-                    <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName">
-                        <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
-                        <span class="title">Messages</span>
-                    </a>
-                </li>
-                <li v-if="!visitor">
-                    <a href="#" v-on:click.prevent="changePassword('changePasswordDiv')" v-if="!visitor">
-                        <span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>
-                        <span class="title">Password</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
-                        <span class="title">Administrator</span>
-                    </a>
-                </li>
-                <li v-if="!visitor">
-                    <a href="#">
-                        <span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
-                        <span class="title">E-Mail</span>
-                    </a>
-                </li>
-
-                <li>
-                    <a href="Community.html">
-                        <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
-                        <span class="title">Community</span>
-                    </a>
-                </li>
-                <li v-if="!visitor&developer">
-                    <a href="developerGame.html?userName='+userName">
-                        <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
-                        <span class="title">Developer</span>
-                    </a>
-                </li>
-                <li v-if="visitor">
-                    <a href="friend.html?userName='+userName">
-                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <span class="title">Add Friend</span>
-                    </a>
-                </li>
-                <li>
-            </ul>
-        </div>
-        <a class="link" style="margin-left: 1250px;;" href="login.html">sign-in</a>
-        <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
-        <!-- <div id="headerDiv">
+        <div id="headerDiv">
             <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
             <a class="link">Community | </a>
             <a>first | </a>
             <a>first | </a>
             <a class="link" style="margin-left: 1150px;" href="login.html">sign-in</a>
             <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
-        </div> -->
+        </div>
         <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
         <div style="height:100px;"></div>
         <div class="gameDiv" v-for="(game,index) in gameList">
@@ -193,7 +117,7 @@
         <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
             <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">game name:</label><input type="text" v-model="gameName" class="userInfo" style="margin-left:0;margin-top: 50px;"></br>
             <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload game:</label><input v-on:change="newGameUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
-            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">description file:</label><input v-on:change="newDescriptionUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+            <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">description file:</label><input v-on:change="newGameDescriptionUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
             <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">price:</label><input v-model="gamePrice" type="text" class="userInfo" style="margin-left: 0;"></br>
             <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">release date:</label><input v-model="gameDate" type="date" class="userInfo" style="margin-left: 0;"></br>
             <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewGame('uploadGameDiv')">Submit</a>
@@ -258,14 +182,10 @@
         },
         created: function() {
             var outThis = this
-            ajax("get", "", null, true, function(x) {
+                // ajax("get", "http://10.21.100.129:9090/game/getGidList?", null, true, function(x) {
 
-            })
-            ajax("get", "http://10.21.100.129:9090/game/getShoot", null, true, function(x) {
-                for (var i = 1; i <= x.responseText; i++) {
+            // })
 
-                }
-            })
         },
         methods: {
             submitChange: function(index) {
@@ -317,6 +237,9 @@
             },
             newGameUpload: function(event) {
                 this.gameFile = event.target.files[0]
+            },
+            newGameDescriptionUpload: function(event) {
+                this.gameDescription = event.target.files[0]
             },
             newBranchDescriptionUpload: function(event, index) {
                 this.gameList[index].branch.description = event.target.files[0]
