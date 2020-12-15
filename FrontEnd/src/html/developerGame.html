@@ -7,7 +7,7 @@
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
     <title>DeveloperGame</title>
     <link rel="stylesheet" type="text/css" href="../css/developerGame.css" />
-
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css">
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
     <style>
@@ -23,19 +23,86 @@
 
 <body>
 
+    <div class="toggle" onclick="toggleMenu()"></div>
+    <script type="text/javascript">
+        function toggleMenu() {
+            let navigation = document.querySelector('.navigation');
+            let toggle = document.querySelector('.toggle');
+            navigation.classList.toggle('active');
+            toggle.classList.toggle('active');
+        }
+    </script>
+    <div id="vueDiv" v-cloak>
 
-    <div id="vueDiv">
+        <div class="navigation">
+            <ul>
+                <li>
+                    <a href="Store.html">
+                        <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
+                        <span class="title">Store</span>
+                    </a>
+                </li>
 
-        <div id="headerDiv">
+                <li v-if="!visitor">
+                    <a href="friend.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="title">Friends</span>
+                    </a>
+                </li>
+                <li>
+                    <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName">
+                        <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
+                        <span class="title">Messages</span>
+                    </a>
+                </li>
+                <li v-if="!visitor">
+                    <a href="#" v-on:click.prevent="changePassword('changePasswordDiv')" v-if="!visitor">
+                        <span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>
+                        <span class="title">Password</span>
+                    </a>
+                </li>
+                <li>
+                    <a href="#">
+                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
+                        <span class="title">Administrator</span>
+                    </a>
+                </li>
+
+
+                <li>
+                    <a href="Community.html">
+                        <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
+                        <span class="title">Community</span>
+                    </a>
+                </li>
+                <li v-if="visitor">
+                    <a href="friend.html?userName='+userName">
+                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
+                        <span class="title">Add Friend</span>
+                    </a>
+                </li>
+                <li>
+            </ul>
+        </div>
+        <a class="link" style="margin-left: 1250px;;" href="login.html">sign-in</a>
+        <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
+        <!-- <div id="headerDiv">
             <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a>
             <a class="link">Community | </a>
             <a>first | </a>
             <a>first | </a>
             <a class="link" style="margin-left: 1150px;" href="login.html">sign-in</a>
             <a class="link" href="register.html" style="margin-left: 15px;">sign-up</a>
-        </div>
+        </div> -->
         <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
-        <div style="height:100px;"></div>
+        <div style="height:50px;"></div>
+        <div id="changePasswordDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+            <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;"></br>
+            <input type="text" placeHolder="new password" style="margin: 10px 125px;width:150px;"></br>
+            <input type="text" placeHolder="confirm password" style="margin: 10px 125px;width:150px;">
+            <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submit">Submit</a>
+            <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('changePasswordDiv')">Cancle</a>
+        </div>
         <div class="gameDiv" v-for="(game,index) in gameList">
             <div class="gameImgDiv" style="position: relative">
                 <img>
@@ -135,7 +202,7 @@
         data: {
             gameList: [{
                 gameName: "hh",
-                gameVideo: "",
+                gameVideoUrl: "",
                 DLC: {
                     description: "",
                     file: ""
@@ -145,32 +212,13 @@
                     file: ""
                 },
                 tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
-                imgList: [{}, {}, {}, {}, {}],
+                screenshotsUrl: [],
                 gid: "",
                 gamePrice: "36",
                 gameDate: "",
                 discount: "78",
                 discountTime: "",
                 gameDescription: "hhh",
-            }, {
-                gameName: "LOL",
-                gameVideo: "",
-                DLC: {
-                    description: "",
-                    file: ""
-                },
-                branch: {
-                    description: "",
-                    file: ""
-                },
-                tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
-                imgList: [{}, {}, {}, {}, {}],
-                gid: "",
-                gamePrice: "250",
-                gameDate: "",
-                discount: "100",
-                discountTime: "",
-                gameDescription: "cool!",
             }, ],
             gameName: "",
             gamePrice: "",
@@ -178,14 +226,79 @@
             gameDate: "2000-05-02",
             gameDescription: "",
             screenshotIndex: 2,
+            visitor: false,
+            visitorName: "adad",
+            gidList: "",
+            userName: "",
 
         },
         created: function() {
-            var outThis = this
-                // ajax("get", "http://10.21.100.129:9090/game/getGidList?", null, true, function(x) {
+            // var jsonObj = parsePageUrl(location.href)
+            // if (jsonObj.userName != jsonObj.visitor) {
+            //     this.visitor = false;
+            //     this.visitorName = jsonObj.visitor
+            // } else {
+            //     this.visitor = false
+            // }
+            // this.userName = jsonObj.userName
+            // var outThis = this
+            // ajax("get", "", null, true, function(x) {
 
             // })
+            // ajax("get", "http://10.21.100.129:9090/game/getShoot", null, true, function(x) {
+            //     for (var i = 1; i <= x.responseText; i++) {
 
+            //     }
+            // })
+            var outThis = this
+            ajax("get", "http://10.21.100.129:9090/game/getGidList?uid=1", null, false, function(x) {
+                console.log(x.responseText)
+                outThis.gidList = x.responseText.split(",")
+                console.log(outThis.gidList)
+            })
+            for (var gid in this.gidList) {
+                ajax("get", "http://10.21.100.129:9090/game/getAllBygid?gid=" + this.gidList[gid], null, false, function(x) {
+                    console.log(x.responseText)
+                    var jsonObj = JSON.parse(x.responseText)
+                    var gameObj = {
+                        gameName: "hh",
+                        gameVideoUrl: "",
+                        DLC: {
+                            description: "",
+                            file: ""
+                        },
+                        branch: {
+                            description: "",
+                            file: ""
+                        },
+                        tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
+                        screenshotsUrl: [],
+                        gid: "",
+                        gamePrice: "36",
+                        gameDate: "",
+                        discount: "78",
+                        discountTime: "",
+                        gameDescription: "hhh",
+                    }
+                    gameObj.gameName = jsonObj.name
+                    gameObj.tag = jsonObj.tag
+                    gameObj.gid = jsonObj.gid
+                    gameObj.gameDate = jsonObj.release_date
+                    gameObj.discount = jsonObj.discount * 100
+                    gameObj.discountTime = jsonObj.dis_end_time
+                    gameObj.gameDescription = jsonObj.description
+                    for (var i = 1; i <= jsonObj.shoot_num; i++) {
+                        gameObj.screenshotsUrl.push({
+                            url: "http://36058s3d36.zicp.vip/static/game/" + gameObj.gid + "game/shoot/" + i + "shoot.jpg"
+                        })
+
+                    }
+                    gameObj.gameVideoUrl = "http://36058s3d36.zicp.vip/static/game/" + gameObj.gid + "game/video/game.mp4"
+                    outThis.gameList.push(gameObj)
+                })
+
+            }
+            console.log(this.gameList)
         },
         methods: {
             submitChange: function(index) {
@@ -235,6 +348,12 @@
                 location.reload()
 
             },
+            changePassword: function(divID) {
+                show(divID)
+            },
+            cancle: function(divID) {
+                hide(divID)
+            },
             newGameUpload: function(event) {
                 this.gameFile = event.target.files[0]
             },
@@ -262,7 +381,7 @@
             },
             submitNewBranch: function(divID, index) {
                 var formData = new FormData()
-                formData.append("gid", 8)
+                formData.append("gid", 1)
                 formData.append("Description", this.gameList[index].branch.description)
                 formData.append("path", this.gameList[index].branch.file)
                 ajax("post", "http://10.21.100.129:9090/game/newBranch", formData, true, function(x) {
@@ -276,7 +395,7 @@
             },
             submitNewDLC: function(divID, index) {
                 var formData = new FormData()
-                formData.append("gid", 8)
+                formData.append("gid", 1)
                 formData.append("did", 1)
                 formData.append("Description", this.gameList[index].DLC.description)
                 formData.append("path", this.gameList[index].DLC.file)

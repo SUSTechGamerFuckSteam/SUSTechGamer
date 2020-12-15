@@ -151,7 +151,7 @@
 
 
             <div class="inlineDiv" style="background-color: aquamarine;margin-right: 0px;" v-if="!visitor">
-                <div id="moneyDiv">{{balance}}</div>
+                <div id="moneyDiv">{{"$"+balance}}</div>
                 <a class="button" href="#" v-on:click.prevent="show('rechargeDiv')" v-if="!visitor" style="width:85px;margin: 50px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
                 <p class="imgReminder">My Account</p>
             </div>
@@ -331,7 +331,7 @@
                 } else {
                     outThis.gender = "Woman "
                 }
-                outThis.balance = "$ " + result.balance
+                outThis.balance = result.balance
             })
             if (this.role = "Developer") {
                 this.developer = true
