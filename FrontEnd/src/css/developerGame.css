@@ -52,7 +52,7 @@ div.gameDiv {
     /* height: 700px; */
     /* height: 100px; */
     margin: 10px auto;
-    margin-bottom: 20px;
+    margin-bottom: 100px;
     position: relative;
 }
 
@@ -201,4 +201,12 @@ input.gameInfo {
         left: 0px;
         width: 100%;
     }
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }

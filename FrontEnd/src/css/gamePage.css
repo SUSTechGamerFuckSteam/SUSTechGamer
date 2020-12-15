@@ -95,7 +95,6 @@ a.button:hover {
     /* background-color: red; */
     background: #a1f5a1;
     width: 1100px;
-    height: 1340px;
     margin: 0 auto;
     position: relative;
 }
@@ -160,7 +159,7 @@ div.branchDiv {
     float: left;
     /* background-color: darksalmon; */
     width: 1100px;
-    height: 90px;
+    height: 100px;
     font-size: 25px;
     margin: 10px 30px;
 }
@@ -169,7 +168,7 @@ textarea.branchInfo {
     margin-top: 10px;
     margin-left: 20px;
     width: 900px;
-    height: 60px;
+    height: 80px;
     background: #cc8c8c;
     float: left;
     resize: none;
@@ -214,4 +213,12 @@ textarea.branchInfo {
     margin-top: 8px;
     overflow: hidden;
     opacity: 0;
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }

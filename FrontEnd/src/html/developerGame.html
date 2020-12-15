@@ -103,7 +103,7 @@
             <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submit">Submit</a>
             <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('changePasswordDiv')">Cancle</a>
         </div>
-        <div class="gameDiv" v-for="(game,index) in gameList">
+        <div class="gameDiv clearfix" v-for="(game,index) in gameList">
             <div class="gameImgDiv" style="position: relative">
                 <img>
                 <input type="file" style="position: absolute;width:350px;height:250px;opacity: 0;" accept=".mp4" v-on:change="newGameVideoUpload($event,index)" title="upload your video">
@@ -123,7 +123,10 @@
                 <a class="button" href="#" v-on:click.prevent="show('addBranchDiv')" style="margin-top:15px;margin-left:10px;width:120px;font-size: 15px;">Add Branch</a>
                 <a class="button" href="#" v-on:click.prevent="show('addDLCDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add DLC</a>
                 <a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add Tag</a>
-                <span style="margin-top:20px;margin-left:10px;width:120px;height:17px;position: relative;display:inline-block;"><a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:0px;margin-left:0px;width:120px;font-size: 15px;position: absolute">Screenshot</a></span>
+                <span style="margin-top:20px;margin-left:10px;width:120px;height:17px;position: relative;display:inline-block;">
+                    <a class="button" href="#"  style="margin-top:0px;margin-left:0px;width:120px;font-size: 15px;position: absolute;">Screenshot</a>
+                    <input type="file" id="userAvatar"  v-on:change="newScreenshootUpload($event,index)" capture="camera" accept="image/*" style="width:120px;height:25px;position:absolute; opacity: 0;cursor:pointer;" title="upload screenshoot" />
+                </span>
                 <a class="button" href="#" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Delete</a>
                 <a class="button" href="#" v-on:click="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Submit</a>
             </div>
@@ -163,6 +166,7 @@
                 <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">upload description:</label><input v-on:change="newDLCDescriptionUpload(index,$event)" type="file" class="userInfo" style="margin-left: 0;width:200px;margin-top: 50px;"></br>
                 </br>
                 <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload DLC:</label><input v-on:change="newDLCUpload(index,$event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
+                <label class="userInfo" style="width:150px;margin-top: 20px;margin-left:40px;text-align: left;display: inline-block;">set price:</label><input type="text" class="userInfo" v-model="game.newDLCPrice" style="margin-left: 0;width:150px;margin-top: 20px;"></br>
                 <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewDLC('addDLCDiv',index)">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('addDLCDiv')">Cancle</a>
             </div>
@@ -180,7 +184,7 @@
 
 
 
-        <a class="button" v-on:click.prevent="show('uploadGameDiv')" href="#" style="margin-top:10px;margin-left:1245px;width:120px;height:30px;font-size: 20px;">New Game</a>
+        <a class="button" v-on:click.prevent="show('uploadGameDiv')" href="#" style="margin-top:10px;margin-left:1245px;width:200px;height:50px;font-size: 30px;line-height: 50px;">New Game</a>
         <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
             <label class="userInfo" style="width:150px;margin-top: 50px;margin-left:40px;text-align: left;display: inline-block;">game name:</label><input type="text" v-model="gameName" class="userInfo" style="margin-left:0;margin-top: 50px;"></br>
             <label class="userInfo" style="width:150px;margin-top: 10px;margin-left:40px;text-align: left;display: inline-block;">upload game:</label><input v-on:change="newGameUpload($event)" type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
@@ -231,6 +235,7 @@
             gidList: "",
             userName: "",
 
+
         },
         created: function() {
             // var jsonObj = parsePageUrl(location.href)
@@ -265,7 +270,8 @@
                         gameVideoUrl: "",
                         DLC: {
                             description: "",
-                            file: ""
+                            file: "",
+                            price: "",
                         },
                         branch: {
                             description: "",
@@ -279,6 +285,7 @@
                         discount: "78",
                         discountTime: "",
                         gameDescription: "hhh",
+                        newDLCPrice: "",
                     }
                     gameObj.gameName = jsonObj.name
                     gameObj.tag = jsonObj.tag
@@ -395,10 +402,11 @@
             },
             submitNewDLC: function(divID, index) {
                 var formData = new FormData()
-                formData.append("gid", 1)
+                formData.append("gid", this.gameList[index].gid)
                 formData.append("did", 1)
                 formData.append("Description", this.gameList[index].DLC.description)
                 formData.append("path", this.gameList[index].DLC.file)
+                formData.append("price", this.gameList[index].newDLCPrice)
                 ajax("post", "http://10.21.100.129:9090/game_dlc_path/setupGdp", formData, true, function(x) {
                     if (x.responseText == 1) {
                         alert("add successfully")
@@ -413,7 +421,10 @@
             },
             prevScreenshot: function() {
                 this.screenshotIndex -= 3
-            }
+            },
+            newScreenshootUpload: function(event, index) {
+
+            },
         }
     })
 </script>
