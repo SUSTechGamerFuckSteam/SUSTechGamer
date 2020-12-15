@@ -95,7 +95,7 @@
                 <textarea class="branchInfo" resizable="false">{{DLC.info}}</textarea>
                 <div style="float: left;width:110px;height:25px;font-size: 18px;text-align: center;margin-top: 10px;">{{"$"+DLC.price}}</div>
                 <a v-on:click.prevent="purchaseDLC(index)" class="button" href="#" style="margin: 5px 20px;width:110px;float: left;display: inline-block;font-size: 20px;">purchase</a>
-                <a class="button" v-bind:href="DLC.path" style="margin: 0px 20px;width:110px;float: left;display: inline-block;font-size: 18px;">download</a>
+                <a class="button" href="#" v-on:click.prevent="downloadDLC(DLC.path,index)" style="margin: 0px 20px;width:110px;float: left;display: inline-block;font-size: 18px;">download</a>
             </div>
 
 
@@ -297,7 +297,7 @@
             },
             purchaseDLC: function(arrayIndex) {
                 var purchasable = false
-                ajax("get", "http://10.21.100.129:9090/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://10.21.100.129:9090/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 0) {
                         purchasable = true
                     }
@@ -310,7 +310,7 @@
                     alert("your balance is not enough")
                     return
                 }
-                ajax("get", "http://10.21.100.129:9090/ugd/buyByuidBygid?uid=" + this.uid + "&gid=" + this.gid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://10.21.100.129:9090/ugd/buyByuidBygid?uid=" + "2" + "&gid=" + this.gid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 1) {
                         alert("purchase successfully")
                     } else {
@@ -339,6 +339,23 @@
                         alert("comment failed")
                     }
                 })
+            },
+            downloadDLC: function(path, arrayIndex) {
+                var purchasable = false
+                ajax("get", "http://10.21.100.129:9090/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                    if (x.responseText == 0) {
+                        purchasable = true
+                    }
+                })
+                if (purchasable) {
+                    alert("you need purchase first")
+                    return
+                }
+                var a = document.createElement('a');
+                var url = path
+                console.log("path: " + path)
+                a.href = url;
+                a.click();
             }
         }
     })

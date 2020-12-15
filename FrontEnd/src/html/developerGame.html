@@ -204,26 +204,7 @@
     var vm = new Vue({
         el: "#vueDiv",
         data: {
-            gameList: [{
-                gameName: "hh",
-                gameVideoUrl: "",
-                DLC: {
-                    description: "",
-                    file: ""
-                },
-                branch: {
-                    description: "",
-                    file: ""
-                },
-                tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
-                screenshotsUrl: [],
-                gid: "",
-                gamePrice: "36",
-                gameDate: "",
-                discount: "78",
-                discountTime: "",
-                gameDescription: "hhh",
-            }, ],
+            gameList: [],
             gameName: "",
             gamePrice: "",
             gameFile: "",
@@ -403,6 +384,7 @@
             submitNewDLC: function(divID, index) {
                 var formData = new FormData()
                 formData.append("gid", this.gameList[index].gid)
+                console.log("index: " + index)
                 formData.append("did", 1)
                 formData.append("Description", this.gameList[index].DLC.description)
                 formData.append("path", this.gameList[index].DLC.file)
