@@ -60,6 +60,57 @@
                 </li>
             </ul>
         </div>
+        <div style="width:1000px;height:80px;"></div>
+
+        <div id="userSearchDiv" class="clearfix">
+            <div style="float: left;width:900px;margin-bottom: 20px;">User Management</div>
+            <div style="float: left;width:900px;">
+                <input type="text" placeholder="search user" style="width:150px;">
+                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">Search</a>
+                <a class="button" href="#" style="width:165px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">+ Create New User</a>
+            </div>
+            <div v-for="(user,userIndex) in searchedUserList" class="searchedUserDiv">
+                <div class="userAvatarDiv">
+                    <img style="position: absolute;height:120px;" src="../../figures/icon/like.png">
+                    <label style="position: absolute;top:120px;width:100px;text-align: center;">huangh</label>
+                </div>
+                <div class="userInfoDiv">
+                    <label class="userInfo">User Name</label><input class="userInfo" type=text><br>
+                    <label class="userInfo">Birthday</label><input class="userInfo" type="date"><br>
+                    <label class="userInfo">Gender:</label>
+                    <select class="userInfo">
+                    <option>Man</option>
+                    <option>Woman</option>
+                    </select></br>
+                    <label class="userInfo">Role:</label>
+                    <select class="userInfo">
+                    <option>User</option>
+                    <option>Developer</option>
+                    </select>
+                </div>
+                <div class="userButtonDiv">
+                    <textarea style="float:left;width:350px;height:100px;resize: none;margin-left: 20px;position: absolute;"></textarea>
+                    <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;position: absolute;top:120px;left:20px;">Submit</a>
+                    <a class="button" href="#" style="width:125px; font-weight: lighter;font-size: 17px;position: absolute;top:120px;left:130px;">Ban Comment</a>
+                </div>
+            </div>
+            <a class="button" href="#" style="width:35px; font-weight: lighter;font-size: 17px;float: left;margin-left: 800px;margin-top: 10px;">&lt</a>
+            <a class="button" href="#" style="width:35px; font-weight: lighter;font-size: 17px;float: left;margin-left: 10px;margin-top: 10px; ">&gt</a>
+        </div>
+
+
+
+        <div id="gameSearchDiv" class="clearfix">
+            <div style="float: left;width:900px;margin-bottom: 20px;">Game Management</div>
+            <div style="float: left;width:900px;">
+                <input type="text" placeholder="search game" style="width:150px;">
+                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">Search</a>
+            </div>
+            <div v-for="(newGame,index) in newGameList" class="newGameDiv">
+
+            </div>
+        </div>
+    </div>
 </body>
 <script>
     var vm = new Vue({
@@ -67,7 +118,10 @@
         data: {
             visitor: false,
             visitorName: "h",
+            developer: "",
             userName: "hh",
+            searchedUserList: [{}],
+            newGameList: [{}]
         }
     })
 </script>
