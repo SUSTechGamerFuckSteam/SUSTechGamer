@@ -21,7 +21,7 @@
   <component name="ChangeListManager">
     <list default="true" id="c8a5e03d-8d0e-42e7-9023-bf5be97b753a" name="Default Changelist" comment="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Search.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Search.html" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Community.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Community.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -62,7 +62,8 @@
       <option name="presentableId" value="Default" />
       <updated>1607694926674</updated>
       <workItem from="1607694928610" duration="15219000" />
-      <workItem from="1607953681735" duration="14421000" />
+      <workItem from="1607953681735" duration="14903000" />
+      <workItem from="1608118955307" duration="1279000" />
     </task>
     <task id="LOCAL-00001" summary="新增简易主页面交互，社区交互">
       <created>1607871237478</created>
@@ -120,7 +121,14 @@
       <option name="project" value="LOCAL" />
       <updated>1607971179445</updated>
     </task>
-    <option name="localTasksCounter" value="9" />
+    <task id="LOCAL-00009" summary="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。">
+      <created>1607971573767</created>
+      <option name="number" value="00009" />
+      <option name="presentableId" value="LOCAL-00009" />
+      <option name="project" value="LOCAL" />
+      <updated>1607971573767</updated>
+    </task>
+    <option name="localTasksCounter" value="10" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -157,14 +165,14 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="534" y="328" key="MultipleFileMergeDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1607871343575" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1607971187098">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1607971577355">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1607971187098" />
-    <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1607871258544">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1607971577355" />
+    <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608120198658">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1792.1120@0.0.1792.1120" timestamp="1607871258544" />
+    <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1792.1120@0.0.1792.1120" timestamp="1608120198658" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
