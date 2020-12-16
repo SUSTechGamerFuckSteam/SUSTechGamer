@@ -12,7 +12,7 @@
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
     <style>
         .firstScreenshot {
-            margin-left: 100px;
+            margin-left: 140px;
         }
         
         .normalScreenshot {
@@ -136,25 +136,25 @@
 
 
 
-            <div style="float: left;width:900px;height:150px;margin-left: 50px;border:1px solid gray;position: relative;">
-                <label style="font-size:25px;font-weight: bold;margin-left: 140px;float: left;display: inline-block;width:600px;">Screenshots</label>
-                <img v-for="(img,imgIndex) in game.screenshotsUrl" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex==screenshotIndex}" style="width:150px;height:100px;float: left;" v-bind:src="../../figures/temparory/gamePageImg/star.png"
-                    v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
+            <div style="float: left;width:900px;height:170px;margin-left: 50px;border:1px solid gray;position: relative;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;float: left;display:block;width:600px;">Screenshots</label>
+                <img v-for="(img,imgIndex) in game.screenshotsUrl" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex==screenshotIndex}" style="width:150px;height:100px;float: left;display:block;" v-bind:src="img.url" v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
 
-                <a class="button" href="#" style="margin-top:0px;margin-left:700px;width:30px;float: left;display: inline-block; " v-on:click.prevent="prevScreenshot">&lt</a>
-                <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="margin-top:0px;margin-left:10px;width:30px;float: left;display: inline-block; ">&gt</a>
+                <a class="button" href="#" style="top:150px;left:790px;width:30px;position:absolute;display:block; " v-on:click.prevent="prevScreenshot">&lt</a>
+                <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="top:150px;left:840px;position:absolute;width:30px;float: left;display:block; ">&gt</a>
             </div>
             <div style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Description</label></br>
                 <textarea v-model="game.gameDescription" style="width:550px;height:60px;margin-left: 140px;resize: none;"></textarea>
             </div>
-            <div style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;">
-                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Branch</label></br>
-                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly></textarea>
+
+            <div v-for="(branch,branchIndex) in game.branches" style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">{{"Branch"+branch.index}}</label></br>
+                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly>{{branch.info}}</textarea>
             </div>
-            <div style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;margin-bottom: 20px;">
-                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">DLC</label></br>
-                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly></textarea>
+            <div v-for="(DLC,DLCIndex) in game.DLCs" style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">{{"DLC"+DLC.index}}</label></br>
+                <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly>{{DLC.info}}</textarea>
             </div>
 
             <div id="addBranchDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
@@ -241,28 +241,21 @@
             //     }
             // })
             var outThis = this
-            ajax("get", "http://10.21.100.129:9090/game/getGidList?uid=1", null, false, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game/getGidList?uid=1", null, false, function(x) {
                 outThis.gidList = x.responseText.split(",")
-                console.log(outThis.gidList)
+
             })
             for (var gid in this.gidList) {
-                ajax("get", "http://10.21.100.129:9090/game/getAllBygid?gid=" + this.gidList[gid], null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/game/getAllBygid?gid=" + this.gidList[gid], null, false, function(x) {
                     console.log(x.responseText)
                     var jsonObj = JSON.parse(x.responseText)
                     var gameObj = {
                         gameName: "hh",
                         gameVideoUrl: "",
-                        DLC: {
-                            description: "",
-                            file: "",
-                            price: "",
-                        },
-                        branch: {
-                            description: "",
-                            file: ""
-                        },
+                        DLCs: [],
+                        branches: [],
                         tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
-                        screenshotsUrl: [{}, {}, {}],
+                        screenshotsUrl: [],
                         gid: "",
                         gamePrice: "36",
                         gameDate: "",
@@ -278,7 +271,7 @@
                     gameObj.discount = jsonObj.discount * 100
                     gameObj.discountTime = jsonObj.dis_end_time
                     gameObj.gameDescription = jsonObj.description
-                    ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=" + outThis.gidList[gid], null, true, function(x) {
+                    ajax("get", "http://36058s3d36.zicp.vip:55374/game/findPriceByGid?gid=" + outThis.gidList[gid], null, true, function(x) {
                         gameObj.gamePrice = x.responseText
                     })
                     for (var i = 1; i <= jsonObj.shoot_num; i++) {
@@ -287,11 +280,34 @@
                         })
 
                     }
+                    ajax("get", "http://36058s3d36.zicp.vip:55374/game/findBranchBygid?id=" + outThis.gidList[gid], null, true, function(x) {
+                        var JsonRe = JSON.parse(x.responseText)
+                        console.log(JsonRe)
+                        for (var obj in JsonRe) {
+                            gameObj.branches.push({
+                                info: JsonRe[obj].description,
+                                path: JsonRe[obj].gamepath,
+                                index: JsonRe[obj].index
+                            })
+                        }
+                    })
+                    ajax("get", "http://36058s3d36.zicp.vip:55374/game_dlc_path/findDLCBygid?gid=" + outThis.gidList[gid], null, true, function(x) {
+                        var jsonObj = JSON.parse(x.responseText)
+                        for (var dlc in jsonObj) {
+                            gameObj.DLCs.push({
+                                info: jsonObj[dlc].description,
+                                price: jsonObj[dlc].price,
+                                path: jsonObj[dlc].path,
+                                index: jsonObj[dlc].index,
+                            })
+                        }
+                    })
                     gameObj.gameVideoUrl = "http://36058s3d36.zicp.vip/static/game/" + gameObj.gid + "game/video/game.mp4"
                     outThis.gameList.push(gameObj)
                 })
 
             }
+
             console.log(this.gameList)
         },
         methods: {
@@ -304,7 +320,7 @@
                 formData.append("end_time", this.gameList[index].discountTime)
                 formData.append("g_des", this.gameList[index].gameDescription)
                 formData.append("gid", 9)
-                ajax("post", "http://10.21.100.129:9090/game/update", formData, false, function(x) {
+                ajax("post", "http://36058s3d36.zicp.vip:55374/game/update", formData, false, function(x) {
 
                 })
 
@@ -331,7 +347,7 @@
                 formData.append("release", this.gameDate)
                 formData.append("path", this.gameFile)
                 console.log(this.gameDate)
-                ajax("post", "http://10.21.100.129:9090/game/setupGame", formData, false, function(x) {
+                ajax("post", "http://36058s3d36.zicp.vip:55374/game/setupGame", formData, false, function(x) {
                     if (x.responseText == 1) {
                         alert("upload successfully")
                     } else {
@@ -365,7 +381,7 @@
                 var formData = new FormData()
                 formData.append("gid", this.gameList[index].gid)
                 formData.append("video", this.gameList[index].gameVideo)
-                ajax("post", "http://10.21.100.129:9090/game/newVideo", formData, false, function(x) {
+                ajax("post", "http://36058s3d36.zicp.vip:55374/game/newVideo", formData, false, function(x) {
                     if (x.responseText == 1) {
                         alert("upload successfully")
                     } else {
@@ -378,7 +394,7 @@
                 formData.append("gid", 1)
                 formData.append("Description", this.gameList[index].branch.description)
                 formData.append("path", this.gameList[index].branch.file)
-                ajax("post", "http://10.21.100.129:9090/game/newBranch", formData, true, function(x) {
+                ajax("post", "http://36058s3d36.zicp.vip:55374/game/newBranch", formData, true, function(x) {
                     if (x.responseText == 1) {
                         alert("add successfully")
                     } else {
@@ -395,7 +411,7 @@
                 formData.append("Description", this.gameList[index].DLC.description)
                 formData.append("path", this.gameList[index].DLC.file)
                 formData.append("price", this.gameList[index].newDLCPrice)
-                ajax("post", "http://10.21.100.129:9090/game_dlc_path/setupGdp", formData, true, function(x) {
+                ajax("post", "http://36058s3d36.zicp.vip:55374/game_dlc_path/setupGdp", formData, true, function(x) {
                     if (x.responseText == 1) {
                         alert("add successfully")
                     } else {
@@ -414,7 +430,7 @@
                 var formData = new FormData()
                 formData.append("gid", this.gameList[index].gid)
                 formData.append("shoot", event.target.files[0])
-                ajax("post", "http://10.21.100.129:9090/game/newShoot", formData, false, function(x) {
+                ajax("post", "http://36058s3d36.zicp.vip:55374/game/newShoot", formData, false, function(x) {
                     if (x.responseText == 1) {
                         alert("upload successfully")
                     } else {
