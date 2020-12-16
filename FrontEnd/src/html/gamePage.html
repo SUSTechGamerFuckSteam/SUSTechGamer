@@ -108,7 +108,7 @@
 
         </div>
 
-        <div id="gameCommentDiv" style="position: relative;">
+        <div id="gameCommentDiv" style="position: relative;" class="clearfix">
             <p class="clasify">
                 <span id="reminder">Comments</span>
             </p>
@@ -173,7 +173,7 @@
         data: {
             userBalance: 120,
             test: "hh\nnima\nhh",
-            gameVideoUrl: "http://36058s3d36.zicp.vip/static/game/8game/video/game.mp4",
+            gameVideoUrl: "",
             price: "520",
             gameDescription: "this is the best game in SUSTech\nLOL!!!!!",
             screenshotsUrl: [{
@@ -184,8 +184,8 @@
             branchIndex: 0,
             discountInfo: "(discount 87%, original $600)",
             discount: "",
-            uid: 1,
-            gid: 2,
+            uid: 4,
+            gid: 4,
             gameName: "LOL1.1",
             gameDate: "2020-05-16",
             userComment: "",
@@ -206,14 +206,14 @@
             outThis = this
             var jsonObj = parsePageUrl(location.href)
             console.log(JSON.stringify(jsonObj))
-            ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=" + this.gid, null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game/findPriceByGid?gid=" + this.gid, null, true, function(x) {
                 outThis.price = x.responseText
                 outThis.gameVideoUrl = "http://36058s3d36.zicp.vip/static/game/" + outThis.gid + "game/video/game.mp4"
             })
-            ajax("get", "http://10.21.100.129:9090/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
                 outThis.userBalance = x.responseText
             })
-            ajax("get", "http://10.21.100.129:9090/game/findBranchBygid?id=" + this.gid, null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game/findBranchBygid?id=" + this.gid, null, true, function(x) {
                 var JsonRe = JSON.parse(x.responseText)
                 console.log(JsonRe)
                 for (var obj in JsonRe) {
@@ -223,7 +223,7 @@
                     })
                 }
             })
-            ajax("get", "http://10.21.100.129:9090/game_dlc_path/findDLCBygid?gid=" + this.gid, null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game_dlc_path/findDLCBygid?gid=" + this.gid, null, true, function(x) {
                 var jsonObj = JSON.parse(x.responseText)
 
                 for (var dlc in jsonObj) {
@@ -235,7 +235,7 @@
                     })
                 }
             })
-            ajax("get", "http://10.21.100.129:9090/postbar/infoByGid?gid=8", null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/postbar/infoByGid?gid=" + this.gid, null, true, function(x) {
                 var jsonRe = JSON.parse(x.responseText)
                 for (var obj in jsonRe) {
                     outThis.commentList.push({
@@ -248,10 +248,10 @@
                     })
                 }
             })
-            ajax("get", "http://10.21.100.129:9090/postbar/getPoints?gid=8", null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/postbar/getPoints?gid=8", null, true, function(x) {
                 outThis.gamePoint = x.responseText
             })
-            ajax("get", "http://10.21.100.129:9090/game/getShoot?gid=" + this.gid, null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game/getShoot?gid=" + this.gid, null, true, function(x) {
                 console.log("number: " + x.responseText)
                 for (var i = 1; i <= x.responseText; i++) {
                     console.log("i: " + i)
@@ -260,7 +260,7 @@
                     })
                 }
             })
-            ajax("get", "http://10.21.100.129:9090/game/getAllBygid?gid=" + this.gid, null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game/getAllBygid?gid=" + this.gid, null, true, function(x) {
                 var jsonObj = JSON.parse(x.responseText)
                 outThis.gameName = jsonObj.name
                 outThis.gameDate = jsonObj.release_date
@@ -285,7 +285,7 @@
             },
             purchaseGame: function() {
                 var purchasable = false
-                ajax("get", "http://10.21.100.129:9090/dev_game/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/dev_game/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid, null, false, function(x) {
                     if (x.responseText == 0) {
                         purchasable = true
                     }
@@ -298,7 +298,7 @@
                     alert("your balance is not enough")
                     return
                 }
-                ajax("get", "http://10.21.100.129:9090/dev_game/buyByuidBygid?uid=" + this.uid + "&gid=" + this.gid, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/dev_game/buyByuidBygid?uid=" + this.uid + "&gid=" + this.gid, null, false, function(x) {
                     if (x.responseText == 1) {
                         alert("purchase successfully")
                     } else {
@@ -310,7 +310,7 @@
             },
             purchaseDLC: function(arrayIndex) {
                 var purchasable = false
-                ajax("get", "http://10.21.100.129:9090/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 0) {
                         purchasable = true
                     }
@@ -323,7 +323,7 @@
                     alert("your balance is not enough")
                     return
                 }
-                ajax("get", "http://10.21.100.129:9090/ugd/buyByuidBygid?uid=" + "2" + "&gid=" + this.gid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/buyByuidBygid?uid=" + "2" + "&gid=" + this.gid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 1) {
                         alert("purchase successfully")
                     } else {
@@ -343,9 +343,10 @@
                     formData.append("picture", this.fileObj)
                 formData.append("content", encodeURI(this.userComment))
                 formData.append("gid", this.gid)
-                formData.append("uid", 1)
+                formData.append("uid", this.uid)
                 formData.append("points", this.userPoint)
-                ajax("post", "http://10.21.100.129:9090/postbar/setupPostbar", formData, false, function(x) {
+                console.log(this.userPoint)
+                ajax("post", "http://36058s3d36.zicp.vip:55374/postbar/setupPostbar", formData, false, function(x) {
                     if (x.responseText == 1) {
                         alert("comment successfully")
                     } else {
@@ -355,7 +356,7 @@
             },
             downloadDLC: function(path, arrayIndex) {
                 var purchasable = false
-                ajax("get", "http://10.21.100.129:9090/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 0) {
                         purchasable = true
                     }
@@ -372,7 +373,7 @@
             },
             downloadBranch: function(path, arrayIndex) {
                 var purchasable = false
-                ajax("get", "http://10.21.100.129:9090/dev_game/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/dev_game/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid, null, false, function(x) {
                     if (x.responseText == 0) {
                         purchasable = true
                     }
@@ -402,7 +403,7 @@
         var list = document.getElementsByTagName('li');
         var info = document.getElementById("info");
 
-        console.log("begin");
+
         // console.log(list);
         function fnShow(num) {
             finalNum = num || tempNum; // 如果传入的num为0，则finalNum取tempNum值
@@ -413,21 +414,22 @@
         for (var i = 1; i <= list.length; i++) {
             list[i - 1].index = i;
             list[i - 1].onmouseover = function(e) {
-                fnShow(this.index);
-                info.value = e.target.innerText;
+                // fnShow(this.index);
+                // info.value = e.target.innerText;
             }
             list[i - 1].onmouseout = function(e) {
-                    fnShow(0);
-                    info.value = e.target.innerText;
+                    // fnShow(0);
+                    // info.value = e.target.innerText;
                 }
                 // click事件会触发一次mouseover和一次mouseout，所以点击时改变tempnum确定鼠标离开时几颗星亮
             list[i - 1].onclick = function(e) {
                 tempNum = this.index;
+                fnShow(this.index)
                 console.log("评分: " + e.target.innerText);
                 info.value = e.target.innerText;
             }
         }
-        console.log("end");
+
     })();
 </script>
 

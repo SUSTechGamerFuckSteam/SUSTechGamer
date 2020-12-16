@@ -9,8 +9,6 @@
     <link rel="stylesheet" type="text/css" href="../css/userPage.css" />
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
-
-    <link rel="stylesheet" href="../css/style.css">
     <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.4.1/jquery.min.js"></script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.12.1/css/all.css">
     <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.css" rel="stylesheet">
@@ -142,9 +140,9 @@
 
             <div class="inlineDiv" style="position:relative;">
                 <img id="userImg" v-bind:src="avatarUrl" title="change avatar" style="position: absolute">
-                <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 1;cursor:pointer;" title="change avatar" />
+                <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
 
-                <p class="imgReminder">Talyor Swift</p>
+                <p class="imgReminder">{{userName}}</p>
             </div>
 
 
@@ -242,9 +240,9 @@
                 <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('changeEmailDiv')">Cancel</a>
             </div>
             <div id="rechargeDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <input type="text" placeHolder="recharge number" style="margin: 10px 125px;width:150px;margin-top: 40px;"></br>
-                <input type="text" placeHolder="password" style="margin: 10px 125px;width:150px;margin-top: 10px;"></br>
-                <a class="button" href="#" style="width:85px;margin:30px 70px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submit">Submit</a>
+                <input type="text" placeHolder="recharge number" style="margin: 10px 125px;width:150px;margin-top: 40px;" v-model="rechargeNum"></br>
+                <input type="text" placeHolder="password" style="margin: 10px 125px;width:150px;margin-top: 10px;" v-model="userInputPassword"></br>
+                <a class="button" href="#" style="width:85px;margin:30px 70px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submitRecharge">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('rechargeDiv')">Cancel</a>
             </div>
             <div id="friendDiv" style="height:420px;width:600px;position:fixed;top:200px;left:450px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
@@ -271,15 +269,15 @@
             userNameSeen: true,
             userName: "huanghao",
             birthdaySeen: true,
-            birthday: "2019-08-05 ",
+            birthday: "2019-08-05",
             genderSeen: true,
             gender: "Woman ",
             roleSeen: true,
             role: "Developer ",
             introductionSeen: true,
-            introduction: "hh\nhh\nnima ",
-            balance: "$520 ",
-            modify: "Modify ",
+            introduction: "hh\nhh\nnima",
+            balance: "$520",
+            modify: "Modify",
             avatarUrl: "../../figures/temporary/userPageImgs/zhubie.jpg",
             visitor: false,
             visitorName: "adad",
@@ -304,9 +302,11 @@
                 info: "x"
             }, ],
             branchIndex: 0,
-            uid: 1,
+            uid: 4,
             test: "huh",
             friendList: [{}, {}],
+            rechargeNum: "",
+            userInputPassword: "",
 
         },
         created: function() {
@@ -319,21 +319,21 @@
             }
             this.userName = jsonObj.userName
             outThis = this
-            ajax("get", "http://10.21.100.129:9090/user/getFullInfo?uid=1", null, true, function(xmlHttp) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/user/getFullInfo?uid=" + this.uid, null, true, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
                 console.log(xmlHttp.responseText)
                 outThis.userName = result.userName
                 outThis.birthday = result.birthday
                 outThis.introduction = result.intro
                 if (result.role == 1) {
-                    outThis.role = "User "
+                    outThis.role = "User"
                 } else {
-                    outThis.role = "Developer "
+                    outThis.role = "Developer"
                 }
-                if (result.sex == "M ") {
-                    outThis.gender = "Man "
+                if (result.sex == "M") {
+                    outThis.gender = "Man"
                 } else {
-                    outThis.gender = "Woman "
+                    outThis.gender = "Woman"
                 }
                 outThis.balance = result.balance
             })
@@ -351,20 +351,20 @@
         },
         methods: {
             modifyUserInfo: function() {
-                if (this.modify == "Modify ") {
+                if (this.modify == "Modify") {
                     this.userNameSeen = false
                     this.birthdaySeen = false
                     this.genderSeen = false
                     this.roleSeen = false
                     this.introductionSeen = false
-                    this.modify = "Submit "
+                    this.modify = "Submit"
                 } else {
                     this.userNameSeen = true
                     this.birthdaySeen = true
                     this.genderSeen = true
                     this.roleSeen = true
                     this.introductionSeen = true
-                    this.modify = "Modify "
+                    this.modify = "Modify"
                     var formData = new FormData()
                     formData.append("name", this.userName)
                     if (this.gender == "Man") {
@@ -377,11 +377,17 @@
                     } else {
                         formData.append("role", 1)
                     }
-                    formData.append("uid", 1)
+
+                    formData.append("uid", this.uid)
                     formData.append("birth", this.birthday)
                     formData.append("description", this.introduction)
-                    ajax("post", "http://10.21.100.129:9090/user/changeInfo", formData, false, function(x) {
-                        alert(x.responseText)
+                    ajax("post", "http://36058s3d36.zicp.vip:55374/user/changeInfo", formData, false, function(x) {
+
+                        if (x.responseText == 1) {
+                            alert("submit successfullt")
+                        } else {
+                            alert("submit failed")
+                        }
                     })
 
 
@@ -394,19 +400,33 @@
                     ouTthis = this
                     var formData = new FormData()
                     formData.append("avatar ", fileObj)
-                    formData.append("id ", 1)
-                    ajax("post", "http://10.21.100.129:9090/user/changeAvatar ", formData, true, function(xmlHttp) {
-                        alert("avatar changed successfully! ")
-                        var url = xmlHttp.responseText
-                        outThis.avatarUrl = url
+                    formData.append("id ", this.uid)
+                    ajax("post", "http://36058s3d36.zicp.vip:55374/user/changeAvatar ", formData, false, function(x) {
+                        if (x.responseText == 1) {
+                            alert("upload successfully")
+                        } else {
+                            alert("upload failed")
+                        }
 
                     })
+                    location.reload()
                 } else {
                     alert("you canceld change avatar ")
                 }
             },
-            recharge: function() {
-
+            submitRecharge: function() {
+                var formData = new FormData()
+                formData.append("uid", this.uid)
+                formData.append("pass", this.userInputPassword)
+                formData.append("money", this.rechargeNum)
+                ajax("post", "http://36058s3d36.zicp.vip:55374/user/judgePass", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("recharge successfully")
+                        location.reload()
+                    } else {
+                        alert("recharge failed")
+                    }
+                })
             },
             show: function(divID) {
                 show(divID)
@@ -424,7 +444,7 @@
             getConfirm: function() {
                 if (this.counter == "") {
                     outthis = this
-                    ajax("get", "http://10.21.100.129:9090/user/email?email=" + this.newEmailAddress, null, true, function(xmlHttp) {
+                    ajax("get", "http://36058s3d36.zicp.vip:55374/user/email?email=" + this.newEmailAddress, null, true, function(xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
                         console.log("verifyNum form server: " + outthis.verifyNum)
                     })
@@ -457,7 +477,7 @@
                 formData.append("old_pass", this.oldPassword)
                 formData.append("new_pass", this.newPassword)
                 formData.append("uid", this.uid)
-                ajax("post", "http://10.21.100.129:9090/user/changePass", formData, false, function(x) {
+                ajax("post", "http://36058s3d36.zicp.vip:55374/user/changePass", formData, false, function(x) {
                     if (x.responseText == 1) {
                         alert("success")
                         hide('changePasswordDiv')
@@ -471,7 +491,7 @@
                     alert("wrong verify number")
                     return
                 }
-                ajax("get", "http://10.21.100.129:9090/user/changeEmail?id=" + this.uid + "&email=" + this.newEmailAddress, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/user/changeEmail?id=" + this.uid + "&email=" + this.newEmailAddress, null, false, function(x) {
                     if (x.responseText == 1) {
                         alert("success")
                         hide('changeEmailDiv')

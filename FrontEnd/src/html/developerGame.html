@@ -114,13 +114,13 @@
             <div class="gameInfoDiv">
                 <label class="gameInfo">game name</label>
                 <input class="gameInfo" type="text" v-model="game.gameName"></br>
-                <label class="gameInfo">original price</label>
+                <label class="gameInfo" style="font-size: 15px;">original price</label>
                 <input class="gameInfo" type="text" v-model="game.gamePrice"></br>
                 <label class="gameInfo">release date</label>
-                <input class="gameInfo" type="date" v-model="game.gameDate" style="width:140px;font-size: 13px;margin-left: 0px;"></br>
+                <input class="gameInfo" type="date" v-model="game.gameDate" style="font-size: 13px;margin-left: 0px;"></br>
                 <label class="gameInfo" style="margin-bottom: 0px;">discount</label>
-                <input class="gameInfo" type="text" v-model="game.discount" style="width:60px;height:20px;margin-right: 0px;font-size: 15px;margin-bottom:10px;margin-left: 0px;">% til
-                <input class="gameInfo" type="date" v-model="game.discountTime" style="width:120px;font-size: 13px;margin-left: 10px;">
+                <input class="gameInfo" type="text" v-model="game.discount" style="width:40px;height:20px;margin-right: 0px;font-size: 15px;margin-bottom:10px;margin-left: 0px;">% til
+                <input class="gameInfo" type="date" v-model="game.discountTime" style="width:125px;font-size: 13px;margin-left: 5px;">
             </div>
             <div style="float: left;width:149px;height:250px;background:aqua;">
                 <a class="button" href="#" v-on:click.prevent="show('addBranchDiv')" style="margin-top:15px;margin-left:10px;width:120px;font-size: 15px;">Add Branch</a>
@@ -131,7 +131,7 @@
                     <input type="file" id="userAvatar"  v-on:change="newScreenshootUpload($event,index)" capture="camera" accept="image/*" style="width:120px;height:25px;position:absolute; opacity: 0;cursor:pointer;" title="upload screenshoot" />
                 </span>
                 <a class="button" href="#" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Delete</a>
-                <a class="button" href="#" v-on:click="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Submit</a>
+                <a class="button" href="#" v-on:click.prevent="submitChange(index)" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Submit</a>
             </div>
 
 
@@ -219,6 +219,7 @@
             visitorName: "adad",
             gidList: "",
             userName: "",
+            uid: 4,
 
 
         },
@@ -241,7 +242,7 @@
             //     }
             // })
             var outThis = this
-            ajax("get", "http://36058s3d36.zicp.vip:55374/game/getGidList?uid=1", null, false, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game/getGidList?uid=" + this.uid, null, false, function(x) {
                 outThis.gidList = x.responseText.split(",")
 
             })
@@ -319,7 +320,6 @@
                 formData.append("discount", this.gameList[index].discount)
                 formData.append("end_time", this.gameList[index].discountTime)
                 formData.append("g_des", this.gameList[index].gameDescription)
-                console.log(this.gameList[index].gameDescription)
                 formData.append("gid", this.gameList[index].gid)
                 ajax("post", "http://36058s3d36.zicp.vip:55374/game/update", formData, false, function(x) {
                     if (x.responseText == 1) {
@@ -345,7 +345,7 @@
             submitNewGame: function(divID) {
                 console.log(this.gameDate)
                 var formData = new FormData();
-                formData.append("uid", 1)
+                formData.append("uid", this.uid)
                 formData.append("name", this.gameName)
                 formData.append("Description", this.gameDescription)
                 formData.append("price", this.gamePrice)
@@ -412,7 +412,7 @@
                 var formData = new FormData()
                 formData.append("gid", this.gameList[index].gid)
                 console.log("index: " + index)
-                formData.append("did", 1)
+                formData.append("did", this.uid)
                 formData.append("Description", this.gameList[index].DLC.description)
                 formData.append("path", this.gameList[index].DLC.file)
                 formData.append("price", this.gameList[index].newDLCPrice)

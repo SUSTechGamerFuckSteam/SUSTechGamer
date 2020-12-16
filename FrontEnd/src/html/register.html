@@ -115,7 +115,7 @@
             getComfirm: function() {
                 if (this.counter == "") {
                     outthis = this
-                    ajax("get", "http://10.21.100.129:9090/user/email?email=" + this.emailAddress, null, true, function(xmlHttp) {
+                    ajax("get", "http://36058s3d36.zicp.vip:55374/user/email?email=" + this.emailAddress, null, true, function(xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
 
                     })
@@ -134,7 +134,7 @@
                     console.log(formData.get("sex"))
                     console.log(formData.get("name"))
                     console.log(formData.get("email"))
-                    ajax("get", "http://10.21.100.129:9090/user/signup?" + userInfo, null, true, function(xmlHttp) {})
+                    ajax("get", "http://36058s3d36.zicp.vip:55374/user/signup?" + userInfo, null, true, function(xmlHttp) {})
                     alert("success")
                     window.location.href = "login.html?userName=" + this.userName
                 } else {

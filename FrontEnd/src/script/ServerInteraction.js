@@ -40,7 +40,7 @@ function login_ajax() {
 
     var userinfo = "inAccount=" + logname + "&inPsw=" + logpass;
 
-    var url = "http://10.21.100.129:9090/user/login?name=" + logname + "&password=" + logpass;
+    var url = "http://36058s3d36.zicp.vip:55374/user/login?name=" + logname + "&password=" + logpass;
 
     xmlhttprequest = window.XMLHttpRequest ? new XMLHttpRequest() : new ActiveXObject('Microsoft.XMLHTTP');
 
