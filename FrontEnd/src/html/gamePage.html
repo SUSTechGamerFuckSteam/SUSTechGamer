@@ -5,7 +5,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta http-equiv="X-UA-Compatible" content="ie=edge">
-    <title>Document</title>
+    <title>Game</title>
     <link rel="stylesheet" type="text/css" href="../css/gamePage.css" />
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <script rel="text/javascript" src="../script/ServerInteraction.js"></script>
@@ -36,23 +36,27 @@
         <div style="height:100px;"></div>
         <div id="gameDetailDiv">
             <div id="gameVideoDiv">
-                <video width="100%" controls autoplay>
+                <video style="width:850px;" controls autoplay>
                         <source v-bind:src="gameVideoUrl" type="video/mp4">   
                         您的浏览器不支持 video 属性。
                       </video>
             </div>
             <div id="gameGetDiv">
                 <div id="priceDiv">
-                    <p style="font-size: 45px;height:70px;width:200px;margin: 0 auto;">{{'$'+price}}</p>
-                    <span style="font-size: 15px;">{{discount}}</span>
+                    <p style="font-size: 45px;height:70px;width:200px;margin: 0 auto;">{{'$'+price*discount}}</p>
+                    <span style="font-size: 15px;">{{discountInfo}}</span>
                 </div>
                 <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Purchase</a>
                 <a class="button" href="#downloadBranch" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Download</a>
             </div>
-            <textarea id="gameDescription" style="resize: none;width:77%;height:150px;">{{gameDescription}}</textarea>
+            <div style="float: left;width:850px;height:100px;line-height: 100px;text-align: center;font-size: 35px;font-weight:bold;color: rgb(70, 115, 121);">
+                <span style="margin-top: 10px;">{{gameName}}</span>
+                <span style="margin-left: 100px;margin-top: 10px;">{{"Release Date: "+gameDate}}</span>
+            </div>
+            <textarea id="gameDescription" style="resize: none;width:77%;height:125px;">{{gameDescription}}</textarea>
             <a class="button" v-on:click.prevent="purchaseGame" href="#" style="width:180px;height:60px;margin-top:70px;margin-left:30px;font-size: 30px;font-weight: bold;display: block;float: left;color: white;line-height: 60px;">Community</a>
         </div>
-        <div id="gamePictureDiv" style="position: relative;">
+        <div id="gamePictureDiv" class="clearfix" style="position: relative;">
             <p id="downloadBranch" class="clasify">
                 <span id="reminder">Screenshots</span>
             </p>
@@ -73,7 +77,7 @@
             </p>
             <div class="branchDiv" v-for="(branch,index) in branches" v-if="(index>=branchIndex&&index<branchIndex+3)?true:false">
                 <textarea class="branchInfo" resizable="false">{{branch.info}}</textarea>
-                <a class="button" href="http://10.21.100.129:9090/download?uid=1&gid=8" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <a class="button" v-on:click.prevent="downloadBranch(branch.path,index)" href="#" style="margin: 70px 20px;width:110px;float: left;display: inline-block;font-size: 20px; ">download</a>
             </div>
 
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
@@ -83,23 +87,17 @@
                 <a v-on:click.prevent="nextBranch" class="button" href="" style="margin: 0px;">&gt</a>
             </div>
 
+
             <p class="clasify">
                 <span id="reminder">DLCs</span>
             </p>
-            <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <div style="float: left;width:110px;height:25px;font-size: 20px;text-align: center;">$120</div>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 5px 20px;width:110px;float: left;display: inline-block;font-size: 20px;">purchase</a>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px 20px;width:110px;float: left;display: inline-block;font-size: 18px;">download</a>
+            <div class="branchDiv" v-for="(DLC,index) in DLCs">
+                <textarea class="branchInfo" resizable="false">{{DLC.info}}</textarea>
+                <div style="float: left;width:110px;height:25px;font-size: 18px;text-align: center;margin-top: 10px;">{{"$"+DLC.price}}</div>
+                <a v-on:click.prevent="purchaseDLC(index)" class="button" href="#" style="margin: 5px 20px;width:110px;float: left;display: inline-block;font-size: 20px;">purchase</a>
+                <a class="button" href="#" v-on:click.prevent="downloadDLC(DLC.path,index)" style="margin: 0px 20px;width:110px;float: left;display: inline-block;font-size: 18px;">download</a>
             </div>
-            <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
-            </div>
-            <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
-            </div>
+
 
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&lt</a>
@@ -126,10 +124,10 @@
                 <div style="float: left;width:150px;height:150px;position: relative;">
                     <img v-bind:src="comment.avatarUrl" style="display:block;width:100px;height:80px;position: absolute;top:0px;left:25px;">
                     <a href="userPage.html" style="position: absolute;width:150px;height:150px;"></a>
-                    <span style="position: absolute;top:90px;left:15px;font-size: 20px;">{{comment.userName}}</span>
-                    <span style="position: absolute;top:110px;left:15px;font-size: 20px;">{{comment.points}}</span>
+                    <span style="position: absolute;top:90px;left:15px;font-size: 15px;">{{comment.userName}}</span>
+                    <span style="position: absolute;top:110px;left:15px;font-size: 15px;">{{comment.points}}</span>
                 </div>
-                <textarea style="width:750px;height:100px;margin-top:25px;margin-left:20px;background: #a1f5a1;resize: none;float: left;" readonly>{{comment.content}}</textarea>
+                <textarea style="width:750px;height:100px;margin-top:25px;margin-left:20px;background: #a1f5a1;resize: none;float: left;border: 1px solid rgb(70, 115, 121);" readonly>{{comment.content}}</textarea>
                 <!-- <div style="float: left;width:30px;height:30px;margin-top: 100px;margin-left: 20px;position: relative;">
                     <img src="../../figures/icon/like.png" style="width:30px;height:30px;position:absolute;">
                     <a v-on:click.prevent="purchaseGame" href="#" style="width:30px;height:30px;z-index: 3;position: absolute;opacity: 0;"></a>
@@ -138,7 +136,7 @@
                     <img src="../../figures/icon/dislike.png" style="width:30px;height:30px;position:absolute;">
                     <a v-on:click.prevent="purchaseGame" href="#" style="width:30px;height:30px;z-index: 3;position: absolute;opacity: 0;"></a>
                 </div> -->
-                <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:90px;height:30px;margin-top:100px;margin-left:20px;font-size: 20px;font-weight: bold;float: left;line-height: 30px;">see more</a>
+                <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:90px;height:30px;margin-top:100px;margin-left:20px;font-size: 15px;font-weight: bold;float: left;line-height: 30px;">see more</a>
             </div>
 
             <textarea style="width:920px;height:100px;margin-top: 20px;margin-left:10px;resize: none;float: left;" placeholder="leave your comment and picture here (need purchase first)" v-model="userComment"></textarea>
@@ -155,10 +153,10 @@
                     <li><a href="javascript:;">5</a></li>
                 </ul>
             </div>
-            <label style="float: left;width:100px;font-size:15px;margin-top:0px;margin-left:10px;font-weight: bold;">rank the game:</label>
+            <label style="float: left;width:100px;font-size:13px;margin-top:0px;margin-left:10px;font-weight: bold;">rank the game:</label>
             <input id="info" v-model="userPoint" style="float: left;width:20px;height:15px;" readonly>
             <input type="file" id="u" v-on:change="pictureComment($event)" capture="camera" accept="image/*" style="margin-top:10px;margin-left:20px;width:110px;cursor:pointer;font-size: 17px;float: left;" title="picture" />
-            <a v-on:click.prevent="sendComment" class="button" href="#" style="margin-top:10px;margin-left:20px;margin-bottom:10px;width:110px;display: inline-block;font-size: 25px;float: left;">Comment</a>
+            <a v-on:click.prevent="sendComment" class="button" href="#" style="margin-top:10px;margin-left:20px;margin-bottom:10px;width:110px;display: inline-block;font-size: 20px;float: left;">Comment</a>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
@@ -182,11 +180,14 @@
                 url: "../../figures/temporary/gamePageImg/star.png"
             }],
             branches: [],
-            DLCs: "",
+            DLCs: [],
             branchIndex: 0,
-            discount: "(discount 87%, original $600)",
+            discountInfo: "(discount 87%, original $600)",
+            discount: "",
             uid: 1,
-            gid: 8,
+            gid: 2,
+            gameName: "LOL1.1",
+            gameDate: "2020-05-16",
             userComment: "",
             commentList: [{
                 avatarUrl: "",
@@ -205,18 +206,32 @@
             outThis = this
             var jsonObj = parsePageUrl(location.href)
             console.log(JSON.stringify(jsonObj))
-            ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=6", null, true, function(x) {
+            ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=" + this.gid, null, true, function(x) {
                 outThis.price = x.responseText
+                outThis.gameVideoUrl = "http://36058s3d36.zicp.vip/static/game/" + outThis.gid + "game/video/game.mp4"
             })
             ajax("get", "http://10.21.100.129:9090/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
                 outThis.userBalance = x.responseText
             })
-            ajax("get", "http://10.21.100.129:9090/game/findBranchBygid?id=8", null, true, function(x) {
+            ajax("get", "http://10.21.100.129:9090/game/findBranchBygid?id=" + this.gid, null, true, function(x) {
                 var JsonRe = JSON.parse(x.responseText)
                 console.log(JsonRe)
                 for (var obj in JsonRe) {
                     outThis.branches.push({
-                        info: JsonRe[obj].description
+                        info: JsonRe[obj].description,
+                        path: JsonRe[obj].gamepath
+                    })
+                }
+            })
+            ajax("get", "http://10.21.100.129:9090/game_dlc_path/findDLCBygid?gid=" + this.gid, null, true, function(x) {
+                var jsonObj = JSON.parse(x.responseText)
+
+                for (var dlc in jsonObj) {
+                    outThis.DLCs.push({
+                        info: jsonObj[dlc].description,
+                        price: jsonObj[dlc].price,
+                        path: jsonObj[dlc].path,
+                        index: jsonObj[dlc].index,
                     })
                 }
             })
@@ -236,7 +251,7 @@
             ajax("get", "http://10.21.100.129:9090/postbar/getPoints?gid=8", null, true, function(x) {
                 outThis.gamePoint = x.responseText
             })
-            ajax("get", "http://10.21.100.129:9090/game/getShoot?gid=8", null, true, function(x) {
+            ajax("get", "http://10.21.100.129:9090/game/getShoot?gid=" + this.gid, null, true, function(x) {
                 console.log("number: " + x.responseText)
                 for (var i = 1; i <= x.responseText; i++) {
                     console.log("i: " + i)
@@ -245,6 +260,15 @@
                     })
                 }
             })
+            ajax("get", "http://10.21.100.129:9090/game/getAllBygid?gid=" + this.gid, null, true, function(x) {
+                var jsonObj = JSON.parse(x.responseText)
+                outThis.gameName = jsonObj.name
+                outThis.gameDate = jsonObj.release_date
+                outThis.discount = jsonObj.discount
+                outThis.discountInfo = "(discount " + jsonObj.discount * 100 + "% original " + outThis.price + ")"
+                outThis.gameDescription = jsonObj.description
+            })
+
         },
         methods: {
             nextBranch: function() {
@@ -284,8 +308,30 @@
                 })
                 location.reload()
             },
-            purchaseDLC: function() {
+            purchaseDLC: function(arrayIndex) {
+                var purchasable = false
+                ajax("get", "http://10.21.100.129:9090/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                    if (x.responseText == 0) {
+                        purchasable = true
+                    }
+                })
+                if (!purchasable) {
+                    alert("you have purchased already")
+                    return
+                }
+                if (this.userBalance < this.DLCs[arrayIndex].price) {
+                    alert("your balance is not enough")
+                    return
+                }
+                ajax("get", "http://10.21.100.129:9090/ugd/buyByuidBygid?uid=" + "2" + "&gid=" + this.gid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("purchase successfully")
+                    } else {
+                        alert("purchase failed")
+                    }
 
+                })
+                location.reload()
             },
             pictureComment: function(event) {
                 var fileObj = event.target.files[0]
@@ -306,6 +352,41 @@
                         alert("comment failed")
                     }
                 })
+            },
+            downloadDLC: function(path, arrayIndex) {
+                var purchasable = false
+                ajax("get", "http://10.21.100.129:9090/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                    if (x.responseText == 0) {
+                        purchasable = true
+                    }
+                })
+                if (purchasable) {
+                    alert("you need purchase first")
+                    return
+                }
+                var a = document.createElement('a');
+                var url = path
+                console.log("path: " + path)
+                a.href = url;
+                a.click();
+            },
+            downloadBranch: function(path, arrayIndex) {
+                var purchasable = false
+                ajax("get", "http://10.21.100.129:9090/dev_game/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid, null, false, function(x) {
+                    if (x.responseText == 0) {
+                        purchasable = true
+                    }
+                })
+                if (purchasable) {
+                    alert("you need purchase first")
+                    return
+                }
+
+                var a = document.createElement('a');
+                var url = path
+                console.log("path: " + path)
+                a.href = url;
+                a.click();
             }
         }
     })

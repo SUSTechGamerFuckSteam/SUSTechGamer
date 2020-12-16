@@ -48,11 +48,11 @@ a.button:hover {
 
 div.gameDiv {
     background-color: cornflowerblue;
-    width: 900px;
+    width: 1000px;
     /* height: 700px; */
     /* height: 100px; */
     margin: 10px auto;
-    margin-bottom: 20px;
+    margin-bottom: 100px;
     position: relative;
 }
 
@@ -60,7 +60,7 @@ div.gameImgDiv {
     float: left;
     background-color: aqua;
     height: 250px;
-    width: 350px;
+    width: 450px;
 }
 
 div.gameInfoDiv {
@@ -201,4 +201,12 @@ input.gameInfo {
         left: 0px;
         width: 100%;
     }
+}
+
+.clearfix:after {
+    content: ".";
+    display: block;
+    height: 0;
+    clear: both;
+    visibility: hidden;
 }

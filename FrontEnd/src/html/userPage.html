@@ -45,7 +45,7 @@
                     </a>
                 </li>
                 <li v-if="!visitor">
-                    <a href="friend.html?userName='+userName">
+                    <a href="#" v-on:click.prevent="show('friendDiv')" v-if="!visitor">
                         <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                         <span class="title">Friends</span>
                     </a>
@@ -69,7 +69,7 @@
                     </a>
                 </li>
                 <li v-if="!visitor">
-                    <a href="#">
+                    <a href="#" v-on:click.prevent="changeEmail('changeEmailDiv')" v-if="!visitor">
                         <span class="icon"><i class="fa fa-envelope" aria-hidden="true"></i></span>
                         <span class="title">E-Mail</span>
                     </a>
@@ -120,17 +120,17 @@
                     <label class="userInfo">Birthday:</label><span class="userInfo" v-if="birthdaySeen">{{birthday}}</span><input type="date" class="userInfo" v-if="!birthdaySeen" v-model="birthday" /></br>
 
                     <label class="userInfo">Gender:</label><span class="userInfo" v-if="genderSeen">{{gender}}</span>
-                    <select v-if="!genderSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="gender">
+                    <select class="userInfo" v-if="!genderSeen" style="margin-left: 25px;color: rgb(70, 115, 121);" v-model="gender">
                     <option>Man</option>
                     <option>Woman</option>
                 </select></br>
                     <label class="userInfo">Role:</label><span class="userInfo" v-if="roleSeen">{{role}}</span>
-                    <select v-if="!roleSeen" style="margin-left: 30px;color: rgb(70, 115, 121);" v-model="role">
+                    <select class="userInfo" v-if="!roleSeen" style="margin-left: 25px;color: rgb(70, 115, 121);" v-model="role">
                     <option>User</option>
                     <option>Developer</option>
                 </select></br>
-                    <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:50px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
-                    <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:50px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
+                    <textarea v-if="!introductionSeen" style="resize: none;width:250px;height:70px;margin-left: 30px;color: rgb(70, 115, 121); " v-model="introduction"></textarea>
+                    <textarea v-if="introductionSeen" disabled="false" style="resize: none;width:250px;height:70px;margin-left: 30px;background-color: aquamarine; color: rgb(70, 115, 121);border:1px solid black;" v-model="introduction"></textarea>
                     <a class="button" href="#" style="width:85px;margin-top: 0px;margin-left: 30px;font-weight: lighter;font-size: 15px;" v-on:click.prevent="modifyUserInfo" v-if="!visitor">{{modify}}</a>
 
                 </div>
@@ -142,7 +142,7 @@
 
             <div class="inlineDiv" style="position:relative;">
                 <img id="userImg" v-bind:src="avatarUrl" title="change avatar" style="position: absolute">
-                <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 0;cursor:pointer;" title="change avatar" />
+                <input type="file" id="userAvatar" v-if="!visitor" v-on:change="uploadAvatar($event)" capture="camera" accept="image/*" style="width:350px;height:230px;position:absolute; opacity: 1;cursor:pointer;" title="change avatar" />
 
                 <p class="imgReminder">Talyor Swift</p>
             </div>
@@ -151,8 +151,8 @@
 
 
             <div class="inlineDiv" style="background-color: aquamarine;margin-right: 0px;" v-if="!visitor">
-                <div id="moneyDiv">{{balance}}</div>
-                <a class="button" href="#" v-on:click.prevent="recharge" v-if="!visitor" style="width:85px;margin: 30px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
+                <div id="moneyDiv">{{"$"+balance}}</div>
+                <a class="button" href="#" v-on:click.prevent="show('rechargeDiv')" v-if="!visitor" style="width:85px;margin: 50px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
                 <p class="imgReminder">My Account</p>
             </div>
             <p class="clasify">
@@ -183,8 +183,8 @@
                 <span id="reminder">My Branch</span>
             </p>
             <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false">{{test}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 35px 20px;width:80px;height:30px;float: left;display: inline-block;font-size: 18px;line-height: 30px;">download</a>
+                <textarea class="branchInfo" resizable="false" style="margin: 15px 70px;">{{test}}</textarea>
+
             </div>
 
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 990px;text-align: center;">
@@ -198,13 +198,13 @@
                 <span id="reminder">My DLC</span>
             </p>
             <div class="branchDiv" v-for="(branch,index) in branches" v-if="(index>=branchIndex&&index<branchIndex+3)?true:false">
-                <textarea class="branchInfo" resizable="false">{{branch.info}}</textarea>
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 45px 20px;width:110px;float: left;display: inline-block;">download</a>
+                <textarea class="branchInfo" resizable="false" style="margin: 15px 70px;">{{branch.info}}</textarea>
+
             </div>
-            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 990px;text-align: center;">
                 <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
             </div>
-            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 30px;text-align: center;">
+            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 10px;text-align: center;">
                 <a v-on:click.prevent="nextBranch" class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
 
@@ -225,58 +225,40 @@
             </div>
 
 
-            <div id="uploadGameDiv" class="userInfo" style="height:270px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <label class="userInfo" style="width:150px;margin-top: 50px;">game name:</label><input type="text" class="userInfo" style="margin-left: 0;margin-top: 50px;"></br>
-                <label class="userInfo" style="width:150px;">upload game:</label><input type="file" class="userInfo" style="margin-left: 0;width:200px;"></br>
-                <label class="userInfo" style="width:150px;">price:</label><input type="text" class="userInfo" style="margin-left: 0;"></br>
-                <label class="userInfo" style="width:150px;">release date:</label><input type="date" class="userInfo" style="margin-left: 0;"></br>
-                <a class="button" href="#" style="width:85px;margin:30px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
-                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('uploadGameDiv')">Cancle</a>
-            </div>
 
-            <div id="modifyGameDiv" class="userInfo" style="height:620px;width:450px;position:fixed;top:10px;left:500px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;position: relative;">
-                    <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
-                    <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
-                    <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
-                    <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
-                    <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
-                    <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
 
-                </div>
-                <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
-                    <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
-                    <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
-                    <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
-                    <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
-                    <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
-                    <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
-
-                </div>
-                <!-- <div style="width:450px;height:185px;border: 1px solid white;margin-bottom: 10px;">
-                <label class=" userInfo " style="width:150px; ">game name:</label><input type="text " class="userInfo " style="margin-left: 0;"></br>
-                <label class="userInfo " style="width:150px;font-size: 13px; ">upload DLC/update:</label><input type="file " class="userInfo " style="margin-left: 0;width:200px; "></br>
-                <label class="userInfo " style="width:150px; ">price:</label><input type="text " class="userInfo " style="margin-left: 0; "></br>
-                <label class="userInfo " style="width:150px; ">release date:</label><input type="date " class="userInfo " style="margin-left: 0; "></br>
-                <label class="userInfo " style="width:150px; ">discount:</label><input type="text " class="userInfo " style="margin-left: 0;width:40px; ">% til <input type="date " class="userInfo " style="margin-left: 0; "></br>
-                <a class="button " href="# " style="width:85px; font-weight: lighter;font-size: 17px;position: absolute; left:30px;" v-on:click.prevent="submitGame ">Delete</a>
-            </div> -->
-                <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitGame">Submit</a>
-                <a class="button" href="#" style="width:85px;margin:0px 30px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="hide('modifyGameDiv')">Cancle</a>
-            </div>
             <div id="changePasswordDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;"></br>
-                <input type="text" placeHolder="new password" style="margin: 10px 125px;width:150px;"></br>
-                <input type="text" placeHolder="confirm password" style="margin: 10px 125px;width:150px;">
-                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submit">Submit</a>
-                <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('changePasswordDiv')">Cancle</a>
+                <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;" v-model="oldPassword"></br>
+                <input type="text" placeHolder="new password" style="margin: 10px 125px;width:150px;" v-model="newPassword"></br>
+                <input type="text" placeHolder="confirm password" style="margin: 10px 125px;width:150px;" v-model="newPasswordConfirm">
+                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submitChangePassword">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('changePasswordDiv')">Cancel</a>
             </div>
             <div id="changeEmailDiv" style="height:200px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <input type="text" placeHolder="new email address" style="margin: 10px 125px;width:150px;"></br>
+                <input type="text" placeHolder="new email address" style="margin: 10px 125px;width:150px;" v-model="newEmailAddress"></br>
                 <a class="button" href="#" style="width:85px;margin:10px 125px;margin-right: 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="getConfirm">Confirm</a>{{counter+counterReminder}}
-                <input type="text" placeHolder="confirm number" style="margin: 10px 125px;width:150px;">
-                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submit">Submit</a>
-                <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="cancle('changeEmailDiv')">Cancle</a>
+                <input type="text" placeHolder="confirm number" style="margin: 10px 125px;width:150px;" v-model="userInputVerifyNum">
+                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submitChangeEmail">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('changeEmailDiv')">Cancel</a>
+            </div>
+            <div id="rechargeDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <input type="text" placeHolder="recharge number" style="margin: 10px 125px;width:150px;margin-top: 40px;"></br>
+                <input type="text" placeHolder="password" style="margin: 10px 125px;width:150px;margin-top: 10px;"></br>
+                <a class="button" href="#" style="width:85px;margin:30px 70px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submit">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('rechargeDiv')">Cancel</a>
+            </div>
+            <div id="friendDiv" style="height:420px;width:600px;position:fixed;top:200px;left:450px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <div style="width:600px;height:120px;border:1px solid grey;position: relative;" v-for="(friend,index) in friendList">
+                    <div style="float: left;height:120px;width:120px;position: relative;margin-left: 20px;">
+                        <img style="position: absolute;width:100px;height:80px;top:10px;" src="../../figures/temporary/userPageImgs/bing0.jpg">
+                        <label style="position:absolute;top:95px;">ShowMaker</label>
+                    </div>
+                    <textarea style="float: left;width:250px;height:80px;color: rgb(70, 115, 121);margin-top: 10px;resize: none;">hhh</textarea>
+                    <a class="button" href="#" style="width:150px; font-weight: lighter;font-size: 17px;display: inline-block;float: left;margin-top: 30px;margin-left: 10px;" v-on:click.prevent="submit">Leave Message</a>
+                    <a class="button" href="#" style="width:150px; font-weight: lighter;font-size: 17px;display: inline-block;float: left;margin-top: 10px;margin-left: 10px;" v-on:click.prevent="cancel('friendDiv')">Delete</a>
+                </div>
+                <a class="button" href="#" style="width:85px;margin:30px 50px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submit">Submit</a>
+                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('friendDiv')">Cancel</a>
             </div>
         </div>
     </div>
@@ -306,7 +288,11 @@
             counter: "",
             timer: null,
             verifyNum: 0,
-            emailAddress: 13,
+            userInputVerifyNum: "",
+            newEmailAddress: 13,
+            oldPassword: "",
+            newPassword: "",
+            newPasswordConfirm: "",
             counterReminder: "",
             branches: [{
                 info: "asasaas"
@@ -318,8 +304,9 @@
                 info: "x"
             }, ],
             branchIndex: 0,
-            uid: "",
+            uid: 1,
             test: "huh",
+            friendList: [{}, {}],
 
         },
         created: function() {
@@ -348,7 +335,7 @@
                 } else {
                     outThis.gender = "Woman "
                 }
-                outThis.balance = "$ " + result.balance
+                outThis.balance = result.balance
             })
             if (this.role = "Developer") {
                 this.developer = true
@@ -360,6 +347,7 @@
             } else {
                 this.administrator = false
             }
+            this.avatarUrl = "http://36058s3d36.zicp.vip/static/user/" + this.uid + "/photo.jpg"
         },
         methods: {
             modifyUserInfo: function() {
@@ -400,52 +388,29 @@
                 }
 
             },
-            uploadAvatar: function() {
-                var fileObj = document.getElementById("userAvatar ").files[0]
+            uploadAvatar: function(event) {
+                var fileObj = event.target.files[0]
                 if (fileObj != null) {
                     ouTthis = this
                     var formData = new FormData()
                     formData.append("avatar ", fileObj)
                     formData.append("id ", 1)
-                    ajax("post ", "http://10.21.52.79:8080/test/changeAvatar ", formData, true, function(xmlHttp) {
+                    ajax("post", "http://10.21.100.129:9090/user/changeAvatar ", formData, true, function(xmlHttp) {
                         alert("avatar changed successfully! ")
                         var url = xmlHttp.responseText
                         outThis.avatarUrl = url
 
                     })
                 } else {
-                    alert("you cancled change avatar ")
+                    alert("you canceld change avatar ")
                 }
             },
             recharge: function() {
-                window.open('register.html', 'newwindow', 'height=100, width=400, top=0, left=0, toolbar=no, menubar=no, scrollbars=no, resizable=no,location=no, status=no')
+
             },
-            // uploadGame: function() {
-            //     var hideDiv = document.getElementById("hideDiv ")
-            //     var uploadGameDiv = document.getElementById("uploadGameDiv ")
-            //     hideDiv.style.display = "block "
-            //     hideDiv.style.opacity = 0.6
-            //     hideDiv.style.zIndex = 6
-            //     uploadGameDiv.style.display = "block "
-            // },
-            // submitGame: function() {
-            //     this.cancleSubmitGame()
-            // },
-            // cancleSubmitGame: function() {
-            //     var hideDiv = document.getElementById("hideDiv ")
-            //     var uploadGameDiv = document.getElementById("uploadGameDiv ")
-            //     hideDiv.style.opacity = 0
-            //     hideDiv.style.zIndex = -1
-            //     uploadGameDiv.style.display = "none "
-            // },
-            // modifyGame:function(){
-            //     var hideDiv = document.getElementById("hideDiv ")
-            //     var uploadGameDiv = document.getElementById("modifyGameDiv ")
-            //     hideDiv.style.display = "block "
-            //     hideDiv.style.opacity = 0.6
-            //     hideDiv.style.zIndex = 6
-            //     uploadGameDiv.style.display = "block "
-            // },
+            show: function(divID) {
+                show(divID)
+            },
 
             changePassword: function(divID) {
                 show(divID)
@@ -453,15 +418,15 @@
             changeEmail: function(divID) {
                 show(divID)
             },
-            cancle: function(divID) {
+            cancel: function(divID) {
                 hide(divID)
             },
             getConfirm: function() {
                 if (this.counter == "") {
                     outthis = this
-                    ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, true, function(xmlHttp) {
+                    ajax("get", "http://10.21.100.129:9090/user/email?email=" + this.newEmailAddress, null, true, function(xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
-
+                        console.log("verifyNum form server: " + outthis.verifyNum)
                     })
                     this.counter = 60
                     this.counterReminder = "s before re-send"
@@ -482,6 +447,38 @@
             },
             prevBranch: function() {
                 this.branchIndex -= 3
+            },
+            submitChangePassword: function() {
+                if (this.newPassword != this.newPasswordConfirm) {
+                    alert("password confirm failed")
+                    return
+                }
+                var formData = new FormData()
+                formData.append("old_pass", this.oldPassword)
+                formData.append("new_pass", this.newPassword)
+                formData.append("uid", this.uid)
+                ajax("post", "http://10.21.100.129:9090/user/changePass", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("success")
+                        hide('changePasswordDiv')
+                    } else {
+                        alert("wrong old password")
+                    }
+                })
+            },
+            submitChangeEmail: function() {
+                if (this.verifyNum != this.userInputVerifyNum) {
+                    alert("wrong verify number")
+                    return
+                }
+                ajax("get", "http://10.21.100.129:9090/user/changeEmail?id=" + this.uid + "&email=" + this.newEmailAddress, null, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("success")
+                        hide('changeEmailDiv')
+                    } else {
+                        alert("failed")
+                    }
+                })
             }
         }
     })
