@@ -228,17 +228,17 @@
 
 
             <div id="changePasswordDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;"></br>
-                <input type="text" placeHolder="new password" style="margin: 10px 125px;width:150px;"></br>
-                <input type="text" placeHolder="confirm password" style="margin: 10px 125px;width:150px;">
-                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submit">Submit</a>
+                <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;" v-model="oldPassword"></br>
+                <input type="text" placeHolder="new password" style="margin: 10px 125px;width:150px;" v-model="newPassword"></br>
+                <input type="text" placeHolder="confirm password" style="margin: 10px 125px;width:150px;" v-model="newPasswordConfirm">
+                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submitChangePassword">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('changePasswordDiv')">Cancel</a>
             </div>
             <div id="changeEmailDiv" style="height:200px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <input type="text" placeHolder="new email address" style="margin: 10px 125px;width:150px;"></br>
+                <input type="text" placeHolder="new email address" style="margin: 10px 125px;width:150px;" v-model="newEmailAddress"></br>
                 <a class="button" href="#" style="width:85px;margin:10px 125px;margin-right: 0px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="getConfirm">Confirm</a>{{counter+counterReminder}}
-                <input type="text" placeHolder="confirm number" style="margin: 10px 125px;width:150px;">
-                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submit">Submit</a>
+                <input type="text" placeHolder="confirm number" style="margin: 10px 125px;width:150px;" v-model="userInputVerifyNum">
+                <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submitChangeEmail">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('changeEmailDiv')">Cancel</a>
             </div>
             <div id="rechargeDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
@@ -288,7 +288,11 @@
             counter: "",
             timer: null,
             verifyNum: 0,
-            emailAddress: 13,
+            userInputVerifyNum: "",
+            newEmailAddress: 13,
+            oldPassword: "",
+            newPassword: "",
+            newPasswordConfirm: "",
             counterReminder: "",
             branches: [{
                 info: "asasaas"
@@ -300,7 +304,7 @@
                 info: "x"
             }, ],
             branchIndex: 0,
-            uid: "",
+            uid: 1,
             test: "huh",
             friendList: [{}, {}],
 
@@ -343,6 +347,7 @@
             } else {
                 this.administrator = false
             }
+            this.avatarUrl = "http://36058s3d36.zicp.vip/static/user/" + this.uid + "/photo.jpg"
         },
         methods: {
             modifyUserInfo: function() {
@@ -383,14 +388,14 @@
                 }
 
             },
-            uploadAvatar: function() {
-                var fileObj = document.getElementById("userAvatar ").files[0]
+            uploadAvatar: function(event) {
+                var fileObj = event.target.files[0]
                 if (fileObj != null) {
                     ouTthis = this
                     var formData = new FormData()
                     formData.append("avatar ", fileObj)
                     formData.append("id ", 1)
-                    ajax("post ", "http://10.21.52.79:8080/test/changeAvatar ", formData, true, function(xmlHttp) {
+                    ajax("post", "http://10.21.100.129:9090/user/changeAvatar ", formData, true, function(xmlHttp) {
                         alert("avatar changed successfully! ")
                         var url = xmlHttp.responseText
                         outThis.avatarUrl = url
@@ -419,9 +424,9 @@
             getConfirm: function() {
                 if (this.counter == "") {
                     outthis = this
-                    ajax("get", "http://10.21.52.79:8080/test/email?email=" + this.emailAddress, null, true, function(xmlHttp) {
+                    ajax("get", "http://10.21.100.129:9090/user/email?email=" + this.newEmailAddress, null, true, function(xmlHttp) {
                         outthis.verifyNum = xmlHttp.responseText
-
+                        console.log("verifyNum form server: " + outthis.verifyNum)
                     })
                     this.counter = 60
                     this.counterReminder = "s before re-send"
@@ -442,6 +447,38 @@
             },
             prevBranch: function() {
                 this.branchIndex -= 3
+            },
+            submitChangePassword: function() {
+                if (this.newPassword != this.newPasswordConfirm) {
+                    alert("password confirm failed")
+                    return
+                }
+                var formData = new FormData()
+                formData.append("old_pass", this.oldPassword)
+                formData.append("new_pass", this.newPassword)
+                formData.append("uid", this.uid)
+                ajax("post", "http://10.21.100.129:9090/user/changePass", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("success")
+                        hide('changePasswordDiv')
+                    } else {
+                        alert("wrong old password")
+                    }
+                })
+            },
+            submitChangeEmail: function() {
+                if (this.verifyNum != this.userInputVerifyNum) {
+                    alert("wrong verify number")
+                    return
+                }
+                ajax("get", "http://10.21.100.129:9090/user/changeEmail?id=" + this.uid + "&email=" + this.newEmailAddress, null, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("success")
+                        hide('changeEmailDiv')
+                    } else {
+                        alert("failed")
+                    }
+                })
             }
         }
     })

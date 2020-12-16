@@ -136,12 +136,13 @@
 
 
 
-            <div style="float: left;width:900px;height:150px;margin-left: 50px;border:1px solid gray;">
-                <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Screenshots</label></br>
-                <img v-for="(img,imgIndex) in game.screenshotsUrl" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex==screenshotIndex}" style="width:150px;height:100px;float: left;" v-bind:src="img.url" v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
+            <div style="float: left;width:900px;height:150px;margin-left: 50px;border:1px solid gray;position: relative;">
+                <label style="font-size:25px;font-weight: bold;margin-left: 140px;float: left;display: inline-block;width:600px;">Screenshots</label>
+                <img v-for="(img,imgIndex) in game.screenshotsUrl" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex==screenshotIndex}" style="width:150px;height:100px;float: left;" v-bind:src="../../figures/temparory/gamePageImg/star.png"
+                    v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
 
-                <a class="button" href="#" style="margin-top:0px;margin-left:700px;width:30px;float: left; " v-on:click.prevent="prevScreenshot">&lt</a>
-                <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="margin-top:0px;margin-left:10px;width:30px;float: left; ">&gt</a>
+                <a class="button" href="#" style="margin-top:0px;margin-left:700px;width:30px;float: left;display: inline-block; " v-on:click.prevent="prevScreenshot">&lt</a>
+                <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="margin-top:0px;margin-left:10px;width:30px;float: left;display: inline-block; ">&gt</a>
             </div>
             <div style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Description</label></br>
@@ -261,7 +262,7 @@
                             file: ""
                         },
                         tag: ["No tag", "No tag", "No tag", "No tag", "No tag"],
-                        screenshotsUrl: [],
+                        screenshotsUrl: [{}, {}, {}],
                         gid: "",
                         gamePrice: "36",
                         gameDate: "",
