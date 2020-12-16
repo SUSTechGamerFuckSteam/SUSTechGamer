@@ -342,7 +342,7 @@
                 if (this.fileObj != null)
                     formData.append("picture", this.fileObj)
                 formData.append("content", encodeURI(this.userComment))
-                formData.append("gid", 8)
+                formData.append("gid", this.gid)
                 formData.append("uid", 1)
                 formData.append("points", this.userPoint)
                 ajax("post", "http://10.21.100.129:9090/postbar/setupPostbar", formData, false, function(x) {

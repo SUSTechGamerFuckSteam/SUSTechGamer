@@ -114,7 +114,7 @@
             <div class="gameInfoDiv">
                 <label class="gameInfo">game name</label>
                 <input class="gameInfo" type="text" v-model="game.gameName"></br>
-                <label class="gameInfo">price</label>
+                <label class="gameInfo">original price</label>
                 <input class="gameInfo" type="text" v-model="game.gamePrice"></br>
                 <label class="gameInfo">release date</label>
                 <input class="gameInfo" type="date" v-model="game.gameDate" style="width:140px;font-size: 13px;margin-left: 0px;"></br>
@@ -319,9 +319,14 @@
                 formData.append("discount", this.gameList[index].discount)
                 formData.append("end_time", this.gameList[index].discountTime)
                 formData.append("g_des", this.gameList[index].gameDescription)
-                formData.append("gid", 9)
+                console.log(this.gameList[index].gameDescription)
+                formData.append("gid", this.gameList[index].gid)
                 ajax("post", "http://36058s3d36.zicp.vip:55374/game/update", formData, false, function(x) {
-
+                    if (x.responseText == 1) {
+                        alert("submit successfully")
+                    } else {
+                        alert("submit failed")
+                    }
                 })
 
             },
