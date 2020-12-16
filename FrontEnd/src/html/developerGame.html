@@ -105,8 +105,11 @@
         </div>
         <div class="gameDiv clearfix" v-for="(game,index) in gameList">
             <div class="gameImgDiv" style="position: relative">
-                <img>
-                <input type="file" style="position: absolute;width:350px;height:250px;opacity: 0;" accept=".mp4" v-on:change="newGameVideoUpload($event,index)" title="upload your video">
+                <video style="height:250px;width:445px;position: absolute" controls autoplay>
+                    <source v-bind:src="game.gameVideoUrl" type="video/mp4">   
+                    您的浏览器不支持 video 属性。
+                  </video>
+                <input type="file" style="position: absolute;width:445px;height:190px;opacity: 0;" accept=".mp4" v-on:change="newGameVideoUpload($event,index)" title="upload your video">
             </div>
             <div class="gameInfoDiv">
                 <label class="gameInfo">game name</label>
@@ -114,12 +117,12 @@
                 <label class="gameInfo">price</label>
                 <input class="gameInfo" type="text" v-model="game.gamePrice"></br>
                 <label class="gameInfo">release date</label>
-                <input class="gameInfo" type="date" v-model="game.gameDate" style="width:120px;font-size: 13px;margin-left: 0px;"></br>
+                <input class="gameInfo" type="date" v-model="game.gameDate" style="width:140px;font-size: 13px;margin-left: 0px;"></br>
                 <label class="gameInfo" style="margin-bottom: 0px;">discount</label>
                 <input class="gameInfo" type="text" v-model="game.discount" style="width:60px;height:20px;margin-right: 0px;font-size: 15px;margin-bottom:10px;margin-left: 0px;">% til
                 <input class="gameInfo" type="date" v-model="game.discountTime" style="width:120px;font-size: 13px;margin-left: 10px;">
             </div>
-            <div style="float: left;width:148px;height:250px;background:aqua;">
+            <div style="float: left;width:149px;height:250px;background:aqua;">
                 <a class="button" href="#" v-on:click.prevent="show('addBranchDiv')" style="margin-top:15px;margin-left:10px;width:120px;font-size: 15px;">Add Branch</a>
                 <a class="button" href="#" v-on:click.prevent="show('addDLCDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add DLC</a>
                 <a class="button" href="#" v-on:click.prevent="show('addTagDiv')" style="margin-top:20px;margin-left:10px;width:120px;font-size: 15px;">Add Tag</a>
@@ -133,22 +136,22 @@
 
 
 
-            <div style="float: left;width:900px;height:150px;margin-left: 0px;border:1px solid gray;">
+            <div style="float: left;width:900px;height:150px;margin-left: 50px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Screenshots</label></br>
-                <img v-for="(img,imgIndex) in game.imgList" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex==screenshotIndex}" style="width:150px;height:100px;" src="../../figures/temporary/userPageImgs/game01.jpg" v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
+                <img v-for="(img,imgIndex) in game.screenshotsUrl" v-bind:class="{'normalScreenshot':imgIndex!=screenshotIndex,'firstScreenshot':imgIndex==screenshotIndex}" style="width:150px;height:100px;float: left;" v-bind:src="img.url" v-if="(screenshotIndex<=imgIndex&imgIndex<screenshotIndex+3)?true:false">
 
-                <a class="button" href="#" style="margin-top:0px;margin-left:50px;width:80px;height:40px;font-size: 30px;line-height: 40px;" v-on:click.prevent="prevScreenshot">&lt</a>
-                <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="margin-top:0px;margin-left:10px;width:80px;height:40px;font-size: 30px;line-height: 40px;">&gt</a>
+                <a class="button" href="#" style="margin-top:0px;margin-left:700px;width:30px;float: left; " v-on:click.prevent="prevScreenshot">&lt</a>
+                <a ref="abc" class="button" href="#" v-on:click.prevent="nextScreenshot" style="margin-top:0px;margin-left:10px;width:30px;float: left; ">&gt</a>
             </div>
-            <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;">
+            <div style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Description</label></br>
                 <textarea v-model="game.gameDescription" style="width:550px;height:60px;margin-left: 140px;resize: none;"></textarea>
             </div>
-            <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;">
+            <div style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">Branch</label></br>
                 <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly></textarea>
             </div>
-            <div style="float: left;width:900px;height:100px;margin-left: 0px;border:1px solid gray;margin-bottom: 20px;">
+            <div style="float: left;width:900px;height:100px;margin-left: 50px;border:1px solid gray;margin-bottom: 20px;">
                 <label style="font-size:25px;font-weight: bold;margin-left: 140px;">DLC</label></br>
                 <textarea style="width:550px;height:40px;margin-left: 140px;resize: none;" readonly></textarea>
             </div>
@@ -210,7 +213,7 @@
             gameFile: "",
             gameDate: "2000-05-02",
             gameDescription: "",
-            screenshotIndex: 2,
+            screenshotIndex: 0,
             visitor: false,
             visitorName: "adad",
             gidList: "",
@@ -238,7 +241,6 @@
             // })
             var outThis = this
             ajax("get", "http://10.21.100.129:9090/game/getGidList?uid=1", null, false, function(x) {
-                console.log(x.responseText)
                 outThis.gidList = x.responseText.split(",")
                 console.log(outThis.gidList)
             })
@@ -275,6 +277,9 @@
                     gameObj.discount = jsonObj.discount * 100
                     gameObj.discountTime = jsonObj.dis_end_time
                     gameObj.gameDescription = jsonObj.description
+                    ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=" + outThis.gidList[gid], null, true, function(x) {
+                        gameObj.gamePrice = x.responseText
+                    })
                     for (var i = 1; i <= jsonObj.shoot_num; i++) {
                         gameObj.screenshotsUrl.push({
                             url: "http://36058s3d36.zicp.vip/static/game/" + gameObj.gid + "game/shoot/" + i + "shoot.jpg"
@@ -357,7 +362,7 @@
             newGameVideoUpload: function(event, index) {
                 this.gameList[index].gameVideo = event.target.files[0]
                 var formData = new FormData()
-                formData.append("gid", 8)
+                formData.append("gid", this.gameList[index].gid)
                 formData.append("video", this.gameList[index].gameVideo)
                 ajax("post", "http://10.21.100.129:9090/game/newVideo", formData, false, function(x) {
                     if (x.responseText == 1) {
@@ -405,7 +410,16 @@
                 this.screenshotIndex -= 3
             },
             newScreenshootUpload: function(event, index) {
-
+                var formData = new FormData()
+                formData.append("gid", this.gameList[index].gid)
+                formData.append("shoot", event.target.files[0])
+                ajax("post", "http://10.21.100.129:9090/game/newShoot", formData, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("upload successfully")
+                    } else {
+                        alert("upload failed")
+                    }
+                })
             },
         }
     })

@@ -43,8 +43,8 @@
             </div>
             <div id="gameGetDiv">
                 <div id="priceDiv">
-                    <p style="font-size: 45px;height:70px;width:200px;margin: 0 auto;">{{'$'+price}}</p>
-                    <span style="font-size: 15px;">{{discount}}</span>
+                    <p style="font-size: 45px;height:70px;width:200px;margin: 0 auto;">{{'$'+price*discount}}</p>
+                    <span style="font-size: 15px;">{{discountInfo}}</span>
                 </div>
                 <a v-on:click.prevent="purchaseGame" class="button" href="#" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Purchase</a>
                 <a class="button" href="#downloadBranch" style="width:180px;height:60px;margin: 20px auto;font-size: 30px;font-weight: bold; line-height: 60px;">Download</a>
@@ -77,7 +77,7 @@
             </p>
             <div class="branchDiv" v-for="(branch,index) in branches" v-if="(index>=branchIndex&&index<branchIndex+3)?true:false">
                 <textarea class="branchInfo" resizable="false">{{branch.info}}</textarea>
-                <a class="button" href="http://10.21.100.129:9090/download?uid=1&gid=8" style="margin: 70px 20px;width:110px;float: left;display: inline-block;font-size: 20px; ">download</a>
+                <a class="button" v-on:click.prevent="downloadBranch(branch.path,index)" href="#" style="margin: 70px 20px;width:110px;float: left;display: inline-block;font-size: 20px; ">download</a>
             </div>
 
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
@@ -182,9 +182,10 @@
             branches: [],
             DLCs: [],
             branchIndex: 0,
-            discount: "(discount 87%, original $600)",
+            discountInfo: "(discount 87%, original $600)",
+            discount: "",
             uid: 1,
-            gid: 1,
+            gid: 2,
             gameName: "LOL1.1",
             gameDate: "2020-05-16",
             userComment: "",
@@ -207,6 +208,7 @@
             console.log(JSON.stringify(jsonObj))
             ajax("get", "http://10.21.100.129:9090/game/findPriceByGid?gid=" + this.gid, null, true, function(x) {
                 outThis.price = x.responseText
+                outThis.gameVideoUrl = "http://36058s3d36.zicp.vip/static/game/" + outThis.gid + "game/video/game.mp4"
             })
             ajax("get", "http://10.21.100.129:9090/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
                 outThis.userBalance = x.responseText
@@ -216,12 +218,14 @@
                 console.log(JsonRe)
                 for (var obj in JsonRe) {
                     outThis.branches.push({
-                        info: JsonRe[obj].description
+                        info: JsonRe[obj].description,
+                        path: JsonRe[obj].gamepath
                     })
                 }
             })
-            ajax("get", "http://10.21.100.129:9090/game_dlc_path/findDLCBygid?gid=1", null, true, function(x) {
+            ajax("get", "http://10.21.100.129:9090/game_dlc_path/findDLCBygid?gid=" + this.gid, null, true, function(x) {
                 var jsonObj = JSON.parse(x.responseText)
+
                 for (var dlc in jsonObj) {
                     outThis.DLCs.push({
                         info: jsonObj[dlc].description,
@@ -247,7 +251,7 @@
             ajax("get", "http://10.21.100.129:9090/postbar/getPoints?gid=8", null, true, function(x) {
                 outThis.gamePoint = x.responseText
             })
-            ajax("get", "http://10.21.100.129:9090/game/getShoot?gid=8", null, true, function(x) {
+            ajax("get", "http://10.21.100.129:9090/game/getShoot?gid=" + this.gid, null, true, function(x) {
                 console.log("number: " + x.responseText)
                 for (var i = 1; i <= x.responseText; i++) {
                     console.log("i: " + i)
@@ -256,6 +260,15 @@
                     })
                 }
             })
+            ajax("get", "http://10.21.100.129:9090/game/getAllBygid?gid=" + this.gid, null, true, function(x) {
+                var jsonObj = JSON.parse(x.responseText)
+                outThis.gameName = jsonObj.name
+                outThis.gameDate = jsonObj.release_date
+                outThis.discount = jsonObj.discount
+                outThis.discountInfo = "(discount " + jsonObj.discount * 100 + "% original " + outThis.price + ")"
+                outThis.gameDescription = jsonObj.description
+            })
+
         },
         methods: {
             nextBranch: function() {
@@ -351,6 +364,24 @@
                     alert("you need purchase first")
                     return
                 }
+                var a = document.createElement('a');
+                var url = path
+                console.log("path: " + path)
+                a.href = url;
+                a.click();
+            },
+            downloadBranch: function(path, arrayIndex) {
+                var purchasable = false
+                ajax("get", "http://10.21.100.129:9090/dev_game/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid, null, false, function(x) {
+                    if (x.responseText == 0) {
+                        purchasable = true
+                    }
+                })
+                if (purchasable) {
+                    alert("you need purchase first")
+                    return
+                }
+
                 var a = document.createElement('a');
                 var url = path
                 console.log("path: " + path)
