@@ -154,7 +154,7 @@
                 </ul>
             </div>
             <label style="float: left;width:100px;font-size:13px;margin-top:0px;margin-left:10px;font-weight: bold;">rank the game:</label>
-            <input id="info" v-model="userPoint" style="float: left;width:20px;height:15px;" readonly>
+            <input id="info" style="float: left;width:20px;height:15px;" readonly>
             <input type="file" id="u" v-on:change="pictureComment($event)" capture="camera" accept="image/*" style="margin-top:10px;margin-left:20px;width:110px;cursor:pointer;font-size: 17px;float: left;" title="picture" />
             <a v-on:click.prevent="sendComment" class="button" href="#" style="margin-top:10px;margin-left:20px;margin-bottom:10px;width:110px;display: inline-block;font-size: 20px;float: left;">Comment</a>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
@@ -168,6 +168,11 @@
     </div>
 </body>
 <script>
+    function setInputValue() {
+        document.getElementById("info").value = "5";
+        console.log(document.getElementById("info").value)
+    }
+    window.onload = setInputValue
     var vm = new Vue({
         el: '#vueDiv',
         data: {
@@ -203,6 +208,7 @@
             screenshotIndex: 0,
         },
         created: function() {
+            setInputValue()
             outThis = this
             var jsonObj = parsePageUrl(location.href)
             console.log(JSON.stringify(jsonObj))
@@ -344,11 +350,12 @@
                 formData.append("content", encodeURI(this.userComment))
                 formData.append("gid", this.gid)
                 formData.append("uid", this.uid)
-                formData.append("points", this.userPoint)
+                formData.append("points", document.getElementById("info").value)
                 console.log(this.userPoint)
                 ajax("post", "http://36058s3d36.zicp.vip:55374/postbar/setupPostbar", formData, false, function(x) {
                     if (x.responseText == 1) {
                         alert("comment successfully")
+                        location.reload()
                     } else {
                         alert("comment failed")
                     }
@@ -425,8 +432,11 @@
             list[i - 1].onclick = function(e) {
                 tempNum = this.index;
                 fnShow(this.index)
+
                 console.log("评分: " + e.target.innerText);
                 info.value = e.target.innerText;
+                // document.getElementById("info").value = "hhh";
+                // console.log(document.getElementById("info").value)
             }
         }
 
