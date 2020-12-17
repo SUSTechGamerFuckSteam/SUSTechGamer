@@ -123,7 +123,7 @@
             <div class="userCommentDiv" v-for="(comment,index) in commentList">
                 <div style="float: left;width:150px;height:150px;position: relative;">
                     <img v-bind:src="comment.avatarUrl" style="display:block;width:100px;height:80px;position: absolute;top:0px;left:25px;">
-                    <a href="userPage.html" style="position: absolute;width:150px;height:150px;"></a>
+                    <a v-bind:href="'userPage.html?uid='+uid+'&visited='+comment.uid" style="position: absolute;width:150px;height:150px;"></a>
                     <span style="position: absolute;top:90px;left:15px;font-size: 15px;">{{comment.userName}}</span>
                     <span style="position: absolute;top:110px;left:15px;font-size: 15px;">{{comment.points}}</span>
                 </div>
@@ -211,17 +211,20 @@
             setInputValue()
             outThis = this
             var jsonObj = parsePageUrl(location.href)
-            console.log(JSON.stringify(jsonObj))
+
+            this.gid = jsonObj.gid
+            this.uid = jsonObj.uid
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/findPriceByGid?gid=" + this.gid, null, true, function(x) {
                 outThis.price = x.responseText
                 outThis.gameVideoUrl = "http://36058s3d36.zicp.vip/static/game/" + outThis.gid + "game/video/game.mp4"
             })
             ajax("get", "http://36058s3d36.zicp.vip:55374/user/findBalanceByUid?uid=" + this.uid, null, true, function(x) {
                 outThis.userBalance = x.responseText
+
             })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/findBranchBygid?id=" + this.gid, null, true, function(x) {
                 var JsonRe = JSON.parse(x.responseText)
-                console.log(JsonRe)
+
                 for (var obj in JsonRe) {
                     outThis.branches.push({
                         info: JsonRe[obj].description,
@@ -258,9 +261,9 @@
                 outThis.gamePoint = x.responseText
             })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/getShoot?gid=" + this.gid, null, true, function(x) {
-                console.log("number: " + x.responseText)
+
                 for (var i = 1; i <= x.responseText; i++) {
-                    console.log("i: " + i)
+
                     outThis.screenshotsUrl.push({
                         url: "http://36058s3d36.zicp.vip/static/game/" + outThis.gid + "game/shoot/" + i + "shoot.jpg"
                     })
@@ -300,7 +303,8 @@
                     alert("you have purchased already")
                     return
                 }
-                if (this.userBalance < this.price) {
+
+                if (Number(this.userBalance) < Number(this.price)) {
                     alert("your balance is not enough")
                     return
                 }
@@ -316,7 +320,7 @@
             },
             purchaseDLC: function(arrayIndex) {
                 var purchasable = false
-                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 0) {
                         purchasable = true
                     }

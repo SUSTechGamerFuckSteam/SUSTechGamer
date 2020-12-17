@@ -31,17 +31,17 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="Store.html">
+                    <a v-bind:href="'Store.html?uid='+uid">
                         <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
                         <span class="title">Store</span>
                     </a>
                 </li>
-                <li>
+                <!-- <li>
                     <a href="userPage.html">
                         <span class="icon"><i class="fa fa-folder" aria-hidden="true"></i></span>
                         <span class="title">Library</span>
                     </a>
-                </li>
+                </li> -->
                 <li v-if="!visitor">
                     <a href="#" v-on:click.prevent="show('friendDiv')" v-if="!visitor">
                         <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName">
+                    <a v-bind:href="'message.html?uid='+visitorID+'&visited='+uid">
                         <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
                         <span class="title">Messages</span>
                     </a>
@@ -60,7 +60,7 @@
                         <span class="title">Password</span>
                     </a>
                 </li>
-                <li>
+                <li v-if="!visitor&administrator">
                     <a href="#">
                         <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
                         <span class="title">Administrator</span>
@@ -81,17 +81,17 @@
 
                 </li> -->
                 <li v-if="!visitor&developer">
-                    <a href="developerGame.html?userName='+userName">
+                    <a v-bind:href="'developerGame.html?uid='+uid">
                         <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
                         <span class="title">Developer</span>
                     </a>
                 </li>
-                <!-- <li v-if="visitor">
+                <li v-if="visitor">
                     <a href="friend.html?userName='+userName">
                         <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                         <span class="title">Add Friend</span>
                     </a>
-                </li> -->
+                </li>
                 <li>
             </ul>
         </div>
@@ -153,23 +153,15 @@
                 <a class="button" href="#" v-on:click.prevent="show('rechargeDiv')" v-if="!visitor" style="width:85px;margin: 50px 130px;float: left;font-weight: 400;font-size: 15px;">Recharge</a>
                 <p class="imgReminder">My Account</p>
             </div>
+
+
             <p class="clasify">
                 <span id="reminder">My Game</span>
             </p>
-
-            <div class="inlineDiv" style="position: relative;">
-                <img class="gameImg" src="../../figures/temporary/userPageImgs/game01.jpg">
-                <p class="imgReminder">Game ONE</p>
+            <div class="inlineDiv" style="position: relative;" v-for="(game,index) in gameList">
+                <img class="gameImg" v-bind:src="game.imgUrl">
+                <p class="imgReminder">{{game.name}}</p>
             </div>
-            <div class="inlineDiv" style="position: relative;">
-                <img class="gameImg" src="../../figures/temporary/userPageImgs/game02.jpg">
-                <p class="imgReminder">Game TWO</p>
-            </div>
-            <div class="inlineDiv" style="position: relative;">
-                <img class="gameImg" src="../../figures/temporary/userPageImgs/game03.jpg">
-                <p class="imgReminder">Game THREE</p>
-            </div>
-
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 1000px;text-align: center;">
                 <a class="button" href="#" style="margin: 0px;width:30px;">&lt</a>
             </div>
@@ -177,27 +169,14 @@
                 <a class="button" href="#" style="margin: 0px;width:30px;">&gt</a>
             </div>
 
-            <p class="clasify" v-if="developer">
-                <span id="reminder">My Branch</span>
-            </p>
-            <div class="branchDiv">
-                <textarea class="branchInfo" resizable="false" style="margin: 15px 70px;">{{test}}</textarea>
 
-            </div>
-
-            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 990px;text-align: center;">
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&lt</a>
-            </div>
-            <div class="inlineDiv" style="width:30px;height:20px;margin-left: 10px;text-align: center;">
-                <a v-on:click.prevent="" class="button" href="#" style="margin: 0px;">&gt</a>
-            </div>
 
             <p class="clasify" v-if="developer">
                 <span id="reminder">My DLC</span>
             </p>
-            <div class="branchDiv" v-for="(branch,index) in branches" v-if="(index>=branchIndex&&index<branchIndex+3)?true:false">
-                <textarea class="branchInfo" resizable="false" style="margin: 15px 70px;">{{branch.info}}</textarea>
-
+            <div class="branchDiv" v-for="(DLC,index) in DLCs" v-if="(index>=DLCIndex&&index<DLCIndex+3)?true:false">
+                <textarea class="branchInfo" resizable="false" style="margin: 15px 70px;width:700px;margin-right: 20px;">{{DLC.info}}</textarea>
+                <label style="float:left;font-size:20px;font-weight:bold;margin-top: 45px;">{{"DLC"+DLC.index+" from : "+DLC.gameName}}</label>
             </div>
             <div class="inlineDiv" style="width:30px;height:20px;margin-left: 990px;text-align: center;">
                 <a v-on:click.prevent="prevBranch" class="button" href="#" style="margin: 0px;">&lt</a>
@@ -206,12 +185,7 @@
                 <a v-on:click.prevent="nextBranch" class="button" href="#" style="margin: 0px;">&gt</a>
             </div>
 
-
-            <p class="clasify">
-                <span id="reminder">Administrator Option</span>
-            </p>
-
-            <div class="inlineDiv" style="position: relative;">
+            <!-- <div class="inlineDiv" style="position: relative;">
                 <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
                 <a href="#" v-on:click.prevent="show('uploadGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
                 <p class="imgReminder">OPTION ONE</p>
@@ -220,10 +194,7 @@
                 <img class="optionImg" src="../../figures/temporary/userPageImgs/OPTION.png">
                 <a href="#" v-on:click.prevent="show('modifyGameDiv')" style="position: absolute;display: block;width: 220px;height: 200px;top: 20px;left: 65px;z-index: 5;"></a>
                 <p class="imgReminder">OPTION TWO</p>
-            </div>
-
-
-
+            </div> -->
 
             <div id="changePasswordDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
                 <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;" v-model="oldPassword"></br>
@@ -276,12 +247,13 @@
             role: "Developer ",
             introductionSeen: true,
             introduction: "hh\nhh\nnima",
-            balance: "$520",
+            balance: "520",
             modify: "Modify",
             avatarUrl: "../../figures/temporary/userPageImgs/zhubie.jpg",
             visitor: false,
-            visitorName: "adad",
-            developer: true,
+            visitorID: "",
+            uid: "",
+            developer: false,
             administrator: false,
             counter: "",
             timer: null,
@@ -292,32 +264,24 @@
             newPassword: "",
             newPasswordConfirm: "",
             counterReminder: "",
-            branches: [{
-                info: "asasaas"
-            }, {
-                info: "dadsdada"
-            }, {
-                info: "dadadadadad"
-            }, {
-                info: "x"
-            }, ],
-            branchIndex: 0,
-            uid: 4,
             test: "huh",
-            friendList: [{}, {}],
             rechargeNum: "",
             userInputPassword: "",
+            DLCs: [],
+            DLCIndex: 0,
+            friendList: [{}, {}],
+            gameList: [],
 
         },
         created: function() {
             var jsonObj = parsePageUrl(location.href)
-            if (jsonObj.userName != jsonObj.visitor) {
+            this.uid = jsonObj.visited
+            this.visitorID = jsonObj.uid
+            if (jsonObj.uid != jsonObj.visited) {
                 this.visitor = true
-                this.visitorName = jsonObj.visitor
             } else {
                 this.visitor = false
             }
-            this.userName = jsonObj.userName
             outThis = this
             ajax("get", "http://36058s3d36.zicp.vip:55374/user/getFullInfo?uid=" + this.uid, null, true, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
@@ -327,8 +291,10 @@
                 outThis.introduction = result.intro
                 if (result.role == 1) {
                     outThis.role = "User"
-                } else {
+                } else if (result.role == 2) {
                     outThis.role = "Developer"
+                } else {
+                    outThis.role = "Administrator"
                 }
                 if (result.sex == "M" || result.sex == "m") {
                     outThis.gender = "Man"
@@ -348,6 +314,28 @@
                 this.administrator = false
             }
             this.avatarUrl = "http://36058s3d36.zicp.vip/static/user/" + this.uid + "/photo.jpg"
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game_dlc_path/getDlcByUid?uid=" + this.uid, null, true, function(x) {
+
+                var jsonObj = JSON.parse(x.responseText)
+                for (var o in jsonObj) {
+                    var DLC = {}
+                    DLC.index = jsonObj[o].index
+                    DLC.gameName = jsonObj[o].name
+                    DLC.info = jsonObj[o].description
+                    outThis.DLCs.push(DLC)
+                }
+            })
+            ajax("get", "http://36058s3d36.zicp.vip:55374/dev_game/findByUid?uid=" + this.uid, null, true, function(x) {
+                console.log(x.responseText)
+                var jsonObj = JSON.parse(x.responseText)
+                for (var g in jsonObj) {
+                    var gameObj = {}
+                    gameObj.imgUrl = "http://36058s3d36.zicp.vip/static/game/" + jsonObj[g].gid + "game/shoot/1shoot.jpg"
+                    gameObj.name = jsonObj[g].name
+                    outThis.gameList.push(gameObj)
+                }
+
+            })
         },
         methods: {
             modifyUserInfo: function() {

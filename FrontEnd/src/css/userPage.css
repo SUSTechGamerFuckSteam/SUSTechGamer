@@ -207,8 +207,8 @@ textarea.branchInfo {
     background-color: rgba(25, 25, 25, 0.8);
     color: rgb(70, 115, 121);
     position: absolute;
+    top: 210px;
     width: 350px;
-    margin-top: 210px;
     height: 40px;
     text-align: center;
     font-family: 微软雅黑, 宋体, Arial, Helvetica, Verdana, sans-serif;
