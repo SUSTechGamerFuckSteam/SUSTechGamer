@@ -12,14 +12,14 @@
     <script src="https://cdn.jsdelivr.net/npm/vue/dist/vue.js"></script>
     <!-- <link rel="stylesheet" type="text/css" href="font-awesome.css"/> -->
     <div id="gamer">
-        <h1 align="center"> </h1>
+        <div style="height:20px;"></div>
         <h1 align="center"> Sustech Gamer</h1>
     </div>
     <link href="https://cdn.bootcdn.net/ajax/libs/font-awesome/5.15.1/css/all.css" rel="stylesheet">
 </head>
 
 <body>
-    <div id="login_box">
+    <div id="login_box" style="padding: 20px;margin-top: 40px;">
 
         <!-- <h1> LOGIN</h1> -->
         <div id="switch">
@@ -31,9 +31,9 @@
         </div>
         <br>
         <div id="form">
-            <div class="search-box-wrap">
-                <div class="search-box">
-                    <input placeholder="E-Mail" name="email" v-model="emailAddress" type="text" class="search-input">
+            <div class="search-box-wrap" style="height:40px;">
+                <div class="search-box" style="height:40px;">
+                    <input placeholder="E-Mail" name="email" v-model="emailAddress" type="text" class="search-input" style="height:40px;">
                     <a href="#" class="search-btn">
                         <i class="fa fa-envelope" aria-hidden="true"></i>
                     </a>
@@ -41,9 +41,9 @@
             </div>
             <br>
 
-            <div class="search-box-wrap">
-                <div class="search-box">
-                    <input placeholder="Name" name="uname" v-model="userName" type="text" class="search-input">
+            <div class="search-box-wrap" style="height:40px;">
+                <div class="search-box" style="height:40px;">
+                    <input placeholder="Name" name="uname" v-model="userName" type="text" class="search-input" style="height:40px;">
                     <a href="#" class="search-btn">
                         <i class="fa fa-user" aria-hidden="true"></i>
                     </a>
@@ -51,18 +51,16 @@
             </div>
             <!-- </template> -->
             <br>
-            <div class="search-box-wrap">
-                <div class="search-box">
-                    <input placeholder="PassWord" name="password" v-model="password" type="password" class="search-input">
+            <div class="search-box-wrap" style="height:40px;margin-bottom: 20px;">
+                <div class="search-box" style="height:40px;">
+                    <input placeholder="PassWord" name="password" v-model="password" type="password" class="search-input" style="height:40px;">
                     <a href="#" class="search-btn">
                         <i class="fa fa-key" aria-hidden="true"></i>
                     </a>
                 </div>
             </div>
 
-            <label>Gender: </label><input type="radio" name="sex" value="M" v-model="gender"><i class="fa fa-Mars" style="font-size:48px;color:rgb(0, 153, 255)"></i><span>Man</span><input type="radio" value="W" name="sex" v-model="gender"><i class="fa fa-venus"
-                style="font-size:48px;color:rgb(255, 192, 192)"></i><span>Woman</span></br>
-            <label>Role: </label><input type="radio" name="role" value="1" v-model="role"> <i class="fa fa-user" aria-hidden="true"></i><span>User</span><input type="radio" value="2" name="role" v-model="role"><i class="fa fa-key" aria-hidden="true"></i><span>Developer</span></br>
+
 
             <br>
 
@@ -74,19 +72,26 @@
             <!-- <button id="a" input type="button" ">Sign in</button> -->
         <!-- </div>  -->
 
-        <div id="formDiv">
-            <form id="userInfoForm" @submit.prevent="getComfirm">
+        <div id="formDiv" style="text-align: unset;position: relative;">
+            <label style="font-size: 25px;font-weight:bold;margin-left: 170px;display: inline-block;width:100px;float: left;text-align: left;">Gender: </label>
+            <input type="radio" name="sex" value="M" v-model="gender" style="font-size: 20px;float:left;height:35px;">
+            <p style="font-size: 20px;float:left;height:35px;margin: 0px;line-height: 35px;">Man</p>
+            <input type="radio" value="W" name="sex" v-model="gender" style="font-size: 20px;float:left;height:35px;">
+            <p style="font-size: 20px;float:left;height:35px;margin: 0px;line-height: 35px;">Woman</p>
+            <label style="font-size: 25px;font-weight:bold;margin-left: 170px;display: inline-block;width:100px;float: left;text-align: left;">Role: </label>
+            <input type="radio" value="2" name="role" v-model="role" style="font-size: 20px;float:left;height:35px;">
+            <p style="font-size: 20px;float:left;height:35px;margin: 0px;line-height: 35px;">User</p>
+            <input type="radio" name="role" value="1" v-model="role" style="font-size: 20px;float:left;height:35px;">
+            <p style="font-size: 20px;float:left;height:35px;margin: 0px;line-height: 35px;">Developer</p>
 
-                <!-- <label>Gender: </label><input type="radio" name="sex" value="M" v-model="gender"><span>Man</span><input type="radio" value="W" name="sex" v-model="gender"><span>Woman</span></br>
-                <label>Role: </label><input type="radio" name="role" value="1" v-model="role"><span>User</span><input type="radio" value="2" name="role" v-model="role"><span>Developer</span></br> -->
-                <!-- <button v-on:click="getComfirm">get Verify code</button> -->
-                <div v-on:click="getComfirm" class="btn" id="a" input type="button" onclick="login_ajax()">Get VerifyCode</div>
-                <label>{{counter+counterReminder}}</label>
-            </form>
-            <input type="text" v-model="userNum">
+
+            <div v-on:click="getComfirm" class="btn" id="a" input type="button" onclick="login_ajax()" style="float:left;width:250px;position: absolute;top:30px;left:175px;height:30px;">Get Verify Number</div>
+            <label style="float: left;position: absolute;">{{counter+counterReminder}}</label>
+
+            <input type="text" v-model="userNum" style="float: left;position: absolute;top:120px;left:175px;width:250px;border-radius: 10px;height:30px;" placeholder="enter verify number">
             <!-- <button v-on:click="numberVerify">verify</button> -->
 
-            <div v-on:click="numberVerify" class="btn2" id="b" input type="button">Sign up</div>
+            <div v-on:click="numberVerify" class="btn2" id="b" input type="button" style="float:left;width:250px;position: absolute;top:160px;left:175px;height:30px;">Sign Up</div>
 
         </div>
     </div>

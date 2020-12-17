@@ -190,7 +190,7 @@
             discountInfo: "(discount 87%, original $600)",
             discount: "",
             uid: 4,
-            gid: 4,
+            gid: 5,
             gameName: "LOL1.1",
             gameDate: "2020-05-16",
             userComment: "",
@@ -254,7 +254,7 @@
                     })
                 }
             })
-            ajax("get", "http://36058s3d36.zicp.vip:55374/postbar/getPoints?gid=8", null, true, function(x) {
+            ajax("get", "http://36058s3d36.zicp.vip:55374/postbar/getPoints?gid=" + this.gid, null, true, function(x) {
                 outThis.gamePoint = x.responseText
             })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/getShoot?gid=" + this.gid, null, true, function(x) {

@@ -63,33 +63,38 @@
         <div style="width:1000px;height:80px;"></div>
 
         <div id="userSearchDiv" class="clearfix">
-            <div style="float: left;width:900px;margin-bottom: 20px;">User Management</div>
-            <div style="float: left;width:900px;">
-                <input type="text" placeholder="search user" style="width:150px;">
-                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">Search</a>
-                <a class="button" href="#" style="width:165px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">+ Create New User</a>
+            <div style="float: left;width:900px;margin-bottom: 20px;font-size: 25px;font-weight: bold;">User Management</div>
+            <div style="float: left;width:900px;margin-bottom: 10px;">
+                <input v-model="searchUid" type="text" placeholder="search user by uid" style="width:170px;height:25px;">
+                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="searchByUid">Search</a>
+                <a class="button" target="_blank" href="register.html" style="width:165px; font-weight: lighter;font-size: 17px;">+ Create New User</a>
             </div>
-            <div v-for="(user,userIndex) in searchedUserList" class="searchedUserDiv">
+            <div style="float: left;width:900px;">
+                <input v-model="searchUserName" type="text" placeholder="search user by user name" style="width:170px;height:25px;">
+                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="searchByUserName">Search</a>
+                <a class="button" href="#" style="width:165px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="clearUserList">Clear Searched</a>
+            </div>
+            <div v-for="(user,userIndex) in searchedUserList" class="searchedUserDiv" style="margin-bottom:20px;">
                 <div class="userAvatarDiv">
                     <img style="position: absolute;height:120px;" src="../../figures/icon/like.png">
-                    <label style="position: absolute;top:120px;width:100px;text-align: center;">huangh</label>
+                    <label style="position: absolute;top:120px;width:100px;text-align: center;">{{user.userName}}</label>
                 </div>
                 <div class="userInfoDiv">
-                    <label class="userInfo">User Name</label><input class="userInfo" type=text><br>
-                    <label class="userInfo">Birthday</label><input class="userInfo" type="date"><br>
+                    <label class="userInfo">User Name</label><input v-model="user.userName" class="userInfo" type=text><br>
+                    <label class="userInfo">Birthday</label><input v-model="user.birthday" class="userInfo" type="date"><br>
                     <label class="userInfo">Gender:</label>
-                    <select class="userInfo">
+                    <select v-model="user.gender" class="userInfo">
                     <option>Man</option>
                     <option>Woman</option>
                     </select></br>
                     <label class="userInfo">Role:</label>
-                    <select class="userInfo">
+                    <select v-model="user.role" class="userInfo">
                     <option>User</option>
                     <option>Developer</option>
                     </select>
                 </div>
                 <div class="userButtonDiv">
-                    <textarea style="float:left;width:350px;height:100px;resize: none;margin-left: 20px;position: absolute;"></textarea>
+                    <textarea v-model="user.profile" style="float:left;width:350px;height:100px;resize: none;margin-left: 20px;position: absolute;"></textarea>
                     <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;position: absolute;top:120px;left:20px;">Submit</a>
                     <a class="button" href="#" style="width:125px; font-weight: lighter;font-size: 17px;position: absolute;top:120px;left:130px;">Ban Comment</a>
                 </div>
@@ -101,14 +106,30 @@
 
 
         <div id="gameSearchDiv" class="clearfix">
-            <div style="float: left;width:900px;margin-bottom: 20px;">Game Management</div>
+            <div style="float: left;width:900px;margin-bottom: 20px;font-size: 25px;font-weight: bold;">Game Management</div>
+            <div style="float: left;width:900px;margin-bottom: 10px;">
+                <input v-model="searchGid" type="text" placeholder="search game by gid" style="width:170px;height:25px;">
+                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="searchByGid">Search</a>
+                <a class="button" target="_blank" href="register.html" style="width:165px; font-weight: lighter;font-size: 17px;">Show All Games</a>
+            </div>
             <div style="float: left;width:900px;">
-                <input type="text" placeholder="search game" style="width:150px;">
-                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="submitNewBranch('addBranchDiv',index)">Search</a>
+                <input v-model="searchGameName" type="text" placeholder="search game by name" style="width:170px;height:25px;">
+                <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="searchByGameName">Search</a>
+                <a class="button" href="#" style="width:165px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="clearUserList">Clear Searched</a>
             </div>
-            <div v-for="(newGame,index) in newGameList" class="newGameDiv">
+            <div v-for="(game,gameIndex) in searchedGameList" class="searchedGameDiv">
+                <div class="gameInfoDiv">
+                    <label style="font-size: 17px;margin: 10px 0px;display: inline-block;width:300px;text-align: center;color: teal;">{{"Game Name: "+game.gameName}}</label></br>
+                    <label style="font-size: 20px;margin: 10px 0px;display: inline-block;width:300px;text-align: center">{{"Price: "+game.price}}</label></br>
+                    <label style="font-size: 20px;margin: 10px 0px;display: inline-block;width:300px;text-align: center">{{"Game ID: "+game.gid}}</label></br>
+                </div>
+                <textarea v-model="game.description" style="float: left;height:130px;width:400px;margin:10px 10px;resize:none;" readonly></textarea>
+                <a class="button" href="#" style="float:left;width:100px; font-weight: lighter;font-size: 17px;position:absolute;top:90px;">See More</a>
+                <a class="button" href="#" style="float:left;width:100px; font-weight: lighter;font-size: 17px;position:absolute;top:120px;">Delete</a>
+            </div>
 
-            </div>
+            <a class="button" href="#" style="width:35px; font-weight: lighter;font-size: 17px;float: left;margin-left: 800px;margin-top: 10px;">&lt</a>
+            <a class="button" href="#" style="width:35px; font-weight: lighter;font-size: 17px;float: left;margin-left: 10px;margin-top: 10px; ">&gt</a>
         </div>
     </div>
 </body>
@@ -120,8 +141,77 @@
             visitorName: "h",
             developer: "",
             userName: "hh",
-            searchedUserList: [{}],
-            newGameList: [{}]
+            searchedUserList: [],
+            allGameList: [{}],
+            searchedGameList: [{}],
+            searchUid: "",
+            searchUserName: "",
+            searchGid: "",
+            searchGameName: "",
+        },
+        created: function() {
+            var outThis = this
+            ajax("get", "http://36058s3d36.zicp.vip:55374/game/adGetGame", null, true, function(x) {
+                var jsonObj = JSON.parse(x.responseText)
+                outThis.fillGameInfo(jsonObj)
+            })
+        },
+        methods: {
+            searchByUid: function() {
+                outThis = this
+                ajax("get", "http://36058s3d36.zicp.vip:55374/administrator/getAllByUid?uid=" + this.searchUid, null, true, function(x) {
+                    console.log(x.responseText)
+                    var jsonObj = JSON.parse(x.responseText)
+                    outThis.fillUserInfo(jsonObj)
+                })
+                console.log(this.searchedUserList)
+            },
+            searchByUserName: function() {
+                outThis = this
+                ajax("get", "http://36058s3d36.zicp.vip:55374/administrator/getAllByName?name=" + this.searchUserName, null, true, function(x) {
+                    console.log(x.responseText)
+                    var jsonObj = JSON.parse(x.responseText)
+                    outThis.fillUserInfo(jsonObj)
+                })
+            },
+            fillUserInfo: function(jsonObj) {
+                for (var o in jsonObj) {
+                    var userObj = {}
+                    userObj.uid = jsonObj[o].uid
+                    userObj.userName = jsonObj[o].name
+                    userObj.birthday = jsonObj[o].birth
+                    if (jsonObj[o].sex == "M" || jsonObj[o].sex == "m") {
+                        userObj.gender = "Man"
+                    } else {
+                        userObj.gender = "Woman"
+                    }
+                    if (jsonObj[o].role == 1) {
+                        userObj.role = "User"
+                    } else {
+                        userObj.role = "Developer"
+                    }
+                    userObj.profile = jsonObj[o].description
+                    this.searchedUserList.push(userObj)
+
+                }
+            },
+            clearUserList: function() {
+                this.searchedUserList = []
+            },
+            fillGameInfo: function(jsonObj) {
+                for (var o in jsonObj) {
+                    var gameObj = {}
+                    gameObj.gameName = jsonObj[o].name
+                    gameObj.price = jsonObj[o].price
+                    gameObj.gid = jsonObj[o].gid
+                    gameObj.description = jsonObj[o].g_des
+                    this.searchedGameList.push(gameObj)
+                }
+            },
+            searchByGid: function() {
+
+            }
+
         }
     })
 </script>

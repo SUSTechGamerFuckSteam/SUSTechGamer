@@ -330,9 +330,9 @@
                 } else {
                     outThis.role = "Developer"
                 }
-                if (result.sex == "M") {
+                if (result.sex == "M" || result.sex == "m") {
                     outThis.gender = "Man"
-                } else {
+                } else if (result.sex == "W" || result.sex == "w") {
                     outThis.gender = "Woman"
                 }
                 outThis.balance = result.balance

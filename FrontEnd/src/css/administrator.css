@@ -90,12 +90,20 @@ div#gameSearchDiv {
     border: 1px solid grey;
 }
 
-div.newGameDiv {
+div.searchedGameDiv {
     float: left;
     position: relative;
     width: 900px;
     height: 150px;
     border: 1px solid grey;
+}
+
+div.gameInfoDiv {
+    /* background-color: firebrick; */
+    float: left;
+    width: 300px;
+    height: 150px;
+    color: rgb(70, 115, 121);
 }
 
 * {
