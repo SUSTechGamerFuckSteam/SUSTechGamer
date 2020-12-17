@@ -109,13 +109,24 @@
                                     let curr_uid = CURR_UID;
                                     let formData = new FormData();
                                     formData.append("uid", curr_uid.toString());
-                                    if (pics.length !== 1){
-                                        formData.append("picture", pics);
-                                    }else {
-                                        alert("Only one pic is allowed!");
+                                    try{
+                                        if (pics.length !== 1){
+                                            formData.append("picture", pics);
+                                        }else {
+                                            alert("Only one pic is allowed!");
+                                        }
+                                    } catch (TypeError){
+                                        console.log("no pic");
                                     }
                                     formData.append("content", text);
-                                    ajax("post", "http://36058s3d36.zicp.vip:55374/comment/addComment?tid=1", formData, true, function(x){
+                                    ajax("post", "http://36058s3d36.zicp.vip:55374/comment/addComment?tid=1", formData, true, function(community_info){
+                                        //todo
+                                        console.log(community_info);
+                                    });
+                                }
+                                window.onload = function () {
+                                    ajax("get", "http://36058s3d36.zicp.vip:55374/comment/getAllByTid?tid=1", 1, true, function(x){
+                                        console.log(x);
                                         //todo
                                     });
                                 }

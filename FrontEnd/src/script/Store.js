@@ -14,7 +14,7 @@ function login() {
 function search(){
 	let uid = parsePageUrl(window.location.href).uid
 	let query = document.getElementById("search_content").value;
-	if(uid === null){
+	if(uid === ""){
 		window.location.href = "./Search.html" + "?query=" + query;
 	}else {
 		window.location.href = "./Search.html?uid="+parsePageUrl(window.location.href).uid + "&query=" + query;
@@ -107,6 +107,7 @@ function getWindowHeight(){
 
 //js原生监听滚动事件
 window.onscroll = function() {
+
     if(getScrollTop() + getWindowHeight() === getScrollHeight()) {
 		if (GAME_LIST_COUNT === 0) {
 			ajax("get", "http://10.21.100.129:9090/game/getAllGame", null, true, function (game_list) {
@@ -269,4 +270,40 @@ function community_dislike(){
 		console.log("dislike withdraw");
 		DISLIKE_CLICKED = false;
 	}
+}
+
+/**
+ * 社区推荐
+ */
+let RECOMMEND_TID = Math.trunc(Math.random()*5);//硬核推荐系统 todo
+RECOMMEND_TID = 1;
+function get_community_recommend(){
+	ajax("get", "http://36058s3d36.zicp.vip:55374/comment/getAllByTid?tid="+RECOMMEND_TID.toString(), 1, true, function(community){
+		community = JSON.parse(community.responseText);
+		console.log("community recommend get sent!");
+		console.log(community);
+		let score = document.getElementById("score");
+		score.innerHTML = "<b>"+community[RECOMMEND_TID]["points"]+"</b>"
+		let user_name = document.getElementById("username");
+		let avatar = document.getElementById("avatar");
+		ajax("get", "http://10.21.100.129:9090/user/findNameByUid?uid="+community[RECOMMEND_TID]["uid"].toString(), null, true, function(ua){
+			user_name.innerHTML = ua.responseText;
+		});
+		avatar.src = "http://36058s3d36.zicp.vip/static/user/"+community[RECOMMEND_TID]["uid"].toString()+"/photo.jpg";
+
+		let community_picture = document.getElementById("community_picture");
+		let game_info = document.getElementById("game_info");
+		let content = document.getElementById("content");
+		community_picture.src = community[RECOMMEND_TID]["picture"];
+		content.innerHTML = community[RECOMMEND_TID]["content"];
+		ajax("get", "http://36058s3d36.zicp.vip:55374/game/getAllBygid?gid="+community[RECOMMEND_TID]["gid"].toString(), null, true, function(gn){
+			gn = JSON.parse(gn.responseText);
+			game_info.innerHTML = gn["name"];
+		});
+
+		let more_link = document.getElementById("more_link");
+		more_link.addEventListener("click", function (){
+			more_link.href = UID !== null ? "gamePage.html?gid="+community[RECOMMEND_TID]["gid"].toString()+"&uid="+UID : "gamePage.html?gid="+community[RECOMMEND_TID]["gid"].toString();
+		});
+	});
 }
