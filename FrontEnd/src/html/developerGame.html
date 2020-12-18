@@ -37,51 +37,17 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="Store.html">
+                    <a v-bind:href="'Store.html?uid='+uid">
                         <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
                         <span class="title">Store</span>
                     </a>
                 </li>
-
-                <li v-if="!visitor">
-                    <a href="friend.html?userName='+userName">
-                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <span class="title">Friends</span>
-                    </a>
-                </li>
-                <li>
-                    <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName">
-                        <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
-                        <span class="title">Messages</span>
-                    </a>
-                </li>
-                <li v-if="!visitor">
-                    <a href="#" v-on:click.prevent="changePassword('changePasswordDiv')" v-if="!visitor">
-                        <span class="icon"><i class="fa fa-key" aria-hidden="true"></i></span>
-                        <span class="title">Password</span>
-                    </a>
-                </li>
-                <li>
-                    <a href="#">
-                        <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
-                        <span class="title">Administrator</span>
-                    </a>
-                </li>
-
-
                 <li>
                     <a href="Community.html">
                         <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
                         <span class="title">Community</span>
                     </a>
                 </li>
-                <li v-if="visitor">
-                    <a href="friend.html?userName='+userName">
-                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <span class="title">Add Friend</span>
-                    </a>
-                </li>
-                <li>
             </ul>
         </div>
         <a class="link" style="margin-left: 1250px;;" href="login.html">sign-in</a>
@@ -217,32 +183,20 @@
             screenshotIndex: 0,
             visitor: false,
             visitorName: "adad",
-            gidList: "",
+            gidList: [],
             userName: "",
             uid: 4,
 
 
         },
         created: function() {
-            // var jsonObj = parsePageUrl(location.href)
-            // if (jsonObj.userName != jsonObj.visitor) {
-            //     this.visitor = false;
-            //     this.visitorName = jsonObj.visitor
-            // } else {
-            //     this.visitor = false
-            // }
-            // this.userName = jsonObj.userName
-            // var outThis = this
-            // ajax("get", "", null, true, function(x) {
-
-            // })
-            // ajax("get", "http://10.21.100.129:9090/game/getShoot", null, true, function(x) {
-            //     for (var i = 1; i <= x.responseText; i++) {
-
-            //     }
-            // })
+            var jsonObj = parsePageUrl(location.href)
+            this.uid = jsonObj.uid
             var outThis = this
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/getGidList?uid=" + this.uid, null, false, function(x) {
+                if (x.responseText == 0) {
+                    return
+                }
                 outThis.gidList = x.responseText.split(",")
 
             })

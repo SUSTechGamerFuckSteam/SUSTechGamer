@@ -31,7 +31,7 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a v-bind:href="'Store.html?uid='+uid">
+                    <a v-bind:href="'Store.html?uid='+visitorID">
                         <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
                         <span class="title">Store</span>
                     </a>
@@ -49,7 +49,7 @@
                     </a>
                 </li>
                 <li>
-                    <a v-bind:href="'message.html?uid='+visitorID+'&visited='+uid">
+                    <a target="_blank" v-bind:href="'message.html?uid='+visitorID+'&visited='+uid">
                         <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
                         <span class="title">Messages</span>
                     </a>
@@ -61,7 +61,7 @@
                     </a>
                 </li>
                 <li v-if="!visitor&administrator">
-                    <a href="#">
+                    <a target="_blank" v-bind:href="'administrator.html?uid='+uid">
                         <span class="icon"><i class="fa fa-cog" aria-hidden="true"></i></span>
                         <span class="title">Administrator</span>
                     </a>
@@ -81,13 +81,13 @@
 
                 </li> -->
                 <li v-if="!visitor&developer">
-                    <a v-bind:href="'developerGame.html?uid='+uid">
+                    <a target="_blank" v-bind:href="'developerGame.html?uid='+uid">
                         <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
                         <span class="title">Developer</span>
                     </a>
                 </li>
                 <li v-if="visitor">
-                    <a href="friend.html?userName='+userName">
+                    <a href="#" v-on:click.prevent="addFriend">
                         <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
                         <span class="title">Add Friend</span>
                     </a>
@@ -95,7 +95,7 @@
                 <li>
             </ul>
         </div>
-        <div id="hideDiv" style="position: absolute;width:100%;height:2500px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
+        <div id="hideDiv" style="position: fixed;width:100%;height:2000px;top:0;left:0;background-color:#000;opacity: 0.6;z-index: 6; display: none;"></div>
         <!-- <div id="headerDiv"> -->
         <!-- <a class="link" style="margin-left: 20px;" href="Store.html">Store | </a> -->
         <!-- <a class="link">Community | </a> -->
@@ -197,9 +197,9 @@
             </div> -->
 
             <div id="changePasswordDiv" style="height:220px;width:400px;position:fixed;top:200px;left:550px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <input type="text" placeHolder="old password" style="margin: 10px 125px;width:150px;" v-model="oldPassword"></br>
-                <input type="text" placeHolder="new password" style="margin: 10px 125px;width:150px;" v-model="newPassword"></br>
-                <input type="text" placeHolder="confirm password" style="margin: 10px 125px;width:150px;" v-model="newPasswordConfirm">
+                <input type="password" placeHolder="old password" style="margin: 10px 125px;width:150px;" v-model="oldPassword"></br>
+                <input type="password" placeHolder="new password" style="margin: 10px 125px;width:150px;" v-model="newPassword"></br>
+                <input type="password" placeHolder="confirm password" style="margin: 10px 125px;width:150px;" v-model="newPasswordConfirm">
                 <a class="button" href="#" style="width:85px;margin:10px 60px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submitChangePassword">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:10px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('changePasswordDiv')">Cancel</a>
             </div>
@@ -216,18 +216,20 @@
                 <a class="button" href="#" style="width:85px;margin:30px 70px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submitRecharge">Submit</a>
                 <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('rechargeDiv')">Cancel</a>
             </div>
-            <div id="friendDiv" style="height:420px;width:600px;position:fixed;top:200px;left:450px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
-                <div style="width:600px;height:120px;border:1px solid grey;position: relative;" v-for="(friend,index) in friendList">
+            <div id="friendDiv" style="height:450px;width:600px;position:fixed;top:200px;left:450px;background-color:aqua;z-index: 7;display: none;border:1px solid white;">
+                <div style="width:600px;height:120px;border:1px solid grey;position: relative;" v-for="(friend,index) in friendList" v-if="(friendIndex<=index&index<friendIndex+3)?true:false">
                     <div style="float: left;height:120px;width:120px;position: relative;margin-left: 20px;">
-                        <img style="position: absolute;width:100px;height:80px;top:10px;" src="../../figures/temporary/userPageImgs/bing0.jpg">
-                        <label style="position:absolute;top:95px;">ShowMaker</label>
+                        <img style="position: absolute;width:100px;height:80px;top:10px;" v-bind:src="friend.avatarUrl">
+                        <a target="_blank" v-bind:href="'userPage.html?uid='+uid+'&visited='+friend.uid" style="position:absolute;top:95px;text-decoration: none;">{{friend.userName}}</a>
                     </div>
-                    <textarea style="float: left;width:250px;height:80px;color: rgb(70, 115, 121);margin-top: 10px;resize: none;">hhh</textarea>
-                    <a class="button" href="#" style="width:150px; font-weight: lighter;font-size: 17px;display: inline-block;float: left;margin-top: 30px;margin-left: 10px;" v-on:click.prevent="submit">Leave Message</a>
-                    <a class="button" href="#" style="width:150px; font-weight: lighter;font-size: 17px;display: inline-block;float: left;margin-top: 10px;margin-left: 10px;" v-on:click.prevent="cancel('friendDiv')">Delete</a>
+                    <textarea readonly style="float: left;width:250px;height:80px;color: rgb(70, 115, 121);margin-top: 10px;resize: none;">{{friend.profile}}</textarea>
+                    <a class="button" target="_blank" v-bind:href="'message.html?uid='+uid+'&visited='+friend.uid" style="width:150px; font-weight: lighter;font-size: 17px;display: inline-block;float: left;margin-top: 30px;margin-left: 10px;">Leave Message</a>
+                    <a class="button" href="#" style="width:150px; font-weight: lighter;font-size: 17px;display: inline-block;float: left;margin-top: 10px;margin-left: 10px;" v-on:click.prevent="deleteFriend(index)">Delete</a>
                 </div>
-                <a class="button" href="#" style="width:85px;margin:30px 50px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="submit">Submit</a>
-                <a class="button" href="#" style="width:85px;margin:30px 0px; font-weight: lighter;font-size: 17px;display: inline-block;" v-on:click.prevent="cancel('friendDiv')">Cancel</a>
+                <a class="button" href="#" style="width:85px;top:370px;left:360px; font-weight: lighter;font-size: 17px;position: absolute;" v-on:click.prevent="prevFriend">&lt</a>
+                <a class="button" href="#" style="width:85px;top:370px;left:460px; font-weight: lighter;font-size: 17px;position: absolute;" v-on:click.prevent="nextFriend">&gt</a>
+                <a class="button" href="#" style="width:85px;top:370px;left:60px;  font-weight: lighter;font-size: 17px;position: absolute;" v-on:click.prevent="submit">Submit</a>
+                <a class="button" href="#" style="width:85px;top:370px;left:150px;  font-weight: lighter;font-size: 17px;position: absolute;" v-on:click.prevent="cancel('friendDiv')">Cancel</a>
             </div>
         </div>
     </div>
@@ -242,9 +244,9 @@
             birthdaySeen: true,
             birthday: "2019-08-05",
             genderSeen: true,
-            gender: "Woman ",
+            gender: "Woman",
             roleSeen: true,
-            role: "Developer ",
+            role: "Developer",
             introductionSeen: true,
             introduction: "hh\nhh\nnima",
             balance: "520",
@@ -269,7 +271,8 @@
             userInputPassword: "",
             DLCs: [],
             DLCIndex: 0,
-            friendList: [{}, {}],
+            friendList: [],
+            friendIndex: 0,
             gameList: [],
 
         },
@@ -282,17 +285,19 @@
             } else {
                 this.visitor = false
             }
-            outThis = this
-            ajax("get", "http://36058s3d36.zicp.vip:55374/user/getFullInfo?uid=" + this.uid, null, true, function(xmlHttp) {
+            var outThis = this
+            ajax("get", "http://36058s3d36.zicp.vip:55374/user/getFullInfo?uid=" + this.uid, null, false, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
                 console.log(xmlHttp.responseText)
                 outThis.userName = result.userName
                 outThis.birthday = result.birthday
                 outThis.introduction = result.intro
+
                 if (result.role == 1) {
                     outThis.role = "User"
                 } else if (result.role == 2) {
                     outThis.role = "Developer"
+
                 } else {
                     outThis.role = "Administrator"
                 }
@@ -303,12 +308,12 @@
                 }
                 outThis.balance = result.balance
             })
-            if (this.role = "Developer") {
+            if (this.role == "Developer") {
                 this.developer = true
             } else {
                 this.developer = false
             }
-            if (this.role = "Administrator") {
+            if (this.role == "Administrator") {
                 this.administrator = true
             } else {
                 this.administrator = false
@@ -335,6 +340,18 @@
                     outThis.gameList.push(gameObj)
                 }
 
+            })
+            ajax("get", "http://36058s3d36.zicp.vip:55374/friend/getFriends?user1=" + this.uid, null, true, function(x) {
+                console.log(x.responseText)
+                var jsonObj = JSON.parse(x.responseText)
+                for (var o in jsonObj) {
+                    var friendObj = {}
+                    friendObj.uid = jsonObj[o].uid
+                    friendObj.userName = jsonObj[o].name
+                    friendObj.profile = jsonObj[o].description
+                    friendObj.avatarUrl = "http://36058s3d36.zicp.vip/static/user/" + jsonObj[o].uid + "/photo.jpg"
+                    outThis.friendList.push(friendObj)
+                }
             })
         },
         methods: {
@@ -450,11 +467,11 @@
                     this.counterReminder = "ready to send"
                 }
             },
-            nextBranch: function() {
-                this.branchIndex += 3
+            nextFriend: function() {
+                this.friendIndex += 3
             },
-            prevBranch: function() {
-                this.branchIndex -= 3
+            prevFriend: function(para) {
+                this.friendIndex -= 3
             },
             submitChangePassword: function() {
                 if (this.newPassword != this.newPasswordConfirm) {
@@ -485,6 +502,26 @@
                         hide('changeEmailDiv')
                     } else {
                         alert("failed")
+                    }
+                })
+            },
+            addFriend: function() {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/friend/addFriend?user1=" + this.uid + "&user2=" + this.visitorID, null, true, function(x) {
+                    if (x.responseText == 1) {
+                        alert("add successfully")
+                    } else {
+                        alert("add failed")
+                    }
+                })
+            },
+            deleteFriend: function(index) {
+                var outThis = this
+                ajax("get", "http://36058s3d36.zicp.vip:55374/friend/deleteFriend?user1=" + this.uid + "&user2=" + this.friendList[index].uid, null, false, function(x) {
+                    if (x.responseText == 1) {
+                        alert("delete successfully")
+                        outThis.friendList.splice(index, 1)
+                    } else {
+                        alert("delete failed")
                     }
                 })
             }

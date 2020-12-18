@@ -28,34 +28,16 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a href="Store.html">
+                    <a v-bind:href="'Store.html?uid='+uid">
                         <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
                         <span class="title">Store</span>
                     </a>
                 </li>
 
-                <li v-if="!visitor">
-                    <a href="#" v-on:click.prevent="show('friendDiv')" v-if="!visitor">
-                        <span class="icon"><i class="fa fa-user" aria-hidden="true"></i></span>
-                        <span class="title">Friends</span>
-                    </a>
-                </li>
-                <li>
-                    <a v-bind:href="'message.html?userName='+userName+'&visitor='+visitorName">
-                        <span class="icon"><i class="fa fa-comment" aria-hidden="true"></i></span>
-                        <span class="title">Messages</span>
-                    </a>
-                </li>
                 <li>
                     <a href="Community.html">
                         <span class="icon"><i class="fa fa-cloud" aria-hidden="true"></i></span>
                         <span class="title">Community</span>
-                    </a>
-                </li>
-                <li v-if="!visitor&developer">
-                    <a href="developerGame.html?userName='+userName">
-                        <span class="icon"><i class="fa fa-user-circle" aria-hidden="true"></i></span>
-                        <span class="title">Developer</span>
                     </a>
                 </li>
             </ul>
@@ -141,15 +123,18 @@
             visitorName: "h",
             developer: "",
             userName: "hh",
+            uid: "",
             searchedUserList: [],
             allGameList: [{}],
-            searchedGameList: [{}],
+            searchedGameList: [],
             searchUid: "",
             searchUserName: "",
             searchGid: "",
             searchGameName: "",
         },
         created: function() {
+            var jsonObj = parsePageUrl(location.href)
+            this.uid = jsonObj.uid
             var outThis = this
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/adGetGame", null, true, function(x) {
                 var jsonObj = JSON.parse(x.responseText)
