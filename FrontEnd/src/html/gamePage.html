@@ -224,7 +224,7 @@
             })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/findBranchBygid?id=" + this.gid, null, true, function(x) {
                 var JsonRe = JSON.parse(x.responseText)
-
+                console.log(x.responseText)
                 for (var obj in JsonRe) {
                     outThis.branches.push({
                         info: JsonRe[obj].description,
@@ -395,7 +395,7 @@
                 }
 
                 var a = document.createElement('a');
-                var url = path
+                var url = "http://36058s3d36.zicp.vip:55374/download?gid=" + this.gid + "&uid=" + this.uid
                 console.log("path: " + path)
                 a.href = url;
                 a.click();
