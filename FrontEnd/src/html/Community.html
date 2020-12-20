@@ -486,6 +486,9 @@
             },
             uploadCommentFile: function(event) {
                 this.replyFile = event.target.files[0]
+            },
+            cancel: function(divID) {
+                hide(divID)
             }
         }
     })
