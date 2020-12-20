@@ -2,183 +2,191 @@
 <html>
 
 <head>
-	<meta charset="UTF-8">
-	<title>SUStech Gamer</title>
-	<link rel="stylesheet" type="text/css" href="../css/Store.css" />
-	<script type="text/javascript" src="../script/jquery-3.4.1.min.js"></script>
-	<script src="../script/ServerInteraction.js"></script>
-	<script src="../script/Store.js"></script>
+    <meta charset="UTF-8">
+    <title>SUStech Gamer</title>
+    <link rel="stylesheet" type="text/css" href="../css/Store.css" />
+    <script type="text/javascript" src="../script/jquery-3.4.1.min.js"></script>
+    <script src="../script/ServerInteraction.js"></script>
+    <script src="../script/Store.js"></script>
 
-    <link rel="stylesheet" href="../css/Community.css"/>
+    <link rel="stylesheet" href="../css/Community.css" />
     <script src="../script/bootstrap.min.js"></script>
 </head>
 
 <body id="body">
-	<div id="loading"></div>
-	<div id="all">
-	<style type="text/css">
-		#loading{
-			z-index:500;
-			padding:9000px 9000px 10000px 10000px;
-			background:url(../../figures/icon/logo.gif) no-repeat 10px top;
-			/*background:url(../../figures/background/cyberpunk2077.gif) repeat 10px top;*/
-			left:-110px;top:-150px;width:90px;
-			position:fixed;
-			height:21px
-		}
-	</style>
-	<script type="text/javascript">
-		let UID = null;
-		window.onload=function (){
-			setTimeout("$(\"#loading\").fadeOut(100);", 1600);
-			try{
-				let q = parsePageUrl(window.location.href);
-				if (q.hasOwnProperty("uid"))
-					UID = q.uid;
-			}catch (Exception){
-				console.log(Exception)
-			}
-			if (UID !== null){
-				let buttons = document.getElementsByClassName("top_bar_btn");
-				for (let i = 0; i < buttons.length; i ++){
-					buttons[i].href = buttons[i].href + "?uid=" + UID.toString();
-				}
-				add_user_info();
-			}
-			get_community_recommend();
-		}
-		function add_user_info(){
-			let login_btn = document.getElementById("login_btn");
-			login_btn.remove();
-			let user_info = document.createElement("div");
-			user_info.id = "user_info";
-			let user_avatar = document.createElement("img");
-			user_avatar.id = "user_avatar";
-			let user_name = document.createElement("b");
-			user_name.id = "user_name";
-			user_avatar.src = "http://36058s3d36.zicp.vip/static/user/"+UID.toString()+"/photo.jpg";
-			ajax("get", "http://10.21.100.129:9090/user/findNameByUid?uid="+UID.toString(), null, true, function(ua){
-				user_name.innerHTML = ua.responseText;
-			});
-			user_info.appendChild(user_name);
-			user_info.appendChild(user_avatar);
-			user_info.addEventListener("click", function(){
-				window.location.href = "userPage.html?uid="+UID.toString();
-			});
-			let tb = document.getElementById("top_bar");
-			tb.appendChild(user_info);
-		}
-	</script>
-	<div id="head_gif"></div>
-	<div id="top_bar">
-		<ul id="top_bar_item">
-			<a class="top_bar_btn" href="Store.html">Store</a>
-			<a class="top_bar_btn" href="userPage.html">Library</a>
-			<a class="top_bar_btn" href="Community.html">Community</a>
-			<a class="top_bar_btn" href="About.html">About</a>
-			
-			<label><input type="text" id="search_content"></label>
-			<img src="../../figures/icon/search_white_16.png" onclick=search()>
-			<a id="login_btn" href="login.html">Login</a>
-		</ul>
-	</div>
+    <div id="loading"></div>
+    <div id="all">
+        <style type="text/css">
+            #loading {
+                z-index: 500;
+                padding: 9000px 9000px 10000px 10000px;
+                background: url(../../figures/icon/logo.gif) no-repeat 10px top;
+                /*background:url(../../figures/background/cyberpunk2077.gif) repeat 10px top;*/
+                left: -110px;
+                top: -150px;
+                width: 90px;
+                position: fixed;
+                height: 21px
+            }
+        </style>
+        <script type="text/javascript">
+            let UID = null;
+            window.onload = function() {
+                setTimeout("$(\"#loading\").fadeOut(100);", 1600);
+                try {
+                    let q = parsePageUrl(window.location.href);
+                    if (q.hasOwnProperty("uid"))
+                        UID = q.uid;
+                } catch (Exception) {
+                    console.log(Exception)
+                }
+                if (UID !== null) {
+                    let buttons = document.getElementsByClassName("top_bar_btn");
+                    for (let i = 0; i < buttons.length; i++) {
+                        buttons[i].href = buttons[i].href + "?uid=" + UID.toString();
+                    }
+                    add_user_info();
+                }
+                get_community_recommend();
+            }
 
-	<div id="all_but_top_bar">
-	<div id="game_recommend" >
-        <div class="carousel">
-			<div class="carousel_img">
-				<ul>
-					<li>
-						<img src="../../figures/temporary/game_recommend/1.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/4.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/3.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/AnimalCrossing.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/LegendOfZelda.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/RedDeadRedemption2.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/1.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/LegendOfZelda.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/4.jpg" />
-						<div class="mask"></div>
-					</li>
-					<li>
-						<img src="../../figures/temporary/game_recommend/AnimalCrossing.jpg" />
-						<div class="mask"></div>
-					</li>
-				</ul>
-			</div>
-			<div class="carousel_btn">
-				<a href="javascript:;" class="right_btn"></a>
-				<a href="javascript:;" class="left_btn"></a>
-			</div>
-			<div class="circles">
-				<ol>
-					<li class="cur"></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-					<li></li>
-				</ol>
-			</div>
-		</div>
-	</div>
+            function add_user_info() {
+                let login_btn = document.getElementById("login_btn");
+                login_btn.remove();
+                let user_info = document.createElement("div");
+                user_info.id = "user_info";
+                let user_avatar = document.createElement("img");
+                user_avatar.id = "user_avatar";
+                let user_name = document.createElement("b");
+                user_name.id = "user_name";
+                user_avatar.src = "http://36058s3d36.zicp.vip/static/user/" + UID.toString() + "/photo.jpg";
+                ajax("get", "http://10.21.100.129:9090/user/findNameByUid?uid=" + UID.toString(), null, true, function(ua) {
+                    user_name.innerHTML = ua.responseText;
+                });
+                user_info.appendChild(user_name);
+                user_info.appendChild(user_avatar);
+                user_info.addEventListener("click", function() {
+                    // window.location.href = "userPage.html?uid=" + UID.toString() + "&visited=" + UID.toString();
+                    var a = document.createElement('a');
+                    var url = "userPage.html?uid=" + UID.toString() + "&visited=" + UID.toString();
+                    a.target = "_blank"
+                    a.href = url;
+                    a.click();
+                });
+                let tb = document.getElementById("top_bar");
+                tb.appendChild(user_info);
+            }
+        </script>
+        <div id="head_gif"></div>
+        <div id="top_bar">
+            <ul id="top_bar_item">
+                <a class="top_bar_btn" href="Store.html">Store</a>
+                <a class="top_bar_btn" href="userPage.html">Library</a>
+                <a class="top_bar_btn" href="Community.html">Community</a>
+                <a class="top_bar_btn" href="About.html">About</a>
 
-	<div id="community_recommend">
-		<div id="community_recommend_avatar">
-			<img src="" id="avatar" alt="">
-			<b id="username"></b>
-		</div>
-		<div id="community_recommend_picture">
-			<img src="" id="community_picture" alt="">
-		</div>
-		<div id="scoreDiv">
-			<h1 id="score">5</h1>
-			<h3>/5</h3>
-		</div>
+                <label><input type="text" id="search_content"></label>
+                <img src="../../figures/icon/search_white_16.png" onclick=search()>
+                <a id="login_btn" href="login.html">Login</a>
+            </ul>
+        </div>
 
-		<div id="community_recommend_text">
-			<b class="text_content" id="game_info"></b>
-			<br/>
-			<p class="text_content" id="content"></p>
-			<a id="more_link"><b>more</b></a>
-			<div id="like_dislike" class="text_content">
-				<img id="like" src="../../figures/icon/like.png" onclick=community_like() >
-				<img id="dislike" src="../../figures/icon/dislike.png" onclick=community_dislike()>
-			</div>
-		</div>
-	</div>
+        <div id="all_but_top_bar">
+            <div id="game_recommend">
+                <div class="carousel">
+                    <div class="carousel_img">
+                        <ul>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/1.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/4.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/3.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/AnimalCrossing.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/LegendOfZelda.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/RedDeadRedemption2.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/1.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/LegendOfZelda.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/4.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                            <li>
+                                <img src="../../figures/temporary/game_recommend/AnimalCrossing.jpg" />
+                                <div class="mask"></div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="carousel_btn">
+                        <a href="javascript:;" class="right_btn"></a>
+                        <a href="javascript:;" class="left_btn"></a>
+                    </div>
+                    <div class="circles">
+                        <ol>
+                            <li class="cur"></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                            <li></li>
+                        </ol>
+                    </div>
+                </div>
+            </div>
 
-	<div id="game_list"></div>
-	</div>
-	</div>
+            <div id="community_recommend">
+                <div id="community_recommend_avatar">
+                    <img src="" id="avatar" alt="">
+                    <b id="username"></b>
+                </div>
+                <div id="community_recommend_picture">
+                    <img src="" id="community_picture" alt="">
+                </div>
+                <div id="scoreDiv">
+                    <h1 id="score">5</h1>
+                    <h3>/5</h3>
+                </div>
+
+                <div id="community_recommend_text">
+                    <b class="text_content" id="game_info"></b>
+                    <br/>
+                    <p class="text_content" id="content"></p>
+                    <a id="more_link"><b>more</b></a>
+                    <div id="like_dislike" class="text_content">
+                        <img id="like" src="../../figures/icon/like.png" onclick=community_like()>
+                        <img id="dislike" src="../../figures/icon/dislike.png" onclick=community_dislike()>
+                    </div>
+                </div>
+            </div>
+
+            <div id="game_list"></div>
+        </div>
+    </div>
 </body>
 
 </html>

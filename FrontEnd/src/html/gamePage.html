@@ -170,7 +170,7 @@
 <script>
     function setInputValue() {
         document.getElementById("info").value = "5";
-        console.log(document.getElementById("info").value)
+
     }
     window.onload = setInputValue
     var vm = new Vue({
@@ -224,7 +224,7 @@
             })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/findBranchBygid?id=" + this.gid, null, true, function(x) {
                 var JsonRe = JSON.parse(x.responseText)
-                console.log(x.responseText)
+
                 for (var obj in JsonRe) {
                     outThis.branches.push({
                         info: JsonRe[obj].description,
