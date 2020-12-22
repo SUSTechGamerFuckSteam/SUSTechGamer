@@ -33,12 +33,12 @@ div.searchedUserDiv {
     float: left;
     position: relative;
     width: 900px;
-    height: 150px;
+    height: 170px;
     border: 1px solid grey;
 }
 
 div.userAvatarDiv {
-    background-color: #ea1d63;
+    /* background-color: #ea1d63; */
     float: left;
     position: relative;
     height: 150px;
@@ -46,7 +46,7 @@ div.userAvatarDiv {
 }
 
 div.userInfoDiv {
-    background-color: aqua;
+    /* background-color: aqua; */
     float: left;
     height: 150px;
     width: 300px;
@@ -76,7 +76,7 @@ select.userInfo {
 }
 
 div.userButtonDiv {
-    background-color: blueviolet;
+    /* background-color: blueviolet; */
     position: relative;
     float: left;
     width: 397px;

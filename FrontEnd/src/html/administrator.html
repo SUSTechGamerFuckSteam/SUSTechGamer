@@ -56,13 +56,13 @@
                 <a class="button" href="#" style="width:85px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="searchByUserName">Search</a>
                 <a class="button" href="#" style="width:165px; font-weight: lighter;font-size: 17px;" v-on:click.prevent="clearUserList">Clear Searched</a>
             </div>
-            <div v-for="(user,userIndex) in searchedUserList" class="searchedUserDiv" style="margin-bottom:20px;">
+            <div v-for="(user,userIndex) in searchedUserList" class="searchedUserDiv" style="margin-bottom:0px;">
                 <div class="userAvatarDiv">
-                    <img style="position: absolute;height:120px;" src="../../figures/icon/like.png">
-                    <label style="position: absolute;top:120px;width:100px;text-align: center;"><a target="_blank" style="color:black;text-decoration:none;" v-bind:href="'userPage.html?uid='+hashedUid+'&visited='+user.hashedUid">{{user.userName}}</a></label>
+                    <img style="position: absolute;height:120px;width:160px;" v-bind:src="'http://36058s3d36.zicp.vip/static/user/' + user.uid + '/photo.jpg'">
+                    <label style="position: absolute;top:125px;width:100px;text-align: center;"><a target="_blank" style="color:black;text-decoration:none;" v-bind:href="'userPage.html?uid='+hashedUid+'&visited='+user.hashedUid">{{user.userName}}</a></label>
                 </div>
                 <div class="userInfoDiv">
-                    <label class="userInfo">User Name</label><input v-model="user.userName" class="userInfo" type=text><br>
+                    <label class="userInfo" style="font-weight: bold;">User Name</label><input v-model="user.userName" class="userInfo" type=text><br>
                     <label class="userInfo">Birthday</label><input v-model="user.birthday" class="userInfo" type="date"><br>
                     <label class="userInfo">Gender:</label>
                     <select v-model="user.gender" class="userInfo">

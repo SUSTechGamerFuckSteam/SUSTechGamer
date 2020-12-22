@@ -47,18 +47,20 @@ a.button:hover {
 }
 
 div.gameDiv {
-    background-color: cornflowerblue;
-    width: 1000px;
+    background: #336699;
+    color: white;
+    width: 1005px;
     /* height: 700px; */
     /* height: 100px; */
     margin: 10px auto;
     margin-bottom: 100px;
+    border: 1px solid grey;
     position: relative;
 }
 
 div.gameImgDiv {
     float: left;
-    background-color: aqua;
+    /* background-color: aqua; */
     height: 250px;
     width: 450px;
 }
