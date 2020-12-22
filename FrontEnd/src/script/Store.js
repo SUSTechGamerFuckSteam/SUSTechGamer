@@ -37,7 +37,7 @@ function arrange_game_list(){
 	let gid = [];
     for (let i = GAME_LIST_COUNT; i < GAME_LIST_COUNT+5 && i < list.length; i++){
     	game_list.push(list[i]["name"]);
-    	game_pics.push("http://36058s3d36.zicp.vip/static/game/"+list[i]["gid"].toString()+"game/picture/game.jpg");
+    	game_pics.push("http://36058s3d36.zicp.vip/static/game/"+list[i]["gid"].toString()+"game/shoot/1shoot.jpg");
 		game_descriptions.push(list[i]["g_des"]);
 		gid.push(list[i]["gid"]);
 	}
@@ -63,7 +63,7 @@ function arrange_game_list(){
 
         game_list_div.children[i + GAME_LIST_COUNT].addEventListener("click", function(){
         	if (parsePageUrl(window.location.href).uid === null) {
-				window.location.href = "./gamePage.html?gid=" + gid[i].toString();
+				window.location.href = "./login.html";
 			}else {
         		window.location.href = "./gamePage.html?uid="+parsePageUrl(window.location.href).uid+"&gid=" + gid[i].toString();
 			}
@@ -318,14 +318,7 @@ function get_swiper(){
 	let imgs = document.getElementsByClassName("swiper_img");
 	let gids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
 	for (let i = 0; i < imgs.length; i ++){
-		imgs[i].src = "http://36058s3d36.zicp.vip/static/game/"+gids[i].toString()+"game/picture/game.jpg";
-		imgs[i].addEventListener("click", function(){
-			if (!parsePageUrl(window.location.href).hasOwnProperty("uid")) {
-				window.location.href = "./gamePage.html?gid=" + gids[i].toString();
-			}else {
-				window.location.href = "./gamePage.html?uid="+parsePageUrl(window.location.href).uid+"&gid=" + gid[i].toString();
-			}
-		});
+		imgs[i].src = "http://36058s3d36.zicp.vip/static/game/"+gids[i].toString()+"game/shoot/1shoot.jpg";
 	}
 
 }

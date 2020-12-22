@@ -20,6 +20,9 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="c8a5e03d-8d0e-42e7-9023-bf5be97b753a" name="Default Changelist" comment="修复了搜索时错误传输uid的bug">
+      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/src/css/Store.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/css/Store.css" afterDir="false" />
+      <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/src/script/Store.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/script/Store.js" afterDir="false" />
     </list>
     <option name="SHOW_DIALOG" value="false" />
@@ -70,7 +73,7 @@
       <workItem from="1608118955307" duration="15491000" />
       <workItem from="1608258547914" duration="219000" />
       <workItem from="1608616083995" duration="1570000" />
-      <workItem from="1608625518525" duration="1035000" />
+      <workItem from="1608625518525" duration="5958000" />
     </task>
     <task id="LOCAL-00001" summary="新增简易主页面交互，社区交互">
       <created>1607871237478</created>
@@ -163,7 +166,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608626394435</updated>
     </task>
-    <option name="localTasksCounter" value="14" />
+    <task id="LOCAL-00014" summary="修复了搜索时错误传输uid的bug">
+      <created>1608626572932</created>
+      <option name="number" value="00014" />
+      <option name="presentableId" value="LOCAL-00014" />
+      <option name="project" value="LOCAL" />
+      <updated>1608626572932</updated>
+    </task>
+    <option name="localTasksCounter" value="15" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -204,16 +214,16 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="534" y="328" key="MultipleFileMergeDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1607871343575" />
-    <state x="496" y="295" key="Vcs.Push.Dialog.v2" timestamp="1608617370120">
+    <state x="496" y="295" key="Vcs.Push.Dialog.v2" timestamp="1608626576299">
       <screen x="0" y="23" width="1792" height="1015" />
     </state>
     <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1608222791460" />
-    <state x="496" y="295" key="Vcs.Push.Dialog.v2/0.23.1792.1015@0.23.1792.1015" timestamp="1608617370120" />
-    <state x="694" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608616087064">
+    <state x="496" y="295" key="Vcs.Push.Dialog.v2/0.23.1792.1015@0.23.1792.1015" timestamp="1608626576299" />
+    <state x="694" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608628597480">
       <screen x="0" y="23" width="1792" height="1015" />
     </state>
     <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1792.1120@0.0.1792.1120" timestamp="1608179221727" />
-    <state x="694" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1792.1015@0.23.1792.1015" timestamp="1608616087064" />
+    <state x="694" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1792.1015@0.23.1792.1015" timestamp="1608628597480" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>

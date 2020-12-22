@@ -75,6 +75,11 @@ body{
 #user_name:hover{
     color: deepskyblue;
 }
+#top_bar_logo{
+    font-family: Impact, Charcoal, sans-serif;
+    font-size: 20px;
+    color: #20fadf;
+}
 
 
 /* game_recommend */
