@@ -26,8 +26,7 @@
 <body>
     <div id="vueDiv" v-cloak>
         <div id="headerDiv">
-            <a style="margin-left: 20px;">first | </a>
-            <a>first ad| </a>
+            <a style="margin-left: 20px;" target="_blank" v-bind:href="'Store.html?uid='+hashedUid">Store| </a>
             <a>first | </a>
             <a>first | </a>
             <a style="margin-left: 1170px;">sign-in</a>
@@ -123,7 +122,7 @@
             <div class="userCommentDiv" v-for="(comment,index) in commentList">
                 <div style="float: left;width:150px;height:150px;position: relative;">
                     <img v-bind:src="comment.avatarUrl" style="display:block;width:100px;height:80px;position: absolute;top:0px;left:25px;">
-                    <a v-bind:href="'userPage.html?uid='+uid+'&visited='+comment.uid" style="position: absolute;width:150px;height:150px;"></a>
+                    <a v-bind:href="'userPage.html?uid='+hashedUid+'&visited='+comment.hashedUid" style="position: absolute;width:150px;height:150px;"></a>
                     <span style="position: absolute;top:90px;left:15px;font-size: 15px;">{{comment.userName}}</span>
                     <span style="position: absolute;top:110px;left:15px;font-size: 15px;">{{comment.points}}</span>
                 </div>
@@ -190,18 +189,12 @@
             discountInfo: "(discount 87%, original $600)",
             discount: "",
             uid: 4,
+            hashedUid:"",
             gid: 5,
             gameName: "LOL1.1",
             gameDate: "2020-05-16",
             userComment: "",
-            commentList: [{
-                avatarUrl: "",
-                points: "gives 4.5 points",
-                content: "lajiyouxi,chaping!",
-                userName: "ShowMaker",
-                uid: "",
-                tid: "",
-            }],
+            commentList: [],
             fileObj: "",
             userPoint: 5,
             gamePoint: "",
@@ -211,9 +204,11 @@
             setInputValue()
             outThis = this
             var jsonObj = parsePageUrl(location.href)
-
             this.gid = jsonObj.gid
-            this.uid = jsonObj.uid
+            this.hashedUid= jsonObj.uid
+            ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findUidByHash?hash="+this.hashedUid,null,false,function(x){
+                outThis.uid=x.responseText
+            })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/findPriceByGid?gid=" + this.gid, null, true, function(x) {
                 outThis.price = x.responseText
                 outThis.gameVideoUrl = "http://36058s3d36.zicp.vip/static/game/" + outThis.gid + "game/video/game.mp4"
@@ -247,13 +242,18 @@
             ajax("get", "http://36058s3d36.zicp.vip:55374/postbar/infoByGid?gid=" + this.gid, null, true, function(x) {
                 var jsonRe = JSON.parse(x.responseText)
                 for (var obj in jsonRe) {
+                    var hashedUid=null
+                    ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findHashByUid?uid="+jsonRe[obj].uid,null,false,function(x){
+                        hashedUid=x.responseText
+                    })
                     outThis.commentList.push({
                         avatarUrl: jsonRe[obj].user_picture,
                         points: "gives " + jsonRe[obj].points + " points",
                         content: jsonRe[obj].content,
                         userName: jsonRe[obj].name,
                         uid: jsonRe[obj].uid,
-                        tid: jsonRe[obj].tid
+                        tid: jsonRe[obj].tid,
+                        hashedUid:hashedUid
                     })
                 }
             })
@@ -333,7 +333,7 @@
                     alert("your balance is not enough")
                     return
                 }
-                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/buyByuidBygid?uid=" + "2" + "&gid=" + this.gid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/buyByuidBygid?uid=" + this.uid + "&gid=" + this.gid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 1) {
                         alert("purchase successfully")
                     } else {
@@ -367,7 +367,7 @@
             },
             downloadDLC: function(path, arrayIndex) {
                 var purchasable = false
-                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + "2" + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/ugd/findBygidByuid?gid=" + this.gid + "&uid=" + this.uid + "&dlcid=" + this.DLCs[arrayIndex].index, null, false, function(x) {
                     if (x.responseText == 0) {
                         purchasable = true
                     }
