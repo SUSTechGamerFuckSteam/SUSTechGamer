@@ -37,7 +37,7 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a v-bind:href="'Store.html?uid='+uid">
+                    <a v-bind:href="'Store.html?uid='+hashedUid">
                         <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
                         <span class="title">Store</span>
                     </a>
@@ -186,13 +186,17 @@
             gidList: [],
             userName: "",
             uid: 4,
+            hashedUid:"",
 
 
         },
         created: function() {
             var jsonObj = parsePageUrl(location.href)
-            this.uid = jsonObj.uid
+            this.hashedUid = jsonObj.uid
             var outThis = this
+            ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findUidByHash?hash="+this.hashedUid,null,false,function(x){
+                outThis.uid=x.responseText
+            })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/getGidList?uid=" + this.uid, null, false, function(x) {
                 if (x.responseText == 0) {
                     return

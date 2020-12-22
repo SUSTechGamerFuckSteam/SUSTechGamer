@@ -24,7 +24,7 @@ a.button:hover {
 div#userSearchDiv {
     position: relative;
     width: 900px;
-    margin: 20px auto;
+    margin: 20px 360px;
     margin-bottom: 50px;
     border: 1px solid grey;
 }
@@ -86,7 +86,7 @@ div.userButtonDiv {
 div#gameSearchDiv {
     position: relative;
     width: 900px;
-    margin: 20px auto;
+    margin: 20px 360px;
     border: 1px solid grey;
 }
 

@@ -28,7 +28,7 @@
         <div class="navigation">
             <ul>
                 <li>
-                    <a v-bind:href="'Store.html?uid='+uid">
+                    <a v-bind:href="'Store.html?uid='+hashedUid">
                         <span class="icon"><i class="fa fa-home" aria-hidden="true"></i></span>
                         <span class="title">Store</span>
                     </a>
@@ -59,7 +59,7 @@
             <div v-for="(user,userIndex) in searchedUserList" class="searchedUserDiv" style="margin-bottom:20px;">
                 <div class="userAvatarDiv">
                     <img style="position: absolute;height:120px;" src="../../figures/icon/like.png">
-                    <label style="position: absolute;top:120px;width:100px;text-align: center;">{{user.userName}}</label>
+                    <label style="position: absolute;top:120px;width:100px;text-align: center;"><a target="_blank" style="color:black;text-decoration:none;" v-bind:href="'userPage.html?uid='+hashedUid+'&visited='+user.hashedUid">{{user.userName}}</a></label>
                 </div>
                 <div class="userInfoDiv">
                     <label class="userInfo">User Name</label><input v-model="user.userName" class="userInfo" type=text><br>
@@ -106,7 +106,7 @@
                     <label style="font-size: 20px;margin: 10px 0px;display: inline-block;width:300px;text-align: center">{{"Game ID: "+game.gid}}</label></br>
                 </div>
                 <textarea v-model="game.description" style="float: left;height:130px;width:400px;margin:10px 10px;resize:none;" readonly></textarea>
-                <a class="button" href="#" style="float:left;width:100px; font-weight: lighter;font-size: 17px;position:absolute;top:90px;">See More</a>
+                <a class="button" target="_blank" v-bind:href="'gamePage.html?uid='+hashedUid+'&gid='+game.gid" style="float:left;width:100px; font-weight: lighter;font-size: 17px;position:absolute;top:90px;">See More</a>
                 <a class="button" v-on:click.prevent="deleteGame(gameIndex)" href="#" style="float:left;width:100px; font-weight: lighter;font-size: 17px;position:absolute;top:120px;">Delete</a>
             </div>
 
@@ -124,6 +124,7 @@
             developer: "",
             userName: "hh",
             uid: "",
+            hashedUid:"",
             searchedUserList: [],
             allGameList: [{}],
             searchedGameList: [],
@@ -134,8 +135,11 @@
         },
         created: function() {
             var jsonObj = parsePageUrl(location.href)
-            this.uid = jsonObj.uid
+            this.hashedUid = jsonObj.uid
             var outThis = this
+            ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findUidByHash?hash="+this.hashedUid,null,false,function(x){
+                outThis.uid=x.responseText
+            })
             ajax("get", "http://36058s3d36.zicp.vip:55374/game/adGetGame", null, true, function(x) {
                 var jsonObj = JSON.parse(x.responseText)
                 outThis.fillGameInfo(jsonObj)
@@ -163,6 +167,9 @@
                 for (var o in jsonObj) {
                     var userObj = {}
                     userObj.uid = jsonObj[o].uid
+                    ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findHashByUid?uid="+userObj.uid,null,false,function(x){
+                        userObj.hashedUid=x.responseText
+                    })
                     userObj.userName = jsonObj[o].name
                     userObj.birthday = jsonObj[o].birth
                     if (jsonObj[o].sex == "M" || jsonObj[o].sex == "m") {
