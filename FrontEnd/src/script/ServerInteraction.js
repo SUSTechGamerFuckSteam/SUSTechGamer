@@ -48,7 +48,10 @@ function login_ajax() {
         if (xmlhttprequest.readyState == 4 && xmlhttprequest.status == 200) {
             var result = xmlhttprequest.responseText;
             if (result != "Fail") {
-                window.location.href = "Store.html?uid=" + result;
+                ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findHashByUid?uid="+result,null,false,function(x){
+                    window.location.href = "Store.html?uid=" + x.responseText;
+                })
+                // window.location.href = "Store.html?uid=" + result;
             } else {
                 // document.getElementById("xiaoxi").innerHTML = "登录失败！";
                 alert("用户名或密码错误！")

@@ -254,7 +254,9 @@
             avatarUrl: "../../figures/temporary/userPageImgs/zhubie.jpg",
             visitor: false,
             visitorID: "",
+            hashedVisitorID:"",
             uid: "",
+            hashedUid:"",
             developer: false,
             administrator: false,
             counter: "",
@@ -278,14 +280,20 @@
         },
         created: function() {
             var jsonObj = parsePageUrl(location.href)
-            this.uid = jsonObj.visited
-            this.visitorID = jsonObj.uid
+            this.hashedUid = jsonObj.visited
+            this.hashedVisitorID = jsonObj.uid
             if (jsonObj.uid != jsonObj.visited) {
                 this.visitor = true
             } else {
                 this.visitor = false
             }
             var outThis = this
+            ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findUidByHash?hash="+this.hashedUid,null,false,function(x){
+                outThis.uid=x.responseText
+            })
+            ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findUidByHash?hash="+this.hashedVisitorID,null,false,function(x){
+                outThis.visitorID=x.responseText
+            })
             ajax("get", "http://36058s3d36.zicp.vip:55374/user/getFullInfo?uid=" + this.uid, null, false, function(xmlHttp) {
                 var result = JSON.parse(xmlHttp.responseText)
                 console.log(xmlHttp.responseText)

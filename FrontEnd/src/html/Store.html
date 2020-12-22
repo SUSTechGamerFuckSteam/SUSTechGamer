@@ -31,12 +31,19 @@
         </style>
         <script type="text/javascript">
             let UID = null;
+            let q=null;
             window.onload = function() {
                 setTimeout("$(\"#loading\").fadeOut(100);", 1600);
                 try {
-                    let q = parsePageUrl(window.location.href);
-                    if (q.hasOwnProperty("uid"))
-                        UID = q.uid;
+                    q = parsePageUrl(window.location.href);
+                    if (q.hasOwnProperty("uid")){
+                        ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findUidByHash?hash="+q.uid,null,false,function(x){
+                            console.log(q.uid)
+                            UID = x.responseText;
+                            console.log(UID)
+                        })
+                        
+                    }
                 } catch (Exception) {
                     console.log(Exception)
                 }
@@ -51,6 +58,7 @@
             }
 
             function add_user_info() {
+                console.log("uid: "+UID)
                 let login_btn = document.getElementById("login_btn");
                 login_btn.remove();
                 let user_info = document.createElement("div");
@@ -60,7 +68,7 @@
                 let user_name = document.createElement("b");
                 user_name.id = "user_name";
                 user_avatar.src = "http://36058s3d36.zicp.vip/static/user/" + UID.toString() + "/photo.jpg";
-                ajax("get", "http://10.21.100.129:9090/user/findNameByUid?uid=" + UID.toString(), null, true, function(ua) {
+                ajax("get", "http://36058s3d36.zicp.vip:55374/user/findNameByUid?uid=" + UID.toString(), null, true, function(ua) {
                     user_name.innerHTML = ua.responseText;
                 });
                 user_info.appendChild(user_name);
@@ -68,7 +76,7 @@
                 user_info.addEventListener("click", function() {
                     // window.location.href = "userPage.html?uid=" + UID.toString() + "&visited=" + UID.toString();
                     var a = document.createElement('a');
-                    var url = "userPage.html?uid=" + UID.toString() + "&visited=" + UID.toString();
+                    var url = "userPage.html?uid=" + q.uid + "&visited=" + q.uid;
                     a.target = "_blank"
                     a.href = url;
                     a.click();
