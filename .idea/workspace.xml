@@ -19,10 +19,8 @@
     <select />
   </component>
   <component name="ChangeListManager">
-    <list default="true" id="c8a5e03d-8d0e-42e7-9023-bf5be97b753a" name="Default Changelist" comment="修改了主页面的白色块bug，修改了部分地址">
+    <list default="true" id="c8a5e03d-8d0e-42e7-9023-bf5be97b753a" name="Default Changelist" comment="从服务器获取轮播图内容">
       <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" beforeDir="false" afterPath="$PROJECT_DIR$/.idea/workspace.xml" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/src/css/Store.css" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/css/Store.css" afterDir="false" />
-      <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Community.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Community.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/html/Store.html" afterDir="false" />
       <change beforePath="$PROJECT_DIR$/FrontEnd/src/script/Store.js" beforeDir="false" afterPath="$PROJECT_DIR$/FrontEnd/src/script/Store.js" afterDir="false" />
     </list>
@@ -41,6 +39,12 @@
   </component>
   <component name="Git.Settings">
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
+  </component>
+  <component name="JsFlowSettings">
+    <service-enabled>true</service-enabled>
+    <exe-path />
+    <other-services-enabled>true</other-services-enabled>
+    <auto-save>true</auto-save>
   </component>
   <component name="ProjectId" id="1lVvA2049PBHgKSOnaRhg39YrQ8" />
   <component name="ProjectViewState">
@@ -65,7 +69,9 @@
       <updated>1607694926674</updated>
       <workItem from="1607694928610" duration="15219000" />
       <workItem from="1607953681735" duration="14903000" />
-      <workItem from="1608118955307" duration="15408000" />
+      <workItem from="1608118955307" duration="15491000" />
+      <workItem from="1608258547914" duration="219000" />
+      <workItem from="1608616083995" duration="1251000" />
     </task>
     <task id="LOCAL-00001" summary="新增简易主页面交互，社区交互">
       <created>1607871237478</created>
@@ -137,7 +143,14 @@
       <option name="project" value="LOCAL" />
       <updated>1608120702538</updated>
     </task>
-    <option name="localTasksCounter" value="11" />
+    <task id="LOCAL-00011" summary="完成了社区推荐页面的交互，优化了主页面">
+      <created>1608222783848</created>
+      <option name="number" value="00011" />
+      <option name="presentableId" value="LOCAL-00011" />
+      <option name="project" value="LOCAL" />
+      <updated>1608222783848</updated>
+    </task>
+    <option name="localTasksCounter" value="12" />
     <servers />
   </component>
   <component name="TypeScriptGeneratedFilesManager">
@@ -164,7 +177,9 @@
     <MESSAGE value="实现了点赞逻辑并与后端交互，实现了搜索，优化了主页面游戏列表风格" />
     <MESSAGE value="更改了主页面和search页面中的href，从而能够向服务器发出正确的query。&#10;在game list中加入了点击事件，导向正确的game page。&#10;发现swiper的bug：swiper会改变所有元素的背景颜色，同时产生一个白色的色块，无法消除。" />
     <MESSAGE value="修改了主页面的白色块bug，修改了部分地址" />
-    <option name="LAST_COMMIT_MESSAGE" value="修改了主页面的白色块bug，修改了部分地址" />
+    <MESSAGE value="完成了社区推荐页面的交互，优化了主页面" />
+    <MESSAGE value="从服务器获取轮播图内容" />
+    <option name="LAST_COMMIT_MESSAGE" value="从服务器获取轮播图内容" />
   </component>
   <component name="WindowStateProjectService">
     <state x="180" y="101" key="MergeDialog" timestamp="1607871343528">
@@ -175,21 +190,22 @@
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
     <state x="534" y="328" key="MultipleFileMergeDialog/0.0.1792.1120@0.0.1792.1120" timestamp="1607871343575" />
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1608120710998">
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2" timestamp="1608222791460">
       <screen x="0" y="0" width="1792" height="1120" />
     </state>
-    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1608120710998" />
-    <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608179221727">
-      <screen x="0" y="0" width="1792" height="1120" />
+    <state x="496" y="300" key="Vcs.Push.Dialog.v2/0.0.1792.1120@0.0.1792.1120" timestamp="1608222791460" />
+    <state x="694" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2" timestamp="1608616087064">
+      <screen x="0" y="23" width="1792" height="1015" />
     </state>
     <state x="694" y="481" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.0.1792.1120@0.0.1792.1120" timestamp="1608179221727" />
+    <state x="694" y="459" key="com.intellij.openapi.vcs.update.UpdateOrStatusOptionsDialogupdate-v2/0.23.1792.1015@0.23.1792.1015" timestamp="1608616087064" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
         <line-breakpoint enabled="true" type="javascript">
           <url>file://$PROJECT_DIR$/FrontEnd/src/html/gamePage.html</url>
-          <line>345</line>
+          <line>349</line>
           <option name="timeStamp" value="1" />
         </line-breakpoint>
       </breakpoints>

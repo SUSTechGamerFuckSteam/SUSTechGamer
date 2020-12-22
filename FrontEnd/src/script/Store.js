@@ -307,3 +307,22 @@ function get_community_recommend(){
 		});
 	});
 }
+
+/**
+ * 获取轮播图
+ */
+function get_swiper(){
+	let imgs = document.getElementsByClassName("swiper_img");
+	let gids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	for (let i = 0; i < imgs.length; i ++){
+		imgs[i].src = "http://36058s3d36.zicp.vip/static/game/"+gids[i].toString()+"game/picture/game.jpg";
+		imgs[i].addEventListener("click", function(){
+			if (parsePageUrl(window.location.href).uid === null) {
+				window.location.href = "./gamePage.html?gid=" + gids[i].toString();
+			}else {
+				window.location.href = "./gamePage.html?uid="+parsePageUrl(window.location.href).uid+"&gid=" + gid[i].toString();
+			}
+		});
+	}
+
+}
