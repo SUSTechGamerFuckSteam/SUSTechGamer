@@ -45,17 +45,19 @@
                             console.log(UID)
                         })
                         
+                        
                     }
                 } catch (Exception) {
                     console.log(Exception)
                 }
                 if (UID !== null) {
-                    ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findHashByUid?uid="+community[RECOMMEND_TID]["uid"].toString(),null,false,function(x){
-                        HASHED_UID = x.responseText;
-                    })
+                    // ajax("get","http://36058s3d36.zicp.vip:55374/userhash/findHashByUid?uid="+community[RECOMMEND_TID]["uid"].toString(),null,false,function(x){
+                    //     HASHED_UID = x.responseText;
+                    // })
                     let buttons = document.getElementsByClassName("top_bar_btn");
                     for (let i = 0; i < buttons.length; i++) {
-                        buttons[i].href = buttons[i].href + "?uid=" + HASHED_UID.toString();
+                        // buttons[i].href = buttons[i].href + "?uid=" + HASHED_UID.toString();
+                        buttons[i].href = buttons[i].href + "?uid=" + q.uid;
                     }
                     add_user_info();
                 }
@@ -95,10 +97,10 @@
         <div id="top_bar">
             <ul id="top_bar_item">
                 <span id="top_bar_logo">SUStech Gamer</span>
-                <a class="top_bar_btn" href="Store.html">Store</a>
-                <a class="top_bar_btn" href="Community.html">Community</a>
+                <!-- <a class="top_bar_btn" href="Store.html">Store</a> -->
+                <!-- <a class="top_bar_btn" href="Community.html">Community</a> -->
 
-                <label><input type="text" id="search_content"></label>
+                <label style="margin-left: 150px;"><input style="height:50px;width:150px;border-radius:5px;" type="text" id="search_content"></label>
                 <img src="../../figures/icon/search_white_16.png" onclick=search()>
                 <a id="login_btn" href="login.html">Login</a>
             </ul>
