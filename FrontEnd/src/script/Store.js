@@ -11,13 +11,16 @@ function login() {
 /**
  * 主页面搜索功能
  */
-function search(){
-	let uid = parsePageUrl(window.location.href).uid
+function search() {
+	let cur_info = parsePageUrl(window.location.href);
 	let query = document.getElementById("search_content").value;
-	if(uid === ""){
-		window.location.href = "./Search.html" + "?query=" + query;
-	}else {
-		window.location.href = "./Search.html?uid="+parsePageUrl(window.location.href).uid + "&query=" + query;
+	if (query !== "") {
+		if (!cur_info.hasOwnProperty("uid")) {
+			window.location.href = "./Search.html" + "?query=" + query;
+		} else {
+			let uid = parsePageUrl(window.location.href).uid;
+			window.location.href = "./Search.html?uid=" + uid + "&query=" + query;
+		}
 	}
 }
 
@@ -306,4 +309,23 @@ function get_community_recommend(){
 			more_link.href = UID !== null ? "gamePage.html?gid="+community[RECOMMEND_TID]["gid"].toString()+"&uid="+UID : "gamePage.html?gid="+community[RECOMMEND_TID]["gid"].toString();
 		});
 	});
+}
+
+/**
+ * 获取轮播图
+ */
+function get_swiper(){
+	let imgs = document.getElementsByClassName("swiper_img");
+	let gids = [1, 2, 3, 4, 5, 6, 7, 8, 9, 10];
+	for (let i = 0; i < imgs.length; i ++){
+		imgs[i].src = "http://36058s3d36.zicp.vip/static/game/"+gids[i].toString()+"game/picture/game.jpg";
+		imgs[i].addEventListener("click", function(){
+			if (!parsePageUrl(window.location.href).hasOwnProperty("uid")) {
+				window.location.href = "./gamePage.html?gid=" + gids[i].toString();
+			}else {
+				window.location.href = "./gamePage.html?uid="+parsePageUrl(window.location.href).uid+"&gid=" + gid[i].toString();
+			}
+		});
+	}
+
 }

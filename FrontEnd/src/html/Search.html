@@ -65,7 +65,7 @@
         function run_search(){
             let query_json = parsePageUrl(window.location.href);
             let query = query_json.query;
-            ajax("get", "http://10.21.100.129:9090/game/findByName?name="+query.toString(), null, false, function(x){
+            ajax("get", "http://10.21.100.129:9090/game/findByName?name="+query.toString(), null, true, function(x){
                 let result = JSON.parse(x.responseText);
                 console.log(result);
                 arrange_game_list(result);
