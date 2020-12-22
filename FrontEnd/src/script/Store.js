@@ -320,7 +320,7 @@ function get_swiper(){
 	for (let i = 0; i < imgs.length; i ++){
 		imgs[i].src = "http://36058s3d36.zicp.vip/static/game/"+gids[i].toString()+"game/picture/game.jpg";
 		imgs[i].addEventListener("click", function(){
-			if (parsePageUrl(window.location.href).uid === null) {
+			if (!parsePageUrl(window.location.href).hasOwnProperty("uid")) {
 				window.location.href = "./gamePage.html?gid=" + gids[i].toString();
 			}else {
 				window.location.href = "./gamePage.html?uid="+parsePageUrl(window.location.href).uid+"&gid=" + gid[i].toString();
