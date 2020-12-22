@@ -11,13 +11,16 @@ function login() {
 /**
  * 主页面搜索功能
  */
-function search(){
-	let uid = parsePageUrl(window.location.href).uid
+function search() {
+	let cur_info = parsePageUrl(window.location.href);
 	let query = document.getElementById("search_content").value;
-	if(uid === ""){
-		window.location.href = "./Search.html" + "?query=" + query;
-	}else {
-		window.location.href = "./Search.html?uid="+parsePageUrl(window.location.href).uid + "&query=" + query;
+	if (query !== "") {
+		if (!cur_info.hasOwnProperty("uid")) {
+			window.location.href = "./Search.html" + "?query=" + query;
+		} else {
+			let uid = parsePageUrl(window.location.href).uid;
+			window.location.href = "./Search.html?uid=" + uid + "&query=" + query;
+		}
 	}
 }
 
